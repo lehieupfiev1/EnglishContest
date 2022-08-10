@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">EnglishContest</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="facebook_app_id">1094335348131015</string>
+    <string name="fb_login_protocol_scheme">fb1094335348131015</string>
+    <string name="facebook_client_token">36cf6985321efe9c74da9e0e31400b64</string>
+
+
+    <string name="sign_in_with_facebook">Signing in with your Facebook account</string>
+    <string name="sign_in_with_google">Signing in with your Google account</string>
+    <string name="sign_in_with_twitter">Signing in with your Twitter account</string>
+
+    <string name="default_google_client_id">338603681012-vldrduavbfgnivf0ggmnobvppjdmdtu2.apps.googleusercontent.com</string>
+    <string name="title_activity_play_game_acivity">PlayGameAcivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+
+</resources>

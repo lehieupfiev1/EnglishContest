@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#03A9F4</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!--Sign In/Sign Up-->
+    <color name="sign_in_up_button_background_color">#5D000000</color>
+    <color name="sign_in_up_button_text_color">#FCFCFC</color>
+    <color name="sign_in_up_change_mode_button_color">#FCFCFC</color>
+    <color name="sign_in_up_notice_text_color">#505050</color>
+    <color name="sign_in_additional_message_text_color">#858585</color>
+
+    <color name="avatar_image_background_color">#E5E5E5</color>
+    <color name="setup_profile_avatar_image_ic_color">#b3b3b3</color>
+    <color name="main_bg_color">#F6F6F6</color>
+    <color name="com_facebook_button_background_color_focused_disabled">#40A9F4</color>
+    <color name="com_facebook_button_background_color_focused">#09A9F4</color>
+    <color name="com_facebook_button_border_color_focused">#60A9F4</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
+</resources>

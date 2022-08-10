@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "338603681012",
+    "project_id": "pfiev-english-contest-01",
+    "storage_bucket": "pfiev-english-contest-01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:338603681012:android:bc1184d96701a6eaf06aa1",
+        "android_client_info": {
+          "package_name": "com.pfiev.englishcontest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "338603681012-jqd74il25mffhe8u35g79mls5k7ku4k4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pfiev.englishcontest",
+            "certificate_hash": "a4c5ef935a32208f9ca49ba9d248ef7b4a1d2aab"
+          }
+        },
+        {
+          "client_id": "338603681012-vldrduavbfgnivf0ggmnobvppjdmdtu2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcjJT-SDFetFongsReC1yJyJTiIGIujJg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "338603681012-vldrduavbfgnivf0ggmnobvppjdmdtu2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

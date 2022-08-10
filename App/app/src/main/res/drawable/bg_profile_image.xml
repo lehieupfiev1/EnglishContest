@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="oval">
+            <size
+                android:width="@dimen/bg_profile_image_size"
+                android:height="@dimen/bg_profile_image_size" />
+            <solid android:color="@color/avatar_image_background_color" />
+        </shape>
+    </item>
+
+    <item
+        android:top="@dimen/detail_info_avatar_padding"
+        android:bottom="@dimen/detail_info_avatar_padding"
+        android:right="@dimen/detail_info_avatar_padding"
+        android:left="@dimen/detail_info_avatar_padding">
+
+        <bitmap
+            android:src="@drawable/profile_edit_avatar_ic"
+            android:tint="@color/setup_profile_avatar_image_ic_color" />
+
+    </item>
+
+</layer-list>
