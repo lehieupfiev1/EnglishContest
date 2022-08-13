@@ -66,13 +66,11 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         if (firebaseUser != null) {
             Toast.makeText(getApplicationContext(),"Login success !",Toast.LENGTH_SHORT);
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, PlayGameActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             Log.i(TAG, "Navigate to MainActivity");
         }
-
-
     }
 
     public void setProgressBar(ProgressBar progressBar) {
@@ -90,6 +88,5 @@ public class LoginActivity extends AppCompatActivity {
             mProgressBar.setVisibility(View.INVISIBLE);
         }
     }
-
 
 }

@@ -6,4 +6,155 @@
     android:layout_height="match_parent"
     tools:context=".PlayGameActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp"
+        android:background="@drawable/main_background">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_gravity="center">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:max="20"
+                android:progress="1" />
+
+            <TextView
+                android:id="@+id/progress_bar_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="10/20"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp">
+
+            <TextView
+                android:id="@+id/questionTv"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:text="TextView" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="224dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/chooser_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/button_margin_top"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/light_blue_600"
+                android:text="A"
+                app:cornerRadius="@dimen/button_corner_radius" />
+
+            <Button
+                android:id="@+id/chooser_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/button_margin_top"
+                android:backgroundTint="@color/green"
+                android:text="B"
+                app:cornerRadius="@dimen/button_corner_radius" />
+
+            <Button
+                android:id="@+id/chooser_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/button_margin_top"
+                android:backgroundTint="@color/purple_200"
+                android:text="C"
+                app:cornerRadius="@dimen/button_corner_radius" />
+
+            <Button
+                android:id="@+id/chooser_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/button_margin_top"
+                android:backgroundTint="@color/light_blue_600"
+                android:text="D"
+                app:cornerRadius="@dimen/button_corner_radius" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/list_user_layout"
+                android:layout_width="92dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
+                    android:id="@+id/avatarUser1"
+                    android:layout_width="49dp"
+                    android:layout_height="49dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_vertical"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/bg_profile_image"
+                    app:layout_constraintTop_toBottomOf="@+id/text_User_Name"
+                    app:shadowEnabled="true"
+                    tools:layout_editor_absoluteX="186dp" />
+
+                <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
+                    android:id="@+id/avatarUser2"
+                    android:layout_width="51dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_vertical"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/bg_profile_image"
+                    app:layout_constraintTop_toBottomOf="@+id/text_User_Name"
+                    app:shadowEnabled="true"
+                    tools:layout_editor_absoluteX="186dp" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/funny_icon"
+                android:layout_marginTop="40dp"
+                android:layout_width="64dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <Button
+                android:id="@+id/time_count"
+                android:layout_width="101dp"
+                android:layout_height="95dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="40dp"
+                android:text="Button" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

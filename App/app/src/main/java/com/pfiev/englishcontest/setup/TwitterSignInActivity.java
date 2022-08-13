@@ -17,6 +17,7 @@ import com.google.firebase.auth.OAuthProvider;
 import com.pfiev.englishcontest.GlobalConstant;
 import com.pfiev.englishcontest.LoginActivity;
 import com.pfiev.englishcontest.MainActivity;
+import com.pfiev.englishcontest.PlayGameActivity;
 import com.pfiev.englishcontest.R;
 
 public class TwitterSignInActivity extends LoginActivity {
@@ -95,7 +96,7 @@ public class TwitterSignInActivity extends LoginActivity {
 
     public void updateUI() {
         Log.i(TAG, "Navigate to MainActivity ");
-        Intent intent = new Intent(TwitterSignInActivity.this, MainActivity.class);
+        Intent intent = new Intent(TwitterSignInActivity.this, PlayGameActivity.class);
         intent.putExtra(GlobalConstant.ACCOUNT_TYPE,GlobalConstant.TWITTER_ACCOUNT_TYPE);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
