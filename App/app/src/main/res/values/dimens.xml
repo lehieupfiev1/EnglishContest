@@ -31,7 +31,7 @@
     <dimen name="actionbar_avatar_size">38dp</dimen>
     <dimen name="actionbar_avatar_padding_end">5dp</dimen>
     <dimen name="actionbar_username_margin_start">11dp</dimen>
-    <dimen name="actionbar_avatar_stroke">2px</dimen>
+    <dimen name="actionbar_avatar_stroke">2dp</dimen>
     <dimen name="actionbar_activity_width">24dp</dimen>
     <dimen name="actionbar_activity_height">24dp</dimen>
     <dimen name="actionbar_action_item_margin_start">10dp</dimen>
@@ -43,5 +43,18 @@
     <dimen name="button_corner_radius">10dp</dimen>
     <dimen name="button_margin_top">5dp</dimen>
 
+    <!--    Experimental -->
+    <dimen name="experimental_btn_background_radius">22dp</dimen>
+    <dimen name="experimental_btn_margin_top">12dp</dimen>
+    <dimen name="experimental_btn_padding_top_bottom">7dp</dimen>
+<!--    <dimen name="set_in_up_change_mode_link_height">32dp</dimen>-->
+<!--    <dimen name="set_up_background_radius">26dp</dimen>-->
+    <dimen name="experimental_btn_padding_start">7dp</dimen>
+    <dimen name="experimental_btn_padding_end">18dp</dimen>
+    <dimen name="experimental_btn_height">44dp</dimen>
+    <dimen name="experimental_btn_text_margin_start">8dp</dimen>
+    <dimen name="experimental_change_mode_button_padding_start_end">4dp</dimen>
+    <dimen name="dialog_experimental_icon_size">30dp</dimen>
+    <dimen name="experimental_btn_elevation">5dp</dimen>
 
 </resources>

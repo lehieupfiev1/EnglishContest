@@ -17,6 +17,11 @@
     <string name="title_activity_play_game_acivity">PlayGameAcivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_experimental">ExperimentalActivity</string>
 
+    <!--    Experimental -->
+    <string name="experimental_new_game">New Game</string>
+    <string name="experimental_settings">Settings</string>
+    <string name="experimental_about">About</string>
 
 </resources>

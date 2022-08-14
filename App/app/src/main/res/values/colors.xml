@@ -27,4 +27,13 @@
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+
+    <!-- Color for experimental    -->
+    <color name="experimental_main_button_color">#EE883A</color>
+    <color name="experimental_btn_background_color">#5D000000</color>
+    <color name="experimental_btn_text_color">#FCFCFC</color>
+    <color name="experimental_change_mode_button_color">#FCFCFC</color>
+    <color name="experimental_notice_text_color">#505050</color>
+<!--    <color name="sign_in_additional_message_text_color">#858585</color>-->
+
 </resources>
