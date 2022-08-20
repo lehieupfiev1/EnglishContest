@@ -1,166 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/fullscreenBackgroundColor"
     android:theme="@style/ThemeOverlay.EnglishContest.FullscreenContainer"
     tools:context=".ExperimentalActivity">
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
     <FrameLayout
-        android:id="@+id/fullscreen_content"
+        android:id="@+id/experimental_fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="0dp">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="100dp"
-                    android:textAlignment="center"
-                    android:textSize="30sp"
-                    android:text="ENGLISH FUNNY QUIZ"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/svn_supercell_magic"
-                    tools:layout_editor_absoluteX="189dp"
-                    tools:layout_editor_absoluteY="160dp" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    >
-
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/lottie_ex_bg"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:lottie_rawRes="@raw/experimental_background_lottie">
-
-                    </com.airbnb.lottie.LottieAnimationView>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="40dp"
-                        android:padding="40dp">
-
-                        <!-- New Game -->
-                        <LinearLayout
-                            android:id="@+id/experimental_new_game_btn"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="200dp"
-                            android:background="@drawable/experimental_main_button_background"
-                            android:elevation="@dimen/experimental_btn_elevation"
-                            android:gravity="center_vertical"
-                            android:minHeight="@dimen/experimental_btn_height"
-                            android:paddingStart="@dimen/experimental_btn_padding_start"
-                            android:paddingTop="@dimen/experimental_btn_padding_top_bottom"
-                            android:paddingEnd="@dimen/experimental_btn_padding_end"
-                            android:paddingBottom="@dimen/experimental_btn_padding_top_bottom">
-
-                            <ImageView
-                                android:layout_width="@dimen/dialog_experimental_icon_size"
-                                android:layout_height="@dimen/dialog_experimental_icon_size"
-                                android:src="@drawable/ic_tank_icon" />
-
-                            <TextView
-                                android:id="@+id/sign_in_google_text"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/experimental_btn_text_margin_start"
-                                android:fontFamily="@font/svn_supercell_magic"
-                                android:text="@string/experimental_new_game"
-                                android:textAlignment="center"
-                                android:textColor="@color/experimental_btn_text_color" />
-                        </LinearLayout>
-
-                        <!-- Twitter -->
-                        <LinearLayout
-                            android:id="@+id/experimental_leaderboard_btn"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/experimental_new_game_btn"
-                            android:layout_marginTop="@dimen/experimental_btn_margin_top"
-                            android:background="@drawable/experimental_main_button_background"
-                            android:elevation="@dimen/experimental_btn_elevation"
-                            android:gravity="center_vertical"
-                            android:minHeight="@dimen/experimental_btn_height"
-                            android:paddingStart="@dimen/experimental_btn_padding_start"
-                            android:paddingTop="@dimen/experimental_btn_padding_top_bottom"
-                            android:paddingEnd="@dimen/experimental_btn_padding_end"
-                            android:paddingBottom="@dimen/experimental_btn_padding_top_bottom">
-
-                            <ImageView
-                                android:layout_width="@dimen/dialog_experimental_icon_size"
-                                android:layout_height="@dimen/dialog_experimental_icon_size"
-                                android:src="@drawable/tweet_icon" />
-
-                            <TextView
-                                android:id="@+id/sign_in_twitter_text"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/experimental_btn_text_margin_start"
-                                android:fontFamily="@font/svn_supercell_magic"
-                                android:text="@string/experimental_settings"
-                                android:textAlignment="center"
-                                android:textColor="@color/experimental_btn_text_color" />
-                        </LinearLayout>
-
-                        <!-- Facebook account -->
-                        <LinearLayout
-                            android:id="@+id/experimental_settings_btn"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/experimental_leaderboard_btn"
-                            android:layout_marginTop="12dp"
-                            android:background="@drawable/experimental_main_button_background"
-                            android:elevation="@dimen/experimental_btn_elevation"
-                            android:gravity="center_vertical"
-                            android:minHeight="@dimen/experimental_btn_height"
-                            android:paddingStart="@dimen/experimental_btn_padding_start"
-                            android:paddingTop="@dimen/experimental_btn_padding_top_bottom"
-                            android:paddingEnd="@dimen/experimental_btn_padding_end"
-                            android:paddingBottom="@dimen/experimental_btn_padding_top_bottom">
-
-                            <ImageView
-                                android:layout_width="@dimen/dialog_experimental_icon_size"
-                                android:layout_height="@dimen/dialog_experimental_icon_size"
-                                android:src="@drawable/facebook_icon" />
-
-                            <TextView
-                                android:id="@+id/sign_in_facebook_text"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/experimental_btn_text_margin_start"
-                                android:fontFamily="@font/svn_supercell_magic"
-                                android:text="@string/experimental_about"
-                                android:textAlignment="center"
-                                android:textColor="@color/experimental_btn_text_color" />
-                        </LinearLayout>
-                    </RelativeLayout>
-                    </RelativeLayout>
-
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
 </FrameLayout>

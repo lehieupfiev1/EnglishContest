@@ -3,25 +3,47 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_about">ABOUT</string>
 
-    <string name="facebook_app_id">1094335348131015</string>
-    <string name="fb_login_protocol_scheme">fb1094335348131015</string>
-    <string name="facebook_client_token">36cf6985321efe9c74da9e0e31400b64</string>
+    <string name="facebook_app_id" translatable="false">1094335348131015</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb1094335348131015</string>
+    <string name="facebook_client_token" translatable="false">36cf6985321efe9c74da9e0e31400b64</string>
 
 
     <string name="sign_in_with_facebook">Signing in with your Facebook account</string>
     <string name="sign_in_with_google">Signing in with your Google account</string>
     <string name="sign_in_with_twitter">Signing in with your Twitter account</string>
 
-    <string name="default_google_client_id">338603681012-vldrduavbfgnivf0ggmnobvppjdmdtu2.apps.googleusercontent.com</string>
-    <string name="title_activity_play_game_acivity">PlayGameAcivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_experimental">ExperimentalActivity</string>
+    <string name="default_google_client_id" translatable="false">338603681012-vldrduavbfgnivf0ggmnobvppjdmdtu2.apps.googleusercontent.com</string>
+    <string name="title_activity_play_game_acivity" translatable="false">PlayGameAcivity</string>
+    <string name="title_activity_experimental" translatable="false">ExperimentalActivity</string>
 
     <!--    Experimental -->
     <string name="experimental_new_game">New Game</string>
+    <string name="experimental_leaderboard">Leaderboard</string>
     <string name="experimental_settings">Settings</string>
     <string name="experimental_about">About</string>
+
+    <!--    Experimental Settings   -->
+    <string name="experimental_settings_title_language">Language</string>
+    <string name="experimental_settings_title_sound">Sound</string>
+    <string name="experimental_settings_lazy_programmer">The Lazy Programmers</string>
+    <string name="experimental_about_content">Một trò chơi nho nhỏ được lập trình vào thời gian rảnh. Mong các bạn đã có thời gian thú vị khi sử dụng.\n Đừng quên thi thoảng click quảng cáo cho 2 thanh niên lập trình viên có chút tiền cafe ạ.\nYêu các bạn nhiều !!!\n\n(*) Hình ảnh sử dụng được download\n từ trang freepik và icon8</string>
+    <!--    Shared preferences key  -->
+    <string name="shared_preferences_key" translatable="false">com.pfiev.english.preferences</string>
+    <!--    Display language    -->
+    <string name="preferences_all_locale_key" translatable="false">all_locale</string>
+    <string name="preferences_all_locale_values" translatable="false">en_US,vi_VN</string>
+    <string name="preferences_all_locale_show_key" translatable="false">all_locale_show</string>
+    <string name="preferences_all_locale_show_values">English,Vietnamese</string>
+    <string name="preferences_all_locale_delimiter" translatable="false">,</string>
+    <string name="preferences_locale_default" translatable="false">en_US</string>
+    <string name="preferences_display_language" translatable="false">display_language</string>
+    <!--    Sound status-->
+    <string name="preferences_sound_status" translatable="false">sound_status</string>
+    <string name="preferences_sound_status_on" translatable="false">sound_status_on</string>
+    <string name="preferences_sound_status_off" translatable="false">sound_status_off</string>
+    <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

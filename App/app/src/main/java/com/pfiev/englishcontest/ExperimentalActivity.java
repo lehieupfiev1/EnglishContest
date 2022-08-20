@@ -2,29 +2,36 @@ package com.pfiev.englishcontest;
 
 import android.annotation.SuppressLint;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowInsets;
 
-import com.airbnb.lottie.Lottie;
 import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.LottieComposition;
-import com.airbnb.lottie.LottieCompositionFactory;
-import com.airbnb.lottie.LottieDrawable;
 import com.pfiev.englishcontest.databinding.ActivityExperimentalBinding;
+import com.pfiev.englishcontest.ui.experimental.MainFragment;
+import com.pfiev.englishcontest.utils.AppConfig;
+import com.pfiev.englishcontest.utils.LangUtils;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class ExperimentalActivity extends AppCompatActivity {
+
+    private final String TAG = "ExperimentalActivity";
+
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -105,13 +112,14 @@ public class ExperimentalActivity extends AppCompatActivity {
         binding = ActivityExperimentalBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        mContentView = binding.fullscreenContent;
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.experimental_fullscreen_content, MainFragment.newInstance())
+                    .commitNow();
+        }
+
+        mContentView = binding.experimentalFullscreenContent;
         mVisible = true;
-        lottie = findViewById(R.id.lottie_ex_bg);
-        lottie.setRepeatCount(LottieDrawable.INFINITE);
-        lottie.setScaleX(2);
-        lottie.setScaleY(2);
-        lottie.playAnimation();
     }
 
     @Override
@@ -145,4 +153,19 @@ public class ExperimentalActivity extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        LangUtils langUtils = new LangUtils();
+        super.attachBaseContext(langUtils.onAttach(base, AppConfig.locale));
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        LangUtils langUtils = new LangUtils();
+        langUtils.onAttach(getBaseContext(), AppConfig.locale);
+        super.onConfigurationChanged(newConfig);
+
+    }
+
 }

@@ -1,14 +1,21 @@
 package com.pfiev.englishcontest.ui.experimental;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.pfiev.englishcontest.R;
+import com.pfiev.englishcontest.databinding.FragmentExperimentalAboutBinding;
+import com.pfiev.englishcontest.databinding.FragmentExperimentalSettingsBinding;
+import com.pfiev.englishcontest.utils.AppConfig;
+import com.pfiev.englishcontest.utils.LangUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +32,9 @@ public class AboutFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    // Binding Variable
+    private FragmentExperimentalAboutBinding binding;
 
     public AboutFragment() {
         // Required empty public constructor
@@ -61,6 +71,20 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_experimental_about, container, false);
+        binding = FragmentExperimentalAboutBinding.inflate(inflater, container, false);
+        this.bindingBackButton();
+        return binding.getRoot();
+    }
+
+    private void bindingBackButton() {
+        // Back to main when touch return button
+        binding.experimentalAboutBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.experimental_fullscreen_content, MainFragment.newInstance())
+                        .commitNow();
+            }
+        });
     }
 }

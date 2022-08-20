@@ -1,6 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/leaderboard_item_root_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="@dimen/leaderboard_lv_item_height"
+    android:layout_marginTop="1dp"
+    android:background="@color/leaderboard_item_main_default_bg"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="@dimen/leaderboard_lv_item_oder_width"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/leaderboard_user_order"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start|center"
+            android:text="8."
+            android:textAlignment="center"
+            android:textSize="@dimen/leaderboard_lv_item_text_size"
+            android:textStyle="bold"
+            android:fontFamily="@font/svn_supercell_magic"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/leaderboard_lv_item_avatar_width"
+        android:layout_height="match_parent"
+        android:padding="@dimen/leaderboard_user_avatar_padding"
+        >
+
+        <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
+            android:id="@+id/leaderboard_user_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bg_profile_image"
+            app:shadowEnabled="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/leaderboard_lv_item_username_width"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/leaderboard_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="ITEM EXAMPLE"
+            android:textAlignment="center"
+            android:textSize="@dimen/leaderboard_lv_item_text_size"
+            android:fontFamily="@font/svn_supercell_magic"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="end"
+        android:background="@color/leaderboard_item_score_bg"
+        >
+
+        <TextView
+            android:id="@+id/leaderboard_user_score"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="1200"
+            android:textSize="@dimen/leaderboard_lv_item_text_size"
+            android:fontFamily="@font/svn_supercell_magic"
+            android:textColor="@color/white">
+
+        </TextView>
+    </LinearLayout>
 
 </LinearLayout>

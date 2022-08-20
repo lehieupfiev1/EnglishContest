@@ -3,12 +3,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.experimental.About">
+    android:background="@color/experimental_about_background_color"
+    tools:context=".ui.experimental.AboutFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageButton
+    android:id="@+id/experimental_about_back_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginStart="20dp"
+    android:background="@drawable/ic_experimental_return_back"
+    android:contentDescription="Back to main"
+    >
+
+    </ImageButton>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="150dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/svn_supercell_magic"
+            android:text="@string/title_about"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="45sp">
+
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="25dp"
+            android:text="@string/experimental_about_content"
+            android:fontFamily="@font/mali_regular"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp">
+
+        </TextView>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/experimental_about_lazy_programmer">
+        </ImageView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/experimental_settings_lazy_programmer">
+
+        </TextView>
+    </LinearLayout>
 
 </FrameLayout>

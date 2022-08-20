@@ -1,3 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- SignIn/SignUp -->
+    <dimen name="sign_in_up_button_background_radius">22dp</dimen>
+    <dimen name="sign_in_up_button_margin_top">12dp</dimen>
+    <dimen name="sign_in_up_button_padding_top_bottom">7dp</dimen>
+    <dimen name="set_in_up_change_mode_link_height">32dp</dimen>
+    <dimen name="set_up_background_radius">26dp</dimen>
+
+    <dimen name="avatar_size">38dp</dimen>
+    <dimen name="bg_profile_image_size">56dp</dimen>
+    <dimen name="detail_info_avatar_padding">12dp</dimen>
+
+    <dimen name="sign_in_up_button_padding_start">7dp</dimen>
+    <dimen name="sign_in_up_button_padding_end">18dp</dimen>
+    <dimen name="sign_in_up_button_height">44dp</dimen>
+    <dimen name="sign_in_up_button_text_margin_start">8dp</dimen>
+    <dimen name="sign_in_up_change_mode_button_padding_start_end">4dp</dimen>
+    <dimen name="use_different_account_button_padding_start_end">18dp</dimen>
+    <dimen name="dialog_sign_in_up_icon_size">30dp</dimen>
+
+    <!--ActionBar-->
+    <dimen name="actionbar_button_padding_left_right">12dp</dimen>
+    <dimen name="actionbar_height">64dp</dimen>
+    <dimen name="actionbar_height_with_multiple_selection">80dp</dimen>
+    <dimen name="winset_toolbar_navigation_button_width">54dp</dimen>
+    <dimen name="actionbar_button_width">48dp</dimen>
+    <dimen name="actionbar_avatar_size">38dp</dimen>
+    <dimen name="actionbar_avatar_padding_end">5dp</dimen>
+    <dimen name="actionbar_username_margin_start">11dp</dimen>
+    <dimen name="actionbar_avatar_stroke">2dp</dimen>
+    <dimen name="actionbar_activity_width">24dp</dimen>
+    <dimen name="actionbar_activity_height">24dp</dimen>
+    <dimen name="actionbar_action_item_margin_start">10dp</dimen>
+    <dimen name="actionbar_action_item_margin_end">12dp</dimen>
+    <dimen name="actionbar_new_badge_margin_top">10dp</dimen>
+    <dimen name="actionbar_activity_count_margin_end">9dp</dimen>
+    <dimen name="actionbar_icon_size">24dp</dimen>
+    <dimen name="actionbar_button_margin_end">14dp</dimen>
+    <dimen name="button_corner_radius">10dp</dimen>
+    <dimen name="button_margin_top">5dp</dimen>
+
+    <!--    Experimental -->
+    <dimen name="experimental_btn_background_radius">22dp</dimen>
+    <dimen name="experimental_main_margin_top">0dp</dimen>
+    <dimen name="experimental_btn_margin_top">12dp</dimen>
+    <dimen name="experimental_btn_padding_top_bottom">7dp</dimen>
+    <dimen name="experimental_btn_padding_start">7dp</dimen>
+    <dimen name="experimental_btn_padding_end">18dp</dimen>
+    <dimen name="experimental_btn_height">44dp</dimen>
+    <dimen name="experimental_btn_text_margin_start">8dp</dimen>
+    <dimen name="experimental_change_mode_button_padding_start_end">4dp</dimen>
+    <dimen name="dialog_experimental_icon_size">30dp</dimen>
+    <dimen name="experimental_btn_elevation">5dp</dimen>
+    <dimen name="experimental_settings_lang_spinner_w">140dp</dimen>
+    <dimen name="experimental_settings_lang_spinner_h">40dp</dimen>
+    <dimen name="experimental_settings_lang_spinner_font_size">11sp</dimen>
+
 </resources>

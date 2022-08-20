@@ -1,51 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/experimental_root_fragment_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/fullscreenBackgroundColor"
     android:theme="@style/ThemeOverlay.EnglishContest.FullscreenContainer"
     tools:context=".ui.experimental.MainFragment">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
-    <TextView
-        android:id="@+id/fullscreen_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="?attr/fullscreenTextColor"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/fullscreen_content_controls"
-            style="@style/Widget.Theme.EnglishContest.ButtonBar.Fullscreen"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp">
 
-            <Button
-                android:id="@+id/dummy_button"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/dummy_button" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="100dp"
+                android:fontFamily="@font/svn_supercell_magic"
+                android:text="ENGLISH FUNNY QUIZ"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                tools:layout_editor_absoluteX="189dp"
+                tools:layout_editor_absoluteY="160dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottie_ex_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleX="2"
+                    android:scaleY="2"
+                    app:lottie_rawRes="@raw/experimental_background_lottie">
+
+                </com.airbnb.lottie.LottieAnimationView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/experimental_main_margin_top"
+                    android:padding="40dp">
+                    <!-- New Game -->
+                    <LinearLayout
+                        android:id="@+id/experimental_new_game_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="100dp"
+                        android:background="@drawable/bg_experimental_main_button"
+                        android:elevation="@dimen/experimental_btn_elevation"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/experimental_btn_height"
+                        android:paddingStart="@dimen/experimental_btn_padding_start"
+                        android:paddingTop="@dimen/experimental_btn_padding_top_bottom"
+                        android:paddingEnd="@dimen/experimental_btn_padding_end"
+                        android:paddingBottom="@dimen/experimental_btn_padding_top_bottom">
+
+                        <ImageView
+                            android:layout_width="@dimen/dialog_experimental_icon_size"
+                            android:layout_height="@dimen/dialog_experimental_icon_size"
+                            android:src="@drawable/ic_tank_icon" />
+
+                        <TextView
+                            android:id="@+id/sign_in_google_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/experimental_btn_text_margin_start"
+                            android:fontFamily="@font/svn_supercell_magic"
+                            android:text="@string/experimental_new_game"
+                            android:textAlignment="center"
+                            android:textColor="@color/experimental_btn_text_color" />
+                    </LinearLayout>
+                    <!-- LeaderboardFragment -->
+                    <LinearLayout
+                        android:id="@+id/experimental_leaderboard_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/experimental_new_game_btn"
+                        android:layout_marginTop="@dimen/experimental_btn_margin_top"
+                        android:background="@drawable/bg_experimental_main_button"
+                        android:elevation="@dimen/experimental_btn_elevation"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/experimental_btn_height"
+                        android:paddingStart="@dimen/experimental_btn_padding_start"
+                        android:paddingTop="@dimen/experimental_btn_padding_top_bottom"
+                        android:paddingEnd="@dimen/experimental_btn_padding_end"
+                        android:paddingBottom="@dimen/experimental_btn_padding_top_bottom">
+
+                        <ImageView
+                            android:layout_width="@dimen/dialog_experimental_icon_size"
+                            android:layout_height="@dimen/dialog_experimental_icon_size"
+                            android:src="@drawable/ic_experimental_leaderboard" />
+
+                        <TextView
+                            android:id="@+id/main_leaderboard_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/experimental_btn_text_margin_start"
+                            android:fontFamily="@font/svn_supercell_magic"
+                            android:text="@string/experimental_leaderboard"
+                            android:textAlignment="center"
+                            android:textColor="@color/experimental_btn_text_color" />
+                    </LinearLayout>
+                    <!-- Settings -->
+                    <LinearLayout
+                        android:id="@+id/experimental_settings_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/experimental_leaderboard_btn"
+                        android:layout_marginTop="@dimen/experimental_btn_margin_top"
+                        android:background="@drawable/bg_experimental_main_button"
+                        android:elevation="@dimen/experimental_btn_elevation"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/experimental_btn_height"
+                        android:paddingStart="@dimen/experimental_btn_padding_start"
+                        android:paddingTop="@dimen/experimental_btn_padding_top_bottom"
+                        android:paddingEnd="@dimen/experimental_btn_padding_end"
+                        android:paddingBottom="@dimen/experimental_btn_padding_top_bottom">
+
+                        <ImageView
+                            android:layout_width="@dimen/dialog_experimental_icon_size"
+                            android:layout_height="@dimen/dialog_experimental_icon_size"
+                            android:src="@drawable/ic_experimental_main_settings" />
+
+                        <TextView
+                            android:id="@+id/sign_in_twitter_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/experimental_btn_text_margin_start"
+                            android:fontFamily="@font/svn_supercell_magic"
+                            android:text="@string/experimental_settings"
+                            android:textAlignment="center"
+                            android:textColor="@color/experimental_btn_text_color" />
+                    </LinearLayout>
+                    <!-- About -->
+                    <LinearLayout
+                        android:id="@+id/experimental_about_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/experimental_settings_btn"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_experimental_main_button"
+                        android:elevation="@dimen/experimental_btn_elevation"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/experimental_btn_height"
+                        android:paddingStart="@dimen/experimental_btn_padding_start"
+                        android:paddingTop="@dimen/experimental_btn_padding_top_bottom"
+                        android:paddingEnd="@dimen/experimental_btn_padding_end"
+                        android:paddingBottom="@dimen/experimental_btn_padding_top_bottom">
+
+                        <ImageView
+                            android:layout_width="@dimen/dialog_experimental_icon_size"
+                            android:layout_height="@dimen/dialog_experimental_icon_size"
+                            android:src="@drawable/ic_experimental_main_info" />
+
+                        <TextView
+                            android:id="@+id/sign_in_facebook_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/experimental_btn_text_margin_start"
+                            android:fontFamily="@font/svn_supercell_magic"
+                            android:text="@string/experimental_about"
+                            android:textAlignment="center"
+                            android:textColor="@color/experimental_btn_text_color" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
 
         </LinearLayout>
-    </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

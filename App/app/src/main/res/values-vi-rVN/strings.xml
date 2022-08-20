@@ -1,3 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">EnglishContest</string>
+    <string name="experimental_settings">Cài đặt</string>
+    <string name="experimental_settings_title_language">Ngôn ngữ</string>
+    <string name="experimental_settings_title_sound">Âm thanh</string>
+    <string name="sign_in_with_facebook">Đăng nhập bằng tài khoản Facebook</string>
+    <string name="sign_in_with_google">Đăng nhập bằng tài khoản Google</string>
+    <string name="sign_in_with_twitter">Đăng nhập bằng tài khoản Twitter</string>
+    <string name="experimental_about">Thông tin</string>
+    <string name="experimental_new_game">Game mới</string>
+    <string name="preferences_all_locale_show_values">Tiếng Anh,Tiếng Việt</string>
+    <string name="experimental_leaderboard">Bảng xếp hạng</string>
 </resources>
