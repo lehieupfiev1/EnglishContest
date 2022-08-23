@@ -11,4 +11,15 @@
     <string name="experimental_new_game">Game mới</string>
     <string name="preferences_all_locale_show_values">Tiếng Anh,Tiếng Việt</string>
     <string name="experimental_leaderboard">Bảng xếp hạng</string>
+
+    <!--    Profile-->
+    <string name="profile_change_avatar">Sưả ảnh đại diện</string>
+    <string name="profile_user_name">Tên người dùng</string>
+    <string name="profile_email">Email</string>
+    <string name="profile_phone_number">Số điện thoại</string>
+    <string name="profile_gender">Giới tính :</string>
+    <string name="profile_gender_male">Nam</string>
+    <string name="profile_gender_female">Nữ</string>
+    <string name="profile_save">Lưu</string>
+
 </resources>

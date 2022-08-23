@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_experimental_leaderboard"
+    tools:context=".ui.experimental.FindingMatchFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="1dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="225dp">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/find_people"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:scaleX="2"
+                    android:scaleY="2"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/finding_people"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/finding_progress"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:scaleX="2"
+                    android:scaleY="2"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/monitor_progress">
+
+                </com.airbnb.lottie.LottieAnimationView>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/status_finding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:fontFamily="@font/mali_regular"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:text="Finding" />
+
+            <Button
+                android:id="@+id/finding_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/svn_supercell_magic"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Find match" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

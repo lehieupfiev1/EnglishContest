@@ -11,4 +11,14 @@
     <string name="experimental_settings_title_sound">Sound</string>
     <string name="preferences_all_locale_show_values">English,Vietnamese</string>
     <string name="experimental_leaderboard">Leaderboard</string>
+
+    <!--    Profile-->
+    <string name="profile_change_avatar">Change avatar</string>
+    <string name="profile_user_name">User Name</string>
+    <string name="profile_email">Email</string>
+    <string name="profile_phone_number">Phone Number</string>
+    <string name="profile_gender">Gender :</string>
+    <string name="profile_gender_male">Male</string>
+    <string name="profile_gender_female">Female</string>
+    <string name="profile_save">Save</string>
 </resources>

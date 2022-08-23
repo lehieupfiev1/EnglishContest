@@ -28,7 +28,7 @@
     <dimen name="actionbar_height_with_multiple_selection">80dp</dimen>
     <dimen name="winset_toolbar_navigation_button_width">54dp</dimen>
     <dimen name="actionbar_button_width">48dp</dimen>
-    <dimen name="actionbar_avatar_size">38dp</dimen>
+    <dimen name="actionbar_avatar_size">45dp</dimen>
     <dimen name="actionbar_avatar_padding_end">5dp</dimen>
     <dimen name="actionbar_username_margin_start">11dp</dimen>
     <dimen name="actionbar_avatar_stroke">2dp</dimen>
@@ -67,6 +67,9 @@
     <dimen name="leaderboard_user_avatar_padding">3dp</dimen>
     <dimen name="leaderboard_lv_item_username_width">180dp</dimen>
     <dimen name="leaderboard_lv_item_score_width">70dp</dimen>
+
+    <!--    Profile -->
+    <dimen name="profile_margin_layout">40dp</dimen>
 
 
 </resources>

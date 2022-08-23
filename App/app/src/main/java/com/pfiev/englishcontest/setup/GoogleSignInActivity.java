@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -34,6 +36,8 @@ import com.pfiev.englishcontest.LoginActivity;
 import com.pfiev.englishcontest.MainActivity;
 import com.pfiev.englishcontest.PlayGameActivity;
 import com.pfiev.englishcontest.R;
+import com.pfiev.englishcontest.firestore.FireStoreClass;
+import com.pfiev.englishcontest.model.UserItem;
 
 public class GoogleSignInActivity extends LoginActivity {
     private static final String TAG = "GoogleSignInActivity";
@@ -145,7 +149,17 @@ public class GoogleSignInActivity extends LoginActivity {
                             Log.i(TAG, "signInWithCredential:success");
                             Toast.makeText(getApplicationContext(), "Authentication Success.", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI();
+                            UserItem userItem = new UserItem();
+                            userItem.setUserId(user.getUid());
+                            userItem.setName(user.getDisplayName());
+                            userItem.setUserPhotoUrl(user.getPhotoUrl().toString());
+                            userItem.setUserPhoneNumber(user.getPhoneNumber());
+                            userItem.setUserGender("");
+                            FireStoreClass.registerUser(GoogleSignInActivity.this,userItem, GlobalConstant.GOOGLE_ACCOUNT_TYPE);
+
+
+                            //updateUI();
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -168,11 +182,4 @@ public class GoogleSignInActivity extends LoginActivity {
         }
     }
 
-    public void updateUI() {
-        Log.i(TAG, "Navigate to MainActivity");
-        Intent intent = new Intent(GoogleSignInActivity.this, MainActivity.class);
-        intent.putExtra(GlobalConstant.ACCOUNT_TYPE,GlobalConstant.GOOGLE_ACCOUNT_TYPE);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 }

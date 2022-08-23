@@ -157,16 +157,16 @@ public class RoundedAvatarImageView extends ImageView {
         setScaleType(ScaleType.FIT_CENTER);
     }
 
-//    public void setAdjustAvatarDrawable(Bitmap bitmap) {
-//        if (getWidth() > 0 && getHeight() > 0) {
-//            try {
-//                setImageDrawable(new RoundedAvatarDrawable(Bitmap.createScaledBitmap(bitmap, getWidth(), getHeight(), true),
-//                        mShadowEnabled));
-//            } catch (RuntimeException rex) {
-//                Log.e(TAG, "RuntimeException " +rex.getMessage());
-//            }
-//        }
-//    }
+    public void setAdjustAvatarDrawable(Bitmap bitmap) {
+        if (getWidth() > 0 && getHeight() > 0) {
+            try {
+                setImageDrawable(new RoundedAvatarDrawable(Bitmap.createScaledBitmap(bitmap, getWidth(), getHeight(), true),
+                        mShadowEnabled));
+            } catch (RuntimeException rex) {
+                Log.e(TAG, "RuntimeException " +rex.getMessage());
+            }
+        }
+    }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {

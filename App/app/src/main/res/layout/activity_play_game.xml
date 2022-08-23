@@ -14,9 +14,11 @@
         tools:layout_editor_absoluteY="1dp"
         android:background="@drawable/main_background">
         <RelativeLayout
+            android:id="@+id/progress_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:visibility="invisible"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_gravity="center">
@@ -25,7 +27,8 @@
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
+                android:progressDrawable="@drawable/custom_progress_bg"
                 android:max="20"
                 android:progress="1" />
 
@@ -36,14 +39,19 @@
                 android:layout_centerInParent="true"
                 android:text="10/20"
                 android:textColor="@color/white"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
         <FrameLayout
+            android:id="@+id/question_layout"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:layout_marginTop="50dp"
+            android:visibility="invisible"
+            android:background="@drawable/edittext_back_ground"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginBottom="50dp">
 
             <TextView
@@ -51,14 +59,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:textSize="16sp"
+                android:textColor="@color/black_overlay"
                 android:gravity="center"
-                android:text="TextView" />
+                android:text="" />
         </FrameLayout>
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/count_down_display"
+            android:layout_width="150dp"
+            android:layout_gravity="center"
+            android:layout_height="150dp"
+            android:layout_marginBottom="70dp"
+            android:visibility="visible"
+            android:scaleX="2"
+            android:scaleY="2"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/countdown">
+
+        </com.airbnb.lottie.LottieAnimationView>
+
         <LinearLayout
+            android:id="@+id/button_layout"
             android:layout_width="match_parent"
-            android:layout_height="224dp"
+            android:layout_height="220dp"
             android:layout_marginStart="50dp"
+            android:visibility="gone"
             android:layout_marginEnd="50dp"
             android:orientation="vertical">
 
@@ -101,8 +127,10 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="invisible"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -148,11 +176,13 @@
 
             <Button
                 android:id="@+id/time_count"
-                android:layout_width="101dp"
-                android:layout_height="95dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginStart="100dp"
                 android:layout_marginTop="40dp"
-                android:text="Button" />
+                android:background="@drawable/button_night_back_ground"
+                android:fontFamily="@font/svn_supercell_magic"
+                android:text="10 s" />
 
         </LinearLayout>
 

@@ -8,4 +8,13 @@
         <item name="android:background">@color/black_overlay</item>
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
+
+    <style name="BottomNavigationViewText" parent="@style/Widget.Design.BottomNavigationView">
+        <item name="android:actionBarStyle">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+    <style name="NewFontStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
 </resources>
