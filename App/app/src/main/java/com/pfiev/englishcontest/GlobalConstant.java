@@ -23,6 +23,26 @@ public class GlobalConstant {
     public static String LIST_QUESTION = "list_question";
     public static String TOTAL_PLAYER = "total_player";
 
+    public static String UID = "uid";
+    public static String STATE = "state";
+    public static String MATCH_ID = "match_id";
+    public static String OWNER_ID = "owner_id";
+    public static String PARTICIPANTS = "participants";
+    public static String ACTION = "action";
+    public static final String FINDING_STATE = "FINDING";
+    public static final String WAITING_ACCEPT_STATE = "WAITING_ACCEPT";
+    public static final String DUEL_ONE_JOIN_STATE = "DUEL_ONE_JOIN";
+    public static final String PLAYING_STATE = "PLAYING";
+    public static final String COMPLETE_STATE = "COMPLETE";
+
+    public static final String QUESTION = "question";
+    public static final String QUESTION_ID = "qid";
+    public static final String ANSWER = "answer";
+    public static final String CONTENT = "content";
+    public static final String CONTENT_ID = "id";
+
+
+
     public static final String KEY_CROPPED_OUTPUT_PATH = "cropped_output_path";
     public static final String IMAGE_PATH = "image_path";
     public static final String CROP_RATIO_WIDTH = "CROP_RATIO_WIDTH";

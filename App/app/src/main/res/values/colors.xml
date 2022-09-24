@@ -8,6 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#4CAF50</color>
+    <color name="yellow">#E39523</color>
+    <color name="red">#E31607</color>
+    <color name="blue">#40A9F4</color>
+    <color name="gray">#505050</color>
 
     <!--Sign In/Sign Up-->
     <color name="sign_in_up_button_background_color">#5D000000</color>

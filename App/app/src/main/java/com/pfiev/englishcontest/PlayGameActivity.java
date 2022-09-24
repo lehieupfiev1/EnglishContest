@@ -6,8 +6,12 @@ import android.animation.Animator;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -18,6 +22,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -26,9 +31,13 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.L;
 import com.airbnb.lottie.LottieAnimationView;
+import com.pfiev.englishcontest.databinding.ActivityPlayGameBinding;
+import com.pfiev.englishcontest.databinding.ActivityProfileBinding;
 import com.pfiev.englishcontest.firestore.FireStoreClass;
 import com.pfiev.englishcontest.model.AnswerItem;
 import com.pfiev.englishcontest.model.QuestionItem;
+import com.pfiev.englishcontest.model.UserItem;
+import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -43,60 +52,54 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
     private static final String TAG = "PlayGameActivity";
     public int mTime;
     public int mTimeChoose;
-    public int mAnswerChoose = 0;
+    public long mAnswerChoose = 0;
     public static long pressedTime = 0;
-    public Button chooser1;
-    public Button chooser2;
-    public Button chooser3;
-    public Button chooser4;
-    public Button timeCountBtn;
-    public TextView questionTV;
-    public ProgressBar mProgressBar;
-    public TextView mProgressBarTv;
     public ArrayList<QuestionItem> mListQuestion;
-    public Context mContext;
+    public Activity mContext;
     public Animation myAnim;
     private LottieAnimationView lottie_count_down;
-    private LinearLayout Button_layout;
-    private RelativeLayout Progress_layout;
-    private FrameLayout Question_layout;
-    private LinearLayout Result_layout;
+    public static String UserId;
+    public static String OtherUserId;
+    public static String mMatchId;
+    private String mMyAvatarUri;
+    private String mOtherAvatarUri;
+    private boolean mIsOwner;
+    private ActivityPlayGameBinding mBinding;
+    public ArrayList<Integer> mListChoose;
+    public List<Integer> mListTimeChoose;
+    public int mMyCorrectCount;
+    public long mMyCorrectTimeCount;
+    public int mOtherCorrectCount;
+    public long mOtherCorrectTimeCount;
+    private Dialog mResultDialog;
+    private int mMaxTimeCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play_game);
-        Progress_layout = (RelativeLayout) findViewById(R.id.progress_bar_layout);
-        Button_layout = (LinearLayout) findViewById(R.id.button_layout);
-        Question_layout = (FrameLayout) findViewById(R.id.question_layout);
-        Result_layout = (LinearLayout) findViewById(R.id.layout_result);
+        mBinding = ActivityPlayGameBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mProgressBarTv = (TextView) findViewById(R.id.progress_bar_tv);
-        chooser1 = (Button) findViewById(R.id.chooser_1);
-        chooser2 = (Button) findViewById(R.id.chooser_2);
-        chooser3 = (Button) findViewById(R.id.chooser_3);
-        chooser4 = (Button) findViewById(R.id.chooser_4);
-        timeCountBtn = (Button) findViewById(R.id.time_count);
-        questionTV = (TextView) findViewById(R.id.questionTv);
         lottie_count_down = (LottieAnimationView) findViewById(R.id.count_down_display);
 
+        mContext = this;
+        mResultDialog = new Dialog(mContext);
         setListenners();
         initData();
 
-        FireStoreClass.updateDataOtherPlayer("5kOnZZlf2LQBvrrHAmGO","1");
+        FireStoreClass.updateDataOtherPlayer(PlayGameActivity.this,mMatchId, OtherUserId);
     }
 
     private void setListenners() {
-        chooser1.setOnClickListener(this);
-        chooser2.setOnClickListener(this);
-        chooser3.setOnClickListener(this);
-        chooser4.setOnClickListener(this);
+        mBinding.chooser1.setOnClickListener(this);
+        mBinding.chooser2.setOnClickListener(this);
+        mBinding.chooser3.setOnClickListener(this);
+        mBinding.chooser4.setOnClickListener(this);
         myAnim = AnimationUtils.loadAnimation(this, R.anim.button_animation);
-        chooser1.setAnimation(myAnim);
-        chooser2.setAnimation(myAnim);
-        chooser3.setAnimation(myAnim);
-        chooser4.setAnimation(myAnim);
+        mBinding.chooser1.setAnimation(myAnim);
+        mBinding.chooser2.setAnimation(myAnim);
+        mBinding.chooser3.setAnimation(myAnim);
+        mBinding.chooser4.setAnimation(myAnim);
         lottie_count_down.playAnimation();
         lottie_count_down.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
@@ -109,6 +112,7 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
                 Log.i(TAG, "lottie_count_down finish");
                 updatePlayUI();
                 runData(0);
+                updatePlayData();
             }
 
             @Override
@@ -125,10 +129,16 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
 
     public void updatePlayUI() {
         lottie_count_down.setVisibility(View.GONE);
-        Button_layout.setVisibility(View.VISIBLE);
-        Progress_layout.setVisibility(View.VISIBLE);
-        Question_layout.setVisibility(View.VISIBLE);
-        Result_layout.setVisibility(View.VISIBLE);
+        mBinding.buttonLayout.setVisibility(View.VISIBLE);
+        mBinding.progressBarLayout.setVisibility(View.VISIBLE);
+        mBinding.questionLayout.setVisibility(View.VISIBLE);
+        mBinding.layoutResult.setVisibility(View.VISIBLE);
+    }
+
+    public void updateDataOtherPlayerInfo(long correctTimeCount) {
+        //Update from server
+        mOtherCorrectTimeCount += correctTimeCount;
+        mOtherCorrectCount++;
     }
 
     @Override
@@ -149,39 +159,173 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void initData() {
-        mListQuestion = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            QuestionItem questionItem = new QuestionItem();
-            questionItem.setQuestionId("" + i);
-            questionItem.setQuestionContent("Cau hoi so " + i + " là : ");
-            ArrayList<String> listAnswer = new ArrayList<>(Arrays.asList("Dap an A cau " + i, "Dap an B cau " + i, "Dap an C cau " + i, "Dap an D cau " + i));
-            questionItem.setListAnswer(listAnswer);
-            questionItem.setCorrectAnswer(i % 4);
-            questionItem.setTimeAnswer(10);
-            mListQuestion.add(questionItem);
-        }
+        Intent intent = getIntent();
+        mListQuestion = intent.getParcelableArrayListExtra("ListQuestion");
+        OtherUserId = (String) intent.getStringExtra("CompetitorId");
+        mMatchId = (String) intent.getStringExtra(GlobalConstant.MATCH_ID);
+        UserId = SharePreferenceUtils.getString(getApplicationContext(), GlobalConstant.USER_ID);
+        mIsOwner = (Boolean) intent.getBooleanExtra("isOwner",false);
+        mMyAvatarUri = SharePreferenceUtils.getString(getApplicationContext(), GlobalConstant.USER_PROFILE_IMAGE);
         Toast.makeText(getApplicationContext(), " Make ListQuestion :" + mListQuestion.size(), Toast.LENGTH_SHORT).show();
-        mProgressBar.setMax(mListQuestion.size());
+        mBinding.progressBar.setMax(mListQuestion.size());
+        mMaxTimeCount = 10;
+        mListChoose = new ArrayList<>();
+        mListTimeChoose = new ArrayList<>();
+        mMyCorrectCount =0;
+        mMyCorrectTimeCount =0;
+        mOtherCorrectCount = 0;
+        mOtherCorrectTimeCount = 0;
+    }
+
+    public void updatePlayData() {
+        Log.i(TAG, "loadAvatarUser mOtherAvatarUri"+mOtherAvatarUri+ " mMyAvatarUri"+mMyAvatarUri + "mMyCorrectCount "+mMyCorrectCount +" mMyCorrectTimeCount "+mMyCorrectTimeCount);
+        String myDetailStr = getApplicationContext().getString(R.string.play_detail_result, mMyCorrectCount, mMyCorrectTimeCount);
+        String otherDetailStr = getApplicationContext().getString(R.string.play_detail_result, mOtherCorrectCount, mOtherCorrectTimeCount);
+        if (checkWinner()) {
+            mBinding.player1.getAvatarView().load(this, mMyAvatarUri);
+            mBinding.player1.setInfoTextView(myDetailStr);
+            mBinding.player2.getAvatarView().load(this, mOtherAvatarUri);
+            mBinding.player2.setInfoTextView(otherDetailStr);
+        } else {
+            mBinding.player1.getAvatarView().load(this, mOtherAvatarUri);
+            mBinding.player1.setInfoTextView(otherDetailStr);
+            mBinding.player2.getAvatarView().load(this, mMyAvatarUri);
+            mBinding.player2.setInfoTextView(myDetailStr);
+        }
+    }
+
+    public void showWinnerDialog() {
+        mResultDialog.setContentView(R.layout.win_layout_dialog);
+        mResultDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mResultDialog.setCancelable(false);
+        ImageView close_btn = mResultDialog.findViewById(R.id.close_layout);
+        Button ok_btn = mResultDialog.findViewById(R.id.ok_btn);
+        Button detail_btn = mResultDialog.findViewById(R.id.show_result_btn);
+        close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mResultDialog.dismiss();
+                Log.i(TAG, " showWinerDialog : close dialog");
+            }
+        });
+        ok_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.i(TAG, " showWinerDialog : ok");
+                mResultDialog.dismiss();
+            }
+        });
+        detail_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, " showWinerDialog : detail");
+                mResultDialog.dismiss();
+                navigateResultGameActivity();
+            }
+        });
+
+        mResultDialog.show();
+
+    }
+
+    public void showLoserDialog() {
+        mResultDialog.setContentView(R.layout.lose_layout_dialog);
+        mResultDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mResultDialog.setCancelable(false);
+        ImageView close_btn = mResultDialog.findViewById(R.id.close_lose_layout);
+        Button ok_btn = mResultDialog.findViewById(R.id.ok_btn);
+        Button detail_btn = mResultDialog.findViewById(R.id.show_result_btn);
+        close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mResultDialog.dismiss();
+                Log.i(TAG, " showLoserDialog : close dialog");
+            }
+        });
+        ok_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.i(TAG, " showLoserDialog : ok");
+                mResultDialog.dismiss();
+            }
+        });
+        detail_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, " showLoserDialog : detail");
+                mResultDialog.dismiss();
+                navigateResultGameActivity();
+            }
+        });
+
+        mResultDialog.show();
+
+    }
+
+    private boolean checkWinner() {
+        if (mMyCorrectCount > mOtherCorrectCount) {
+            return true;
+        } else if (mMyCorrectCount == mOtherCorrectCount) {
+            if (mMyCorrectTimeCount <= mOtherCorrectTimeCount) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public void getUserProfileSuccess(UserItem userItem) {
+        mOtherAvatarUri = userItem.getUserPhotoUrl();
+        Log.i(TAG, "getUserProfileSuccess "+userItem.getName() + " photoUserUri :"+userItem.getUserPhotoUrl());
+        String myDetailStr = getString(R.string.play_detail_result, mMyCorrectCount, mMyCorrectTimeCount);
+        String otherDetailStr = getString(R.string.play_detail_result, mOtherCorrectCount, mOtherCorrectTimeCount);
+        mBinding.player1.getAvatarView().load(this, mMyAvatarUri);
+        mBinding.player1.setInfoTextView(myDetailStr);
+        mBinding.player2.getAvatarView().load(this, mOtherAvatarUri);
+        mBinding.player2.setInfoTextView(otherDetailStr);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FireStoreClass.requestUserInfo(PlayGameActivity.this, OtherUserId);
+        //loadAvatarUser();
     }
 
     public void runData(int index) {
 
-        if (index >= mListQuestion.size()) return;
-        int timeCount = mListQuestion.get(index).getTimeAnswer() * 1000;
+        if (index >= mListQuestion.size()) {
+            //Show winner dialog
+            Log.d(TAG, "runData finish");
+            if (checkWinner()) {
+                showWinnerDialog();
+            } else {
+                showLoserDialog();
+            }
+
+            return;
+        }
+
+        int timeCount = mMaxTimeCount * 1000;
         updateQuestion(index);
+        updatePlayData();
 
         CountDownTimer countDownTimer = new CountDownTimer(timeCount, 1000) {
             @Override
             public void onTick(long l) {
-                timeCountBtn.setText( l / 1000 +" s");
-                mTime = (int) l / 1000;
-
+                mBinding.timeCount.setText( l / 1000 +" s");
+                int timeOp= (int) l / 1000;
+                mTime = (mMaxTimeCount - timeOp);
             }
 
             @Override
             public void onFinish() {
-                timeCountBtn.setText("0 s");
-                displayCorrectAnswer(index, mListQuestion.get(index).correctAnswer);
+                mBinding.timeCount.setText("0 s");
+                displayCorrectAnswer(index, (int) mListQuestion.get(index).answer);
                 Toast.makeText(getApplicationContext(), " onFinish :" + index, Toast.LENGTH_SHORT).show();
                 pushAnswerToServer(index);
                 updateButtonChoose(false);
@@ -211,38 +355,38 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
         mAnswerChoose = -1;
         mTimeChoose = 0;
         int indexQues = index + 1;
-        mProgressBar.setProgress(indexQues);
-        mProgressBarTv.setText(indexQues + "/" + mListQuestion.size());
-        questionTV.setText(questionItem.getQuestionContent());
-        chooser1.setText(questionItem.getListAnswer().get(0));
-        chooser2.setText(questionItem.getListAnswer().get(1));
-        chooser3.setText(questionItem.getListAnswer().get(2));
-        chooser4.setText(questionItem.getListAnswer().get(3));
+        mBinding.progressBar.setProgress(indexQues);
+        mBinding.progressBarTv.setText(indexQues + "/" + mListQuestion.size());
+        mBinding.questionTv.setText(questionItem.getQuestionContent());
+        mBinding.chooser1.setText(questionItem.getListAnswer().get(0).content);
+        mBinding.chooser2.setText(questionItem.getListAnswer().get(1).content);
+        mBinding.chooser3.setText(questionItem.getListAnswer().get(2).content);
+        mBinding.chooser4.setText(questionItem.getListAnswer().get(3).content);
         updateButtonChoose(true);
     }
 
 
     public void updateButtonChoose(boolean isEnable) {
-        chooser1.setEnabled(isEnable);
-        chooser2.setEnabled(isEnable);
-        chooser3.setEnabled(isEnable);
-        chooser4.setEnabled(isEnable);
+        mBinding.chooser1.setEnabled(isEnable);
+        mBinding.chooser2.setEnabled(isEnable);
+        mBinding.chooser3.setEnabled(isEnable);
+        mBinding.chooser4.setEnabled(isEnable);
     }
 
     public void displayCorrectAnswer(int questionIndex, int correctAnswer) {
         switch (correctAnswer) {
-            case 0:
-                //mBinding.chooser1.setBackgroundColor(R.);
-                blinkEffectAnimation(chooser1, Color.parseColor("#FFFFFFFF"), questionIndex);
-                break;
             case 1:
-                blinkEffectAnimation(chooser2, Color.parseColor("#4CAF50"), questionIndex);
+                //mBinding.chooser1.setBackgroundColor(R.);
+                blinkEffectAnimation(mBinding.chooser1, Color.parseColor("#FFFFFFFF"), questionIndex);
                 break;
             case 2:
-                blinkEffectAnimation(chooser3, Color.parseColor("#FFBB86FC"),questionIndex);
+                blinkEffectAnimation(mBinding.chooser2, Color.parseColor("#4CAF50"), questionIndex);
                 break;
             case 3:
-                blinkEffectAnimation(chooser4, Color.parseColor("#FF039BE5"),questionIndex);
+                blinkEffectAnimation(mBinding.chooser3, Color.parseColor("#FFBB86FC"),questionIndex);
+                break;
+            case 4:
+                blinkEffectAnimation(mBinding.chooser4, Color.parseColor("#FF039BE5"),questionIndex);
                 break;
             default:
                 break;
@@ -262,17 +406,34 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
     public void pushAnswerToServer(int index) {
         Log.i(TAG, "pushAnswerToServer");
         AnswerItem answerItem = new AnswerItem();
-        answerItem.setQuestion_id(index);
+        answerItem.setQuestion_id(mListQuestion.get(index).getQuestionId());
         answerItem.setChoice_id(mAnswerChoose);
         answerItem.setTime_answer(mTimeChoose);
-        if ((mListQuestion.get(index).correctAnswer == mAnswerChoose) && mTimeChoose > 0) {
+        mListChoose.add((int) mAnswerChoose);
+        mListTimeChoose.add(mTimeChoose);
+
+        if ((mListQuestion.get(index).answer == mAnswerChoose) && mTimeChoose > 0) {
             answerItem.setIs_right(true);
+            mMyCorrectCount++;
+            mMyCorrectTimeCount += mTimeChoose;
         } else {
             answerItem.setIs_right(false);
         }
-        FireStoreClass.pushAnswer(this, "5kOnZZlf2LQBvrrHAmGO","1", answerItem, Integer.toString(index));
+        FireStoreClass.pushAnswer(this, mMatchId, UserId, answerItem, Integer.toString(index));
+
     }
 
+    private void navigateResultGameActivity() {
+        //Add data info player
+        Intent intent = new Intent(PlayGameActivity.this, ResultGameActivity.class);
+        Bundle bundle = new Bundle();
+        Log.i(TAG, "navigatePlayActivity mListQuestion :"+mListQuestion.size());
+        bundle.putParcelableArrayList("ListQuestion",  mListQuestion);
+        intent.putExtras(bundle);
+        intent.putIntegerArrayListExtra("ListChoose", mListChoose);
+        intent.putExtra("numberCorrect", mMyCorrectCount);
+        startActivity(intent);
+    }
 
     @Override
     public void onClick(View view) {
@@ -280,25 +441,25 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
             case R.id.chooser_1:
                 // do something
                 mTimeChoose = mTime;
-                mAnswerChoose = 0;
+                mAnswerChoose = 1;
                 Toast.makeText(getApplicationContext(), "Choose A at time :" + mTimeChoose, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.chooser_2:
                 // do something else
                 mTimeChoose = mTime;
-                mAnswerChoose = 1;
+                mAnswerChoose = 2;
                 Toast.makeText(getApplicationContext(), "Choose B at time :" + mTimeChoose, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.chooser_3:
                 // i'm lazy, do nothing
                 mTimeChoose = mTime;
-                mAnswerChoose = 2;
+                mAnswerChoose = 3;
                 Toast.makeText(getApplicationContext(), "Choose C at time :" + mTimeChoose, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.chooser_4:
                 // i'm lazy, do nothing
                 mTimeChoose = mTime;
-                mAnswerChoose = 3;
+                mAnswerChoose = 4;
                 Toast.makeText(getApplicationContext(), "Choose D at time :" + mTimeChoose, Toast.LENGTH_SHORT).show();
                 break;
             default:

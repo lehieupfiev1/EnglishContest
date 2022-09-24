@@ -40,7 +40,7 @@
     <dimen name="actionbar_activity_count_margin_end">9dp</dimen>
     <dimen name="actionbar_icon_size">24dp</dimen>
     <dimen name="actionbar_button_margin_end">14dp</dimen>
-    <dimen name="button_corner_radius">10dp</dimen>
+    <dimen name="button_corner_radius">15dp</dimen>
     <dimen name="button_margin_top">5dp</dimen>
 
     <!--    Experimental -->

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/layout_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:orientation="vertical">
+
+<!--        <LinearLayout
+            android:id="@+id/list_user_layout"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
+                android:id="@+id/avatarUser1"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:gravity="center_vertical"
+                android:scaleType="fitCenter"
+                android:src="@drawable/bg_profile_image"
+                app:layout_constraintTop_toBottomOf="@+id/text_User_Name"
+                app:shadowEnabled="true"
+                tools:layout_editor_absoluteX="186dp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/gray_bg_button"
+                android:text="TextView"
+                android:textColor="@color/black" />
+
+
+        </LinearLayout>-->
+        <ImageButton
+            android:id="@+id/funny_icon"
+            android:layout_marginTop="40dp"
+            android:layout_width="64dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="40dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+
+        <com.pfiev.englishcontest.ui.wiget.WinsetPlayerDetailView
+            android:id="@+id/player1"
+            android:layout_width="190dp"
+            android:layout_height="49dp"
+            android:layout_marginBottom="20dp"/>
+
+        <com.pfiev.englishcontest.ui.wiget.WinsetPlayerDetailView
+            android:id="@+id/player2"
+            android:layout_width="190dp"
+            android:layout_height="49dp"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/time_count"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/button_night_back_ground"
+            android:fontFamily="@font/svn_supercell_magic"
+            android:text="10 s" />
+
+        <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
+            android:id="@+id/avatarUser2"
+            android:layout_width="51dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bg_profile_image"
+            app:layout_constraintTop_toBottomOf="@+id/text_User_Name"
+            app:shadowEnabled="true"
+            tools:layout_editor_absoluteX="186dp" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,6 +22,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -29,12 +31,18 @@ import com.pfiev.englishcontest.ExperimentalActivity;
 import com.pfiev.englishcontest.GlobalConstant;
 import com.pfiev.englishcontest.LoginActivity;
 import com.pfiev.englishcontest.MainActivity;
+import com.pfiev.englishcontest.PlayGameActivity;
 import com.pfiev.englishcontest.ProfileActivity;
 import com.pfiev.englishcontest.model.AnswerItem;
 import com.pfiev.englishcontest.model.UserItem;
 import com.pfiev.englishcontest.setup.GoogleSignInActivity;
 import com.pfiev.englishcontest.utils.ImageUtils;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class FireStoreClass {
     //private static FireStoreClass mFireStoreClass = null;
@@ -141,7 +149,7 @@ public class FireStoreClass {
                 });
     }
 
-    public static void updateDataOtherPlayer(String matchId, String userId) {
+    public static void updateDataOtherPlayer(Activity activity,String matchId, String userId) {
         FirebaseFirestore.getInstance().collection(GlobalConstant.MATCH_HISTORY).document(matchId)
                 .collection(GlobalConstant.CHOICES).document(userId)
                 .collection(GlobalConstant.LIST_CHOICE).whereEqualTo("is_right",true)
@@ -156,8 +164,91 @@ public class FireStoreClass {
                         for (DocumentChange dc : value.getDocumentChanges()) {
                             if (dc.getType() == DocumentChange.Type.ADDED) {
                                 Log.i(TAG, "New answer is right: " + dc.getDocument().getData());
+                                long timeCorrect = (Long) dc.getDocument().getData().get("time_answer");
+                                if (activity instanceof PlayGameActivity) {
+                                    Log.i(TAG, "updateDataOtherPlayer PlayGameActivity "+timeCorrect);
+                                    ((PlayGameActivity) activity).updateDataOtherPlayerInfo(timeCorrect);
+                                }
                             }
                         }
+                    }
+                });
+    }
+
+    public static void requestUserInfo(Activity activity, String useId) {
+        DocumentReference user = FirebaseFirestore.getInstance().collection(GlobalConstant.USERS)
+                .document(useId);
+        user.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.i(TAG, "registerUser Document exists!" + document.toString());
+                        UserItem userItem = document.toObject(UserItem.class);
+                        if (activity instanceof PlayGameActivity) {
+                            Log.i(TAG, "registerUser PlayGameActivity "+userItem.getUserPhotoUrl());
+                            ((PlayGameActivity) activity).getUserProfileSuccess(userItem);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    public static Task<String> findMatchRequest(String uid) {
+        // Create the arguments to the callable function.
+        JSONObject mainObject = new JSONObject();
+        JSONObject messageObject = new JSONObject();
+        try {
+            messageObject.put(GlobalConstant.UID, uid);
+            mainObject.put("message", messageObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.i(TAG, "findMatchRequest  "+uid+ mainObject.toString());
+
+        return FirebaseFunctions.getInstance()
+                .getHttpsCallable("findMatch")
+                .call(mainObject)
+                .continueWith(new Continuation<HttpsCallableResult, String>() {
+                    @Override
+                    public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                        // This continuation runs on either success or failure, but if the task
+                        // has failed then getResult() will throw an Exception which will be
+                        // propagated down.
+                        HashMap result = (HashMap) task.getResult().getData();
+                        return result.toString();
+                    }
+                });
+    }
+
+    public static Task<String> joinMatchRequest(String uid, String matchId) {
+        JSONObject mainObject = new JSONObject();
+        JSONObject messageObject = new JSONObject();
+        try {
+            messageObject.put(GlobalConstant.UID, uid);
+            messageObject.put(GlobalConstant.MATCH_ID, matchId);
+            messageObject.put(GlobalConstant.ACTION, "ACCEPT");
+            mainObject.put("message", messageObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.i(TAG, "joinMatchRequest  "+uid+ mainObject.toString());
+
+        return FirebaseFunctions.getInstance()
+                .getHttpsCallable("joinMatch")
+                .call(mainObject)
+                .continueWith(new Continuation<HttpsCallableResult, String>() {
+                    @Override
+                    public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                        // This continuation runs on either success or failure, but if the task
+                        // has failed then getResult() will throw an Exception which will be
+                        // propagated down.
+                        HashMap result = (HashMap) task.getResult().getData();
+                        return result.toString();
                     }
                 });
     }

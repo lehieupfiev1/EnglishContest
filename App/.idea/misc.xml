@@ -32,13 +32,20 @@
         <entry key="..\:/Code/English Quiz/App/app/src/main/res/layout/activity_login.xml" value="0.20416666666666666" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/drawable/bg_experimental_main_button.xml" value="0.1" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/drawable/button_night_back_ground.xml" value="0.1" />
+        <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/drawable/check_image_layout.xml" value="0.1" />
+        <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/drawable/correct_image_layout.xml" value="0.1" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/drawable/custom_progress_bg.xml" value="0.1" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/drawable/edittext_back_ground.xml" value="0.1" />
+        <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/drawable/gray_bg_button.xml" value="0.1" />
+        <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/drawable/red_bg_button.xml" value="0.1" />
+        <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/drawable/yellow_bg_button.xml" value="0.1" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/activity_experimental.xml" value="0.14110186286167262" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/activity_login.xml" value="0.22829964328180738" />
-        <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/activity_play_game.xml" value="0.13467293715262932" />
+        <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/activity_play_game.xml" value="0.15305686190679776" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/activity_profile.xml" value="0.12962962962962962" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/activity_profile_image_crop.xml" value="0.15128205128205127" />
+        <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/activity_result_game.xml" value="0.18426678067550234" />
+        <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/fight_layout_dialog.xml" value="0.25" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/fragment_chooser.xml" value="0.23622671422909236" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/fragment_dashboard.xml" value="0.11073108165882856" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/fragment_experimental_about.xml" value="0.11073108165882856" />
@@ -46,6 +53,12 @@
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/fragment_experimental_leaderboard.xml" value="0.11073108165882856" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/fragment_experimental_main.xml" value="0.15220179563916203" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/fragment_experimental_settings.xml" value="0.182129115006413" />
+        <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/lose_layout_dialog.xml" value="0.1778537836682343" />
+        <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/question_item_layout.xml" value="0.33" />
+        <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/result_answers_layout.xml" value="0.5" />
+        <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/templete.xml" value="0.2176143651132963" />
+        <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/win_layout_dialog.xml" value="0.21" />
+        <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/winset_player_detail_layout.xml" value="0.33" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/menu/menu_save_cancel.xml" value="0.15220179563916203" />
       </map>
     </option>

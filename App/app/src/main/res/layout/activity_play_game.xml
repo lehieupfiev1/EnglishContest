@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_background"
+    tools:context=".PlayGameActivity">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PlayGameActivity">
@@ -11,8 +17,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
-        android:background="@drawable/main_background">
+        tools:layout_editor_absoluteY="1dp">
         <RelativeLayout
             android:id="@+id/progress_bar_layout"
             android:layout_width="match_parent"
@@ -47,12 +52,12 @@
             android:id="@+id/question_layout"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:visibility="invisible"
             android:background="@drawable/edittext_back_ground"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginBottom="50dp">
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:id="@+id/questionTv"
@@ -84,11 +89,11 @@
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:layout_marginStart="50dp"
-            android:visibility="gone"
+            android:visibility="invisible"
             android:layout_marginEnd="50dp"
             android:orientation="vertical">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/chooser_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,7 +103,7 @@
                 android:text="A"
                 app:cornerRadius="@dimen/button_corner_radius" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/chooser_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -107,7 +112,7 @@
                 android:text="B"
                 app:cornerRadius="@dimen/button_corner_radius" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/chooser_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,7 +121,7 @@
                 android:text="C"
                 app:cornerRadius="@dimen/button_corner_radius" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/chooser_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -126,65 +131,52 @@
                 app:cornerRadius="@dimen/button_corner_radius" />
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/layout_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="invisible"
-            android:orientation="horizontal">
+            android:visibility="invisible">
 
-            <LinearLayout
-                android:id="@+id/list_user_layout"
-                android:layout_width="92dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
-                    android:id="@+id/avatarUser1"
-                    android:layout_width="49dp"
-                    android:layout_height="49dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center_vertical"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bg_profile_image"
-                    app:layout_constraintTop_toBottomOf="@+id/text_User_Name"
-                    app:shadowEnabled="true"
-                    tools:layout_editor_absoluteX="186dp" />
-
-                <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
-                    android:id="@+id/avatarUser2"
-                    android:layout_width="51dp"
-                    android:layout_height="56dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center_vertical"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bg_profile_image"
-                    app:layout_constraintTop_toBottomOf="@+id/text_User_Name"
-                    app:shadowEnabled="true"
-                    tools:layout_editor_absoluteX="186dp" />
-            </LinearLayout>
-
-            <ImageButton
+            <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/funny_icon"
-                android:layout_marginTop="40dp"
-                android:layout_width="64dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="10dp"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:layout_width="@dimen/play_sticker_icon_width"
+                android:layout_height="@dimen/play_sticker_icon_width"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:visibility="visible"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/sticker_icon" />
+
+            <com.pfiev.englishcontest.ui.wiget.WinsetPlayerDetailView
+                android:id="@+id/player1"
+                android:layout_width="@dimen/play_detail_result_width"
+                android:layout_height="@dimen/play_avatar_user_size"
+                android:layout_below="@+id/funny_icon"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="20dp" />
+
+            <com.pfiev.englishcontest.ui.wiget.WinsetPlayerDetailView
+                android:id="@+id/player2"
+                android:layout_width="@dimen/play_detail_result_width"
+                android:layout_height="@dimen/play_avatar_user_size"
+                android:layout_below="@+id/player1"
+                android:layout_marginStart="20dp" />
 
             <Button
                 android:id="@+id/time_count"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="100dp"
+                android:layout_width="@dimen/play_count_time_width"
+                android:layout_height="@dimen/play_count_time_width"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="40dp"
+                android:layout_marginEnd="30dp"
                 android:background="@drawable/button_night_back_ground"
                 android:fontFamily="@font/svn_supercell_magic"
                 android:text="10 s" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

@@ -40,7 +40,7 @@
     <dimen name="actionbar_activity_count_margin_end">9dp</dimen>
     <dimen name="actionbar_icon_size">24dp</dimen>
     <dimen name="actionbar_button_margin_end">14dp</dimen>
-    <dimen name="button_corner_radius">10dp</dimen>
+    <dimen name="button_corner_radius">15dp</dimen>
     <dimen name="button_margin_top">5dp</dimen>
 
     <!--    Experimental -->
@@ -70,6 +70,12 @@
 
     <!--    Profile -->
     <dimen name="profile_margin_layout">40dp</dimen>
+
+    <!--    Play game -->
+    <dimen name="play_avatar_user_size">49dp</dimen>
+    <dimen name="play_detail_result_width">220dp</dimen>
+    <dimen name="play_sticker_icon_width">60dp</dimen>
+    <dimen name="play_count_time_width">80dp</dimen>
 
 
 </resources>
