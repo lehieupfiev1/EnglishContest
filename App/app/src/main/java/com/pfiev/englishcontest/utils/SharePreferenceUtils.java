@@ -9,7 +9,7 @@ import com.pfiev.englishcontest.model.UserItem;
 
 public class SharePreferenceUtils {
     private static final String TAG = SharePreferenceUtils.class.getSimpleName();
-    private static final String MY_SHARE_FREF = "MySharedPref";
+    private static final String MY_SHARE_FREF = "com.pfiev.english.preferences";
 
     public static void updateUserData(Context mContext, UserItem userItem) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARE_FREF, Context.MODE_PRIVATE);
@@ -47,6 +47,11 @@ public class SharePreferenceUtils {
         return sharedPreferences.getInt(key, 0);
     }
 
+    public static int getInt(Context mContext, String key, int defaulValue) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARE_FREF, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(key, defaulValue);
+    }
+
     public static void putString(Context mContext,String key, String value) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARE_FREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor myEdit = sharedPreferences.edit();
@@ -58,6 +63,28 @@ public class SharePreferenceUtils {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARE_FREF, Context.MODE_PRIVATE);
         String value = sharedPreferences.getString(key, "");
         return value;
+    }
+
+    public static String getString(Context mContext, String key, String defaulValue) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARE_FREF, Context.MODE_PRIVATE);
+        String value = sharedPreferences.getString(key, defaulValue);
+        return value;
+    }
+    public static void putBoolean(Context mContext,String key, boolean value) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARE_FREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+        myEdit.putBoolean(key, value);
+        myEdit.apply();
+    }
+
+    public static boolean getBoolean(Context mContext, String key) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARE_FREF, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(key, false);
+    }
+
+    public static boolean getBoolean(Context mContext, String key, boolean defaulValue) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARE_FREF, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(key, defaulValue);
     }
 
 

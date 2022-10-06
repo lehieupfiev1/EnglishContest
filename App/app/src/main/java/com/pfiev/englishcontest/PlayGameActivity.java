@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -73,13 +74,18 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
     public long mOtherCorrectTimeCount;
     private Dialog mResultDialog;
     private int mMaxTimeCount;
+    private boolean isSoundOn;
+    private boolean isSoundEffectOn;
+    static MediaPlayer rightSoundEffect;
+    static MediaPlayer failSoundEffect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = ActivityPlayGameBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
-
+        rightSoundEffect = MediaPlayer.create(this, R.raw.right_answer_sound_effect);
+        failSoundEffect = MediaPlayer.create(this, R.raw.fail_answer_sound_effect);
         lottie_count_down = (LottieAnimationView) findViewById(R.id.count_down_display);
 
         mContext = this;
@@ -296,6 +302,13 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
         //loadAvatarUser();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        failSoundEffect.release();
+        rightSoundEffect.release();
+    }
+
     public void runData(int index) {
 
         if (index >= mListQuestion.size()) {
@@ -416,8 +429,10 @@ public class PlayGameActivity extends AppCompatActivity implements View.OnClickL
             answerItem.setIs_right(true);
             mMyCorrectCount++;
             mMyCorrectTimeCount += mTimeChoose;
+            rightSoundEffect.start();
         } else {
             answerItem.setIs_right(false);
+            failSoundEffect.start();
         }
         FireStoreClass.pushAnswer(this, mMatchId, UserId, answerItem, Integer.toString(index));
 

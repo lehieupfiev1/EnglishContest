@@ -28,6 +28,7 @@
     <!--    Experimental Settings   -->
     <string name="experimental_settings_title_language">Language</string>
     <string name="experimental_settings_title_sound">Sound</string>
+    <string name="experimental_settings_title_sound_effect">Sound effect</string>
     <string name="experimental_settings_lazy_programmer">The Lazy Programmers</string>
     <string name="experimental_about_content">Một trò chơi nho nhỏ được lập trình vào thời gian rảnh. Mong các bạn đã có thời gian thú vị khi sử dụng.\n Đừng quên thi thoảng click quảng cáo cho 2 thanh niên lập trình viên có chút tiền cafe ạ.\nYêu các bạn nhiều !!!\n\n(*) Hình ảnh sử dụng được download\n từ trang freepik và icon8</string>
     <!--    Shared preferences key  -->
@@ -44,6 +45,7 @@
     <string name="preferences_sound_status" translatable="false">sound_status</string>
     <string name="preferences_sound_status_on" translatable="false">sound_status_on</string>
     <string name="preferences_sound_status_off" translatable="false">sound_status_off</string>
+    <string name="preferences_bg_music_status" translatable="false">sound_status</string>
     <!-- TODO: Remove or change this placeholder text -->
 
     <!--    Profile-->

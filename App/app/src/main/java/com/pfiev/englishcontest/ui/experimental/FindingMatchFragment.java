@@ -73,6 +73,7 @@ public class FindingMatchFragment extends Fragment {
     public String mMatchId = " ";
     public boolean mIsOwner;
     private Dialog mAcceptDialog;
+    private boolean mIsAccepted = false;
     ListenerRegistration listenerRegistration;
 
 
@@ -99,6 +100,7 @@ public class FindingMatchFragment extends Fragment {
             }
         });
         mAcceptDialog = new Dialog(getContext());
+        mIsAccepted = false;
 
         return mBinding.getRoot();
     }
@@ -149,7 +151,7 @@ public class FindingMatchFragment extends Fragment {
                         Log.i(TAG, "listenerStateMatchHistoryDoc "+state+ " -"+ value);
                         if (state == null) {
                             Toast.makeText(getActivity()," Match is removed ", Toast.LENGTH_SHORT).show();
-                            waitingEnableFind();
+                            waitingEnableFind(mIsAccepted);
                             return;
                         }
                         switch (state) {
@@ -158,13 +160,9 @@ public class FindingMatchFragment extends Fragment {
                                 break;
                             case GlobalConstant.WAITING_ACCEPT_STATE:
                                 isFirstChangePlay = false;
-                                mBinding.statusFinding.setText("Found player........");
-                                if (!isOwner) showAgreeDialog(getContext(), matchId);
-                                break;
-                            case GlobalConstant.DUEL_ONE_JOIN_STATE:
-                                isFirstChangePlay = false;
+                                mIsAccepted = false;
                                 mBinding.statusFinding.setText("Wait player accept........");
-                                if (isOwner) showAgreeDialog(getContext(), matchId);
+                                showAgreeDialog(getContext(), matchId);
                                 break;
                             case GlobalConstant.PLAYING_STATE:
                                 if (isFirstChangePlay) {
@@ -241,6 +239,7 @@ public class FindingMatchFragment extends Fragment {
         accept_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mIsAccepted = true;
                 sendRequestAcceptJoinMatch(match_id);
                 Log.i(TAG, " showAgreeDialog : accept fight");
                 mAcceptDialog.dismiss();
@@ -290,7 +289,12 @@ public class FindingMatchFragment extends Fragment {
         }.start();
     }
 
-    private void waitingEnableFind() {
+    private void waitingEnableFind(boolean isAccepted) {
+        if (isAccepted) {
+            mBinding.findingBtn.setEnabled(true);
+            mBinding.statusFinding.setText("Finding.");
+            return;
+        }
         new CountDownTimer(15000, 1000) {
 
             @Override

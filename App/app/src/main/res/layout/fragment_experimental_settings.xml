@@ -78,6 +78,51 @@
             </LinearLayout>
 
         </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/experimental_settings_sound_effect"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:contentDescription="Settings Language Icon"
+                android:src="@drawable/ic_experimental_settings_sound">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/experimental_settings_sound_effect"
+                android:fontFamily="@font/svn_supercell_magic"
+                android:text="@string/experimental_settings_title_sound_effect"
+                android:textSize="18sp"
+                tools:ignore="RelativeOverlap">
+
+            </TextView>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/experimental_settings_sound_effect_checkbox"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentEnd="true"
+                app:lottie_rawRes="@raw/experimental_settings_checkbox_lottie">
+
+            </com.airbnb.lottie.LottieAnimationView>
+
+            <!--            <ImageView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_alignParentEnd="true"-->
+            <!--                android:src="@drawable/ic_tank_icon"></ImageView>-->
+        </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -121,5 +166,6 @@
 <!--                android:layout_alignParentEnd="true"-->
 <!--                android:src="@drawable/ic_tank_icon"></ImageView>-->
         </RelativeLayout>
+
     </LinearLayout>
 </FrameLayout>

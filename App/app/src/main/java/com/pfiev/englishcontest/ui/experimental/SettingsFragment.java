@@ -1,6 +1,8 @@
 package com.pfiev.englishcontest.ui.experimental;
 
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,8 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.pfiev.englishcontest.ExperimentalActivity;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.databinding.FragmentExperimentalSettingsBinding;
+import com.pfiev.englishcontest.service.SoundBackgroundService;
 import com.pfiev.englishcontest.utils.AppConfig;
 
 import java.util.Arrays;
@@ -39,6 +43,7 @@ public class SettingsFragment extends Fragment {
     private FragmentExperimentalSettingsBinding binding;
     private AppConfig appConfig;
     private Boolean isSoundOn = false;
+    private Boolean isSoundEffectOn = false;
 
     public SettingsFragment() {
 // Required empty public constructor
@@ -82,6 +87,7 @@ public class SettingsFragment extends Fragment {
         this.bindingBackButton();
         this.createLanguageSpinner();
         this.bindingSoundCheckBox();
+        this.bindingSoundEffectCheckBox();
         return binding.getRoot();
     }
 
@@ -148,10 +154,36 @@ public class SettingsFragment extends Fragment {
                 if (isSoundOn) {
                     isSoundOn = false;
                     appConfig.setSoundOn(false);
+                    getActivity().stopService(new Intent(getActivity().getApplicationContext(), SoundBackgroundService.class));
                     checkboxAnimation.off();
                 } else {
                     isSoundOn = true;
                     appConfig.setSoundOn(true);
+                    checkboxAnimation.on();
+                    getActivity().startService(new Intent(getActivity().getApplicationContext(), SoundBackgroundService.class));
+                }
+            }
+        });
+    }
+
+    private void bindingSoundEffectCheckBox() {
+        LottieAnimationView lottie = binding.experimentalSettingsSoundEffectCheckbox;
+        CheckboxAnimation checkboxAnimation = new CheckboxAnimation();
+        checkboxAnimation.setLottie(lottie);
+        if (appConfig.isBackgroundMusicEffectOn()) {
+            checkboxAnimation.on();
+            this.isSoundEffectOn = true;
+        }
+        lottie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isSoundEffectOn) {
+                    isSoundEffectOn = false;
+                    appConfig.setBackgroundMusicEffectOn(false);
+                    checkboxAnimation.off();
+                } else {
+                    isSoundEffectOn = true;
+                    appConfig.setBackgroundMusicEffectOn(true);
                     checkboxAnimation.on();
                 }
             }

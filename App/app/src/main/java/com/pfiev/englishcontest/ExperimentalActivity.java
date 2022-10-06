@@ -20,9 +20,11 @@ import android.view.WindowInsets;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.pfiev.englishcontest.databinding.ActivityExperimentalBinding;
+import com.pfiev.englishcontest.service.SoundBackgroundService;
 import com.pfiev.englishcontest.ui.experimental.MainFragment;
 import com.pfiev.englishcontest.utils.AppConfig;
 import com.pfiev.englishcontest.utils.LangUtils;
+import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.

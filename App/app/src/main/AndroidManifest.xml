@@ -103,6 +103,7 @@
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
             android:value="@string/facebook_client_token" />
+        <service android:name=".service.SoundBackgroundService"  android:enabled="true"></service>
     </application>
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
