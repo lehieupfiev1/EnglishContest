@@ -32,6 +32,7 @@ public class RoundedAvatarImageView extends ImageView {
     private final boolean mShadowEnabled;
 
     private String mUrl;
+    private String sourceUrl;
 
     public static class RoundedAvatarDrawable extends Drawable {
 
@@ -191,7 +192,7 @@ public class RoundedAvatarImageView extends ImageView {
             Glide.with(context).clear(this);
             return;
         }
-
+        sourceUrl = url;
         ViewGroup.LayoutParams param = getLayoutParams();
         int width = param != null && param.width > 0 ? param.width : getMeasuredWidth();
         int height = param != null && param.height > 0 ? param.height : getMeasuredHeight();
@@ -223,5 +224,9 @@ public class RoundedAvatarImageView extends ImageView {
                     .listener(listener)
                     .into(this);
         }
+    }
+
+    public String getSourceUrl() {
+        return sourceUrl;
     }
 }

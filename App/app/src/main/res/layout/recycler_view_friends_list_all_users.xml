@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
+        android:id="@+id/recycler_view_friends_user_avatar"
+        android:layout_width="@dimen/recycler_view_friends_user_avatar_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bg_profile_image"
+        app:shadowEnabled="true" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/recycler_view_friends_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:textSize="@dimen/recycler_view_friends_user_name_text_size"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/recycler_view_friends_user_text_more"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Text_more"
+            android:textSize="@dimen/recycler_view_friends_user_text_more_text_size"
+            android:textStyle="italic"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/recycler_view_friends_view_detail"
+        android:layout_width="@dimen/recycler_view_friends_user_action_width"
+        android:layout_height="@dimen/recycler_view_friends_user_action_width"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_add_friends" />
+</LinearLayout>

@@ -43,8 +43,7 @@ public class LeaderboardFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static LeaderboardFragment newInstance() {
-        LeaderboardFragment fragment = new LeaderboardFragment();
-        return fragment;
+        return new LeaderboardFragment();
     }
 
     @Override

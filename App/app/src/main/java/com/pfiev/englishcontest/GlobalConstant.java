@@ -40,9 +40,7 @@ public class GlobalConstant {
     public static final String ANSWER = "answer";
     public static final String CONTENT = "content";
     public static final String CONTENT_ID = "id";
-
-
-
+    
     public static final String KEY_CROPPED_OUTPUT_PATH = "cropped_output_path";
     public static final String IMAGE_PATH = "image_path";
     public static final String CROP_RATIO_WIDTH = "CROP_RATIO_WIDTH";

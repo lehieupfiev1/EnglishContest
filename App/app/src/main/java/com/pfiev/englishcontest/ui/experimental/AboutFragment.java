@@ -3,19 +3,17 @@ package com.pfiev.englishcontest.ui.experimental;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.pfiev.englishcontest.R;
+import com.pfiev.englishcontest.adapter.FriendListAdapter;
 import com.pfiev.englishcontest.databinding.FragmentExperimentalAboutBinding;
-import com.pfiev.englishcontest.databinding.FragmentExperimentalSettingsBinding;
-import com.pfiev.englishcontest.utils.AppConfig;
-import com.pfiev.englishcontest.utils.LangUtils;
+import com.pfiev.englishcontest.model.FriendItem;
+import com.pfiev.englishcontest.realtimedb.FriendList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,6 +71,9 @@ public class AboutFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentExperimentalAboutBinding.inflate(inflater, container, false);
         this.bindingBackButton();
+        FriendListAdapter adapter = new FriendListAdapter(getContext());
+        FriendList friendList = FriendList.getInstance();
+        friendList.updateStatusToFriends(FriendItem.STATUS.PLAYING);
         return binding.getRoot();
     }
 

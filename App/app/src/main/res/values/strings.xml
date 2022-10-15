@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">EnglishContest</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_settings">Settings</string>
-    <string name="title_about">ABOUT</string>
+    <string name="title_home" translatable="false">Home</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="title_notifications" translatable="false">Notifications</string>
+    <string name="title_settings" translatable="false">Settings</string>
+    <string name="title_about" translatable="false">ABOUT</string>
 
     <string name="facebook_app_id" translatable="false">1094335348131015</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb1094335348131015</string>
@@ -20,16 +20,17 @@
     <string name="title_activity_experimental" translatable="false">ExperimentalActivity</string>
 
     <!--    Experimental -->
-    <string name="experimental_new_game">New Game</string>
-    <string name="experimental_leaderboard">Leaderboard</string>
-    <string name="experimental_settings">Settings</string>
-    <string name="experimental_about">About</string>
+    <string name="experimental_new_game" translatable="false">New Game</string>
+    <string name="experimental_friends_list" translatable="false">Friends List</string>
+    <string name="experimental_leaderboard" translatable="false">Leaderboard</string>
+    <string name="experimental_settings" translatable="false">Settings</string>
+    <string name="experimental_about" translatable="false">About</string>
 
     <!--    Experimental Settings   -->
     <string name="experimental_settings_title_language">Language</string>
-    <string name="experimental_settings_title_sound">Sound</string>
-    <string name="experimental_settings_title_sound_effect">Sound effect</string>
-    <string name="experimental_settings_lazy_programmer">The Lazy Programmers</string>
+    <string name="experimental_settings_title_background_music" translatable="false">Background Music</string>
+    <string name="experimental_settings_title_sound_effect" translatable="false">Sound Effects</string>
+    <string name="experimental_settings_lazy_programmer" translatable="false">The Lazy Programmers</string>
     <string name="experimental_about_content">Một trò chơi nho nhỏ được lập trình vào thời gian rảnh. Mong các bạn đã có thời gian thú vị khi sử dụng.\n Đừng quên thi thoảng click quảng cáo cho 2 thanh niên lập trình viên có chút tiền cafe ạ.\nYêu các bạn nhiều !!!\n\n(*) Hình ảnh sử dụng được download\n từ trang freepik và icon8</string>
     <!--    Shared preferences key  -->
     <string name="shared_preferences_key" translatable="false">com.pfiev.english.preferences</string>
@@ -45,7 +46,10 @@
     <string name="preferences_sound_status" translatable="false">sound_status</string>
     <string name="preferences_sound_status_on" translatable="false">sound_status_on</string>
     <string name="preferences_sound_status_off" translatable="false">sound_status_off</string>
-    <string name="preferences_bg_music_status" translatable="false">sound_status</string>
+    <!--    Background Music status-->
+    <string name="preferences_bg_music_status" translatable="false">bg_music_status</string>
+    <string name="preferences_bg_music_status_on" translatable="false">bg_music_status_on</string>
+    <string name="preferences_bg_music_status_off" translatable="false">bg_music_status_off</string>
     <!-- TODO: Remove or change this placeholder text -->
 
     <!--    Profile-->
@@ -67,4 +71,29 @@
     <!--Dialog -->
     <string name="dialog_cancel">Cancel</string>
     <string name="save">Save</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+
+    <!--    Friend List -->
+    <string name="friend_list_friend">FRIEND</string>
+    <string name="friend_list_waiting">WAITING</string>
+    <string name="friend_list_block">BLOCK</string>
+    <string name="friend_list_search">SEARCH</string>
+    <string name="friend_list_no_user_found" translatable="false">Don\'t have any user with name</string>
+    <string name="friend_list_not_enough_character" translatable="false">At least 4 character</string>
+    <string name="friend_list_wait_delete" translatable="false">Please waiting delete complete before continue</string>
+    <string name="friend_list_invitation_confirm_mess" translatable="false">Make friends with </string>
+    <string name="friend_list_invitation_confirm_accept" translatable="false">Yes, I agree </string>
+    <string name="friend_list_invitation_confirm_reject" translatable="false">No </string>
+    <string name="friend_list_unfriend_confirm_mess" translatable="false">Unfriend with </string>
+    <string name="friend_list_unfriend_confirm_accept" translatable="false">Yes</string>
+    <string name="friend_list_unfriend_confirm_reject" translatable="false">No </string>
+
+    <!--    Dialog request combat-->
+    <string name="dialog_request_combat_message" translatable="false">Want to invite you join a battle </string>
+    <string name="dialog_request_combat_btn_accept" translatable="false">Fighting </string>
+    <string name="dialog_request_combat_btn_reject" translatable="false">No </string>
+
+    <!--    Experimental request combat  -->
+    <string name="experimental_request_combat_loading_txt" translatable="false">Wait for the opponent to accept. Be patient soldier</string>
 </resources>

@@ -32,52 +32,6 @@
             android:fontFamily="@font/svn_supercell_magic"
             >
         </TextView>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="50dp"
-            android:padding="20dp">
-
-            <ImageView
-                android:id="@+id/experimental_settings_language_icon"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:contentDescription="Settings Language Icon"
-                android:src="@drawable/ic_experimental_language">
-
-            </ImageView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/experimental_settings_language_icon"
-                android:fontFamily="@font/svn_supercell_magic"
-                android:text="@string/experimental_settings_title_language"
-                android:textSize="18sp"
-                tools:ignore="RelativeOverlap">
-
-            </TextView>
-
-            <LinearLayout
-                android:layout_width="@dimen/experimental_settings_lang_spinner_w"
-                android:layout_height="@dimen/experimental_settings_lang_spinner_h"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true">
-
-                <Spinner
-                    android:id="@+id/experimental_settings_language_spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_dropdown_bg"
-                    android:paddingLeft="10dp">
-
-                </Spinner>
-            </LinearLayout>
-
-        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -85,21 +39,20 @@
             android:orientation="horizontal"
             android:padding="20dp">
 
-            <ImageView
-                android:id="@+id/experimental_settings_sound_effect"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:contentDescription="Settings Language Icon"
-                android:src="@drawable/ic_experimental_settings_sound">
+<!--            <ImageView-->
+<!--                android:id="@+id/experimental_settings_sound_effect"-->
+<!--                android:layout_width="80dp"-->
+<!--                android:layout_height="80dp"-->
+<!--                android:contentDescription="Settings Language Icon"-->
+<!--                android:src="@drawable/ic_experimental_settings_sound">-->
 
-            </ImageView>
+<!--            </ImageView>-->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/experimental_settings_sound_effect"
                 android:fontFamily="@font/svn_supercell_magic"
                 android:text="@string/experimental_settings_title_sound_effect"
                 android:textSize="18sp"
@@ -129,23 +82,22 @@
             android:orientation="horizontal"
             android:padding="20dp">
 
-            <ImageView
-                android:id="@+id/experimental_settings_sound_icon"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:contentDescription="Settings Language Icon"
-                android:src="@drawable/ic_experimental_settings_sound">
+<!--            <ImageView-->
+<!--                android:id="@+id/experimental_settings_sound_icon"-->
+<!--                android:layout_width="80dp"-->
+<!--                android:layout_height="80dp"-->
+<!--                android:contentDescription="Settings Language Icon"-->
+<!--                android:src="@drawable/ic_experimental_settings_sound">-->
 
-            </ImageView>
+<!--            </ImageView>-->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/experimental_settings_sound_icon"
                 android:fontFamily="@font/svn_supercell_magic"
-                android:text="@string/experimental_settings_title_sound"
+                android:text="@string/experimental_settings_title_background_music"
                 android:textSize="18sp"
                 tools:ignore="RelativeOverlap">
 
@@ -160,11 +112,6 @@
 
             </com.airbnb.lottie.LottieAnimationView>
 
-<!--            <ImageView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentEnd="true"-->
-<!--                android:src="@drawable/ic_tank_icon"></ImageView>-->
         </RelativeLayout>
 
     </LinearLayout>

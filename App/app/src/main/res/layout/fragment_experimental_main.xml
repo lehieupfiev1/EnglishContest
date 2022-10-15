@@ -127,12 +127,43 @@
                             android:textAlignment="center"
                             android:textColor="@color/experimental_btn_text_color" />
                     </LinearLayout>
+                    <!-- Friends List -->
+                    <LinearLayout
+                        android:id="@+id/experimental_friends_list_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/experimental_new_game_btn"
+                        android:layout_marginTop="@dimen/experimental_btn_margin_top"
+                        android:background="@drawable/bg_experimental_main_button"
+                        android:elevation="@dimen/experimental_btn_elevation"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/experimental_btn_height"
+                        android:paddingStart="@dimen/experimental_btn_padding_start"
+                        android:paddingTop="@dimen/experimental_btn_padding_top_bottom"
+                        android:paddingEnd="@dimen/experimental_btn_padding_end"
+                        android:paddingBottom="@dimen/experimental_btn_padding_top_bottom">
+
+                        <ImageView
+                            android:layout_width="@dimen/dialog_experimental_icon_size"
+                            android:layout_height="@dimen/dialog_experimental_icon_size"
+                            android:src="@drawable/ic_tank_icon" />
+
+                        <TextView
+                            android:id="@+id/experimental_friends_list_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/experimental_btn_text_margin_start"
+                            android:fontFamily="@font/svn_supercell_magic"
+                            android:text="@string/experimental_friends_list"
+                            android:textAlignment="center"
+                            android:textColor="@color/experimental_btn_text_color" />
+                    </LinearLayout>
                     <!-- LeaderboardFragment -->
                     <LinearLayout
                         android:id="@+id/experimental_leaderboard_btn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/experimental_new_game_btn"
+                        android:layout_below="@id/experimental_friends_list_btn"
                         android:layout_marginTop="@dimen/experimental_btn_margin_top"
                         android:background="@drawable/bg_experimental_main_button"
                         android:elevation="@dimen/experimental_btn_elevation"

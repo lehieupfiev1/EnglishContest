@@ -48,4 +48,19 @@
     <color name="leaderboard_item_main_third_bg">#CD7F32</color>
     <color name="leaderboard_item_score_bg">#EE883A</color>
 
+    <!--    FriendList color   -->
+    <color name="friends_list_radio_button_default">#888888</color>
+    <color name="friends_list_radio_button_active">#FF4AC695</color>
+    <color name="friends_list_radio_button_border">#888888</color>
+    <color name="friends_list_radio_button_text_default">#FFFFFF</color>
+
+    <!--    Dialog request combat-->
+    <color name="dialog_request_combat_bg">#FFFFFF</color>
+    <color name="dialog_request_combat_user_name">#EE883A</color>
+    <color name="dialog_request_combat_btn_text">#FFFFFF</color>
+    <color name="dialog_request_combat">#FFFFFF</color>
+
+    <!--    Experimental request combat  -->
+    <color name="experimental_request_combat_loading_txt">#FFFFFF</color>
+
 </resources>

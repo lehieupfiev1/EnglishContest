@@ -29,14 +29,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.pfiev.englishcontest.ExperimentalActivity;
 import com.pfiev.englishcontest.GlobalConstant;
-import com.pfiev.englishcontest.LoginActivity;
-import com.pfiev.englishcontest.MainActivity;
 import com.pfiev.englishcontest.PlayGameActivity;
 import com.pfiev.englishcontest.ProfileActivity;
 import com.pfiev.englishcontest.model.AnswerItem;
 import com.pfiev.englishcontest.model.UserItem;
-import com.pfiev.englishcontest.setup.GoogleSignInActivity;
-import com.pfiev.englishcontest.utils.ImageUtils;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
 import org.json.JSONException;
@@ -281,6 +277,34 @@ public class FireStoreClass {
                 }
             }
         });
+    }
+
+    public static Task<String> requestCombat(String uid) {
+        // Create the arguments to the callable function.
+        JSONObject mainObject = new JSONObject();
+        JSONObject messageObject = new JSONObject();
+        try {
+            messageObject.put("competitorId", uid);
+            mainObject.put("message", messageObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.i(TAG, "challengeUser  "+uid+ mainObject.toString());
+
+        return FirebaseFunctions.getInstance()
+                .getHttpsCallable("challengeUser")
+                .call(mainObject)
+                .continueWith(new Continuation<HttpsCallableResult, String>() {
+                    @Override
+                    public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                        // This continuation runs on either success or failure, but if the task
+                        // has failed then getResult() will throw an Exception which will be
+                        // propagated down.
+                        HashMap result = (HashMap) task.getResult().getData();
+                        return result.toString();
+                    }
+                });
     }
 
 }

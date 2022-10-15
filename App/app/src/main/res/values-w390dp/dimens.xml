@@ -57,6 +57,8 @@
     <dimen name="experimental_btn_elevation">5dp</dimen>
     <dimen name="experimental_settings_lang_spinner_w">140dp</dimen>
     <dimen name="experimental_settings_lang_spinner_h">40dp</dimen>
+    <dimen name="experimental_settings_rel_layout_h">80dp</dimen>
     <dimen name="experimental_settings_lang_spinner_font_size">11sp</dimen>
+    <dimen name="experimental_settings_font_size">13sp</dimen>
 
 </resources>

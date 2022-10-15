@@ -2,29 +2,21 @@ package com.pfiev.englishcontest;
 
 import android.annotation.SuppressLint;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowInsets;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.pfiev.englishcontest.databinding.ActivityExperimentalBinding;
-import com.pfiev.englishcontest.service.SoundBackgroundService;
+import com.pfiev.englishcontest.ui.experimental.FindingMatchFragment;
 import com.pfiev.englishcontest.ui.experimental.MainFragment;
-import com.pfiev.englishcontest.utils.AppConfig;
-import com.pfiev.englishcontest.utils.LangUtils;
-import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -33,6 +25,10 @@ import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 public class ExperimentalActivity extends AppCompatActivity {
 
     private final String TAG = "ExperimentalActivity";
+    public static final String START_FRAGMENT_KEY = "start_fragment";
+    public static interface FRAGMENT {
+        public static final String FINDING_MATCH = "findingMatch";
+    }
 
     /**
      * Whether or not the system UI should be auto-hidden after
@@ -107,14 +103,33 @@ public class ExperimentalActivity extends AppCompatActivity {
     private ActivityExperimentalBinding binding;
     private LottieAnimationView lottie;
 
+    // Listen service
+//    ListenCombatRequestService mService;
+//    boolean mBound = false;
+//    NotificationReceiver notificationReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityExperimentalBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Bundle bundle = getIntent().getExtras();
 
-        if (savedInstanceState == null) {
+        if (bundle != null) {
+            String startFragment = bundle.getString(START_FRAGMENT_KEY);
+            if (startFragment != null && startFragment.equals(FRAGMENT.FINDING_MATCH)) {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.experimental_fullscreen_content,
+                                FindingMatchFragment.class,
+                                bundle
+                                )
+                        .commitNow();
+
+            }
+        }
+
+        if (savedInstanceState == null && bundle == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.experimental_fullscreen_content, MainFragment.newInstance())
                     .commitNow();
@@ -132,6 +147,28 @@ public class ExperimentalActivity extends AppCompatActivity {
         // created, to briefly hint to the user that UI controls
         // are available.
         delayedHide(100);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // bind listener service
+//        Intent intent = new Intent(this, ListenCombatRequestService.class);
+//        intent.putExtra(GlobalConstant.USER_ID,
+//                SharePreferenceUtils.getString(getApplicationContext(), GlobalConstant.USER_ID)
+//        );
+//        bindService(intent, connection, Context.BIND_AUTO_CREATE);
+//        // This registers messageReceiver to receive messages.
+//        registerReceiver(notificationReceiver,
+//                        new IntentFilter(ListenCombatRequestService.Broadcast.MESSAGE_NAME));
+    }
+
+    @Override
+    protected void onPause() {
+//        unbindService(connection);
+//        // Unregister since the activity is not visible
+//        unregisterReceiver(notificationReceiver);
+        super.onPause();
     }
 
     private void hide() {
@@ -156,18 +193,22 @@ public class ExperimentalActivity extends AppCompatActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
-    @Override
-    protected void attachBaseContext(Context base) {
-        LangUtils langUtils = new LangUtils();
-        super.attachBaseContext(langUtils.onAttach(base, AppConfig.locale));
-    }
-
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        LangUtils langUtils = new LangUtils();
-        langUtils.onAttach(getBaseContext(), AppConfig.locale);
-        super.onConfigurationChanged(newConfig);
-
-    }
-
+    /**
+     * Service connection of listen request service
+     */
+//    private ServiceConnection connection = new ServiceConnection() {
+//
+//        @Override
+//        public void onServiceConnected(ComponentName componentName, IBinder service) {
+//            ListenCombatRequestService.ListenLocalBinder binder =
+//                    (ListenCombatRequestService.ListenLocalBinder) service;
+//            mService = binder.getService();
+//            mBound = true;
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName componentName) {
+//            mBound = false;
+//        }
+//    };
 }

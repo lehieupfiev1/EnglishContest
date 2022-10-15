@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid
+        android:color="@color/friends_list_radio_button_active"
+        ></solid>
+    <corners
+        android:bottomLeftRadius="@dimen/friend_list_radio_btn_corner_radius"
+        android:topLeftRadius="@dimen/friend_list_radio_btn_corner_radius"
+        >
+
+    </corners>
+</shape>

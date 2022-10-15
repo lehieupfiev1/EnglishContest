@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,16 +19,14 @@ import androidx.fragment.app.Fragment;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
 import com.google.firebase.auth.FirebaseAuth;
-import com.pfiev.englishcontest.ExperimentalActivity;
-import com.pfiev.englishcontest.LoginActivity;
-import com.pfiev.englishcontest.PlayGameActivity;
 import com.pfiev.englishcontest.ProfileActivity;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.databinding.FragmentExperimentalMainBinding;
+import com.pfiev.englishcontest.model.FriendItem;
 import com.pfiev.englishcontest.model.UserItem;
+import com.pfiev.englishcontest.realtimedb.FriendList;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
-import java.util.concurrent.TimeUnit;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -54,12 +51,29 @@ public class MainFragment extends Fragment {
         binding = FragmentExperimentalMainBinding.inflate(inflater, container, false);
         Log.i(TAG, binding.getClass().getClasses().toString());
 
+        // Change to Friends List Screen using fragment
+        binding.experimentalFriendsListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getParentFragmentManager().beginTransaction()
+                        .replace(
+                                R.id.experimental_fullscreen_content,
+                                FriendListFragment.newInstance(),
+                                null
+                        )
+                        .commitAllowingStateLoss();
+            }
+        });
+
         // Change to Leaderboard Screen using fragment
         binding.experimentalLeaderboardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getParentFragmentManager().beginTransaction()
-                        .replace(R.id.experimental_fullscreen_content, LeaderboardFragment.newInstance())
+                        .replace(
+                                R.id.experimental_fullscreen_content,
+                                LeaderboardFragment.newInstance()
+                        )
                         .commitNow();
             }
         });
@@ -69,7 +83,10 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getParentFragmentManager().beginTransaction()
-                        .replace(R.id.experimental_fullscreen_content, SettingsFragment.newInstance("", ""))
+                        .replace(
+                                R.id.experimental_fullscreen_content,
+                                SettingsFragment.newInstance("", "")
+                        )
                         .commitNow();
             }
         });
@@ -79,7 +96,10 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getParentFragmentManager().beginTransaction()
-                        .replace(R.id.experimental_fullscreen_content, AboutFragment.newInstance("", ""))
+                        .replace(
+                                R.id.experimental_fullscreen_content,
+                                AboutFragment.newInstance("", "")
+                        )
                         .commitNow();
             }
         });
@@ -94,23 +114,26 @@ public class MainFragment extends Fragment {
             }
         });
 
+        // Finding new game
         binding.experimentalNewGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getParentFragmentManager().beginTransaction()
-                        .replace(R.id.experimental_fullscreen_content, FindingMatchFragment.newInstance())
+                        .replace(
+                                R.id.experimental_fullscreen_content,
+                                FindingMatchFragment.newInstance()
+                        )
                         .commitNow();
             }
         });
 
+        // Logout this account
         binding.logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showLogOutDialog(getContext());
             }
         });
-
-
 
         // Create lottie animation background
         lottie = binding.lottieExBg;
@@ -123,8 +146,8 @@ public class MainFragment extends Fragment {
 
     private void initUserData() {
         UserItem userItem = SharePreferenceUtils.getUserData(getActivity());
-        Log.i(TAG, userItem.getName());
-        binding.avatar.load(getContext(),userItem.getUserPhotoUrl());
+//        Log.i(TAG, userItem.getName());
+        binding.avatar.load(getContext(), userItem.getUserPhotoUrl());
         binding.userName.setText(userItem.getName());
     }
 
@@ -140,6 +163,11 @@ public class MainFragment extends Fragment {
             getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
         initUserData();
+        // Update online status to friends and listen their status
+        String ownerUid = SharePreferenceUtils.getUserData(getActivity()).getUserId();
+        FriendList friendList = FriendList.getInstance();
+        friendList.setUid(ownerUid);
+        friendList.updateStatusToFriends(FriendItem.STATUS.ONLINE);
     }
 
     public void showLogOutDialog(Context context) {

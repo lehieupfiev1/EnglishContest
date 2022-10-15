@@ -2,34 +2,29 @@ package com.pfiev.englishcontest.ui.experimental;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -37,10 +32,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.MetadataChanges;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.FirebaseFunctionsException;
-import com.google.firebase.functions.HttpsCallableResult;
 import com.pfiev.englishcontest.GlobalConstant;
 import com.pfiev.englishcontest.PlayGameActivity;
 import com.pfiev.englishcontest.R;
@@ -51,10 +44,6 @@ import com.pfiev.englishcontest.model.QuestionItem;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 import com.pfiev.englishcontest.utils.TextUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,6 +65,8 @@ public class FindingMatchFragment extends Fragment {
     private boolean mIsAccepted = false;
     ListenerRegistration listenerRegistration;
 
+    public final static String MATCH_ID_FIELD = "match_id";
+    public final static String IS_OWNER_FIELD = "is_owner";
 
     public static FindingMatchFragment newInstance() {
         return new FindingMatchFragment();
@@ -86,10 +77,24 @@ public class FindingMatchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        String matchId = getArguments().getString(MATCH_ID_FIELD);
+        boolean isOwner = getArguments().getBoolean(IS_OWNER_FIELD);
+
         mBinding = FragmentExperimentalFindingmatchBinding.inflate(inflater, container, false);
         finding_lottie = mBinding.findingProgress;
-
         mFunctions = FirebaseFunctions.getInstance();
+
+        if (matchId != null && !matchId.isEmpty()) {
+            mMatchId = matchId;
+            listenerStateMatchHistoryDoc(matchId, isOwner);
+            if (!isOwner) sendRequestAcceptJoinMatch(matchId);
+            if (isOwner) mBinding.statusFinding.setText(R.string.experimental_request_combat_loading_txt);
+            // hide button and image necessary
+            mBinding.findingBtn.setVisibility(View.GONE);
+            mBinding.findPeople.setVisibility(View.GONE);
+            return mBinding.getRoot();
+        }
+
         mBinding.findingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,12 +112,12 @@ public class FindingMatchFragment extends Fragment {
 
     private void sendRequestFindMatch() {
         Log.i(TAG, "sendRequestFindMatch ");
-        Toast.makeText(getContext(),"Finding match", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Finding match", Toast.LENGTH_SHORT).show();
         String uid = SharePreferenceUtils.getString(getContext(), GlobalConstant.USER_ID);
         FireStoreClass.findMatchRequest(uid).addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
-                Log.i(TAG," Resul find match onComplete:");
+                Log.i(TAG, " Resul find match onComplete:");
                 if (!task.isSuccessful()) {
                     Exception e = task.getException();
                     if (e instanceof FirebaseFunctionsException) {
@@ -120,9 +125,9 @@ public class FindingMatchFragment extends Fragment {
                         FirebaseFunctionsException.Code code = ffe.getCode();
                         Object details = ffe.getDetails();
                     }
-                    Log.i(TAG," task is not success :"+e.getMessage());
+                    Log.i(TAG, " task is not success :" + e.getMessage());
                 } else {
-                    Log.i(TAG," Result find match :"+task.getResult());
+                    Log.i(TAG, " Result find match :" + task.getResult());
                     Map data = TextUtils.convertHashMap(task.getResult());
                     String matchId = (String) data.get(GlobalConstant.MATCH_ID);
                     String ownerId = (String) data.get(GlobalConstant.OWNER_ID);
@@ -134,55 +139,56 @@ public class FindingMatchFragment extends Fragment {
                         mIsOwner = false;
                         listenerStateMatchHistoryDoc(matchId, false);
                     }
-                    Log.i(TAG," Resul find match ID:"+matchId );
-                    Toast.makeText(getActivity()," Result: "+task.getResult(), Toast.LENGTH_SHORT).show();
+                    Log.i(TAG, " Result find match ID:" + matchId);
+                    Toast.makeText(getActivity(), " Result: " + task.getResult(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     public void listenerStateMatchHistoryDoc(String matchId, boolean isOwner) {
-        Log.i(TAG," listenerStateMatchHistoryDoc matchId :"+matchId+ " isOwner :"+isOwner);
+        Log.i(TAG, " listenerStateMatchHistoryDoc matchId :" + matchId + " isOwner :" + isOwner);
         DocumentReference docRef = FirebaseFirestore.getInstance().collection(GlobalConstant.MATCH_HISTORY).document(matchId);
         listenerRegistration = docRef.addSnapshotListener(MetadataChanges.EXCLUDE, new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        String state =(String)value.get(GlobalConstant.STATE);
-                        Log.i(TAG, "listenerStateMatchHistoryDoc "+state+ " -"+ value);
-                        if (state == null) {
-                            Toast.makeText(getActivity()," Match is removed ", Toast.LENGTH_SHORT).show();
-                            waitingEnableFind(mIsAccepted);
-                            return;
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                String state = (String) value.get(GlobalConstant.STATE);
+                Log.i(TAG, "listenerStateMatchHistoryDoc " + state + " -" + value);
+                if (state == null) {
+                    Toast.makeText(getActivity(), " Match is removed ", Toast.LENGTH_SHORT).show();
+                    waitingEnableFind(mIsAccepted);
+                    return;
+                }
+                switch (state) {
+                    case GlobalConstant.FINDING_STATE:
+                        isFirstChangePlay = false;
+                        break;
+                    case GlobalConstant.WAITING_ACCEPT_STATE:
+                        isFirstChangePlay = false;
+                        mIsAccepted = false;
+                        mBinding.statusFinding.setText("Wait player accept........");
+                        showAgreeDialog(getContext(), matchId);
+                        break;
+                    case GlobalConstant.PLAYING_STATE:
+                        if (isFirstChangePlay) {
+                            getMatchHistoryData(value);
+                        } else {
+                            isFirstChangePlay = true;
                         }
-                        switch (state) {
-                            case GlobalConstant.FINDING_STATE:
-                                isFirstChangePlay = false;
-                                break;
-                            case GlobalConstant.WAITING_ACCEPT_STATE:
-                                isFirstChangePlay = false;
-                                mIsAccepted = false;
-                                mBinding.statusFinding.setText("Wait player accept........");
-                                showAgreeDialog(getContext(), matchId);
-                                break;
-                            case GlobalConstant.PLAYING_STATE:
-                                if (isFirstChangePlay) {
-                                    getMatchHistoryData(value);
-                                } else {
-                                    isFirstChangePlay = true;
-                                }
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                });
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
     }
 
     public void getMatchHistoryData(@Nullable DocumentSnapshot value) {
         String uid = SharePreferenceUtils.getString(getContext(), GlobalConstant.USER_ID);
-        List<String> participants =(ArrayList)value.get(GlobalConstant.PARTICIPANTS);
-        for (int i =0; i<participants.size();i++) {
+        List<String> participants = (ArrayList) value.get(GlobalConstant.PARTICIPANTS);
+        for (int i = 0; i < participants.size(); i++) {
             String id = participants.get(i);
             if (!uid.equalsIgnoreCase(id)) {
                 mOtherUserId = id;
@@ -191,28 +197,28 @@ public class FindingMatchFragment extends Fragment {
         }
 
 
-        List<HashMap> question_list =(ArrayList) value.get(GlobalConstant.LIST_QUESTION);
+        List<HashMap> question_list = (ArrayList) value.get(GlobalConstant.LIST_QUESTION);
         mListQuestion = new ArrayList<>();
 
-        for (int i = 0; i<question_list.size();i++) {
+        for (int i = 0; i < question_list.size(); i++) {
             HashMap hashMap = question_list.get(i);
             String question = (String) hashMap.get(GlobalConstant.QUESTION);
             long question_id = (Long) hashMap.get(GlobalConstant.QUESTION_ID);
             long answer = (Long) hashMap.get(GlobalConstant.ANSWER);
             List<HashMap> list_choices = (ArrayList) hashMap.get(GlobalConstant.CHOICES);
             ArrayList<ChoiceItem> list_choice_item = new ArrayList<>();
-            for (int j =0; j < list_choices.size(); j++) {
+            for (int j = 0; j < list_choices.size(); j++) {
                 long content_id = (Long) list_choices.get(j).get(GlobalConstant.CONTENT_ID);
                 String content = (String) list_choices.get(j).get(GlobalConstant.CONTENT);
-                ChoiceItem choiceItem = new ChoiceItem(content_id,content);
+                ChoiceItem choiceItem = new ChoiceItem(content_id, content);
                 list_choice_item.add(choiceItem);
             }
-            QuestionItem questionItem = new QuestionItem(question_id,question,list_choice_item,answer, 0);
+            QuestionItem questionItem = new QuestionItem(question_id, question, list_choice_item, answer, 0);
             mListQuestion.add(questionItem);
         }
 
-        Log.i(TAG, "getMatchHistoryData "+mListQuestion.size());
-        Log.i(TAG, "getMatchHistoryData "+mListQuestion.get(0).getQuestionContent());
+        Log.i(TAG, "getMatchHistoryData " + mListQuestion.size());
+        Log.i(TAG, "getMatchHistoryData " + mListQuestion.get(0).getQuestionContent());
         waitLoadingQuestion();
     }
 
@@ -252,7 +258,7 @@ public class FindingMatchFragment extends Fragment {
 
     public void sendRequestAcceptJoinMatch(String match_id) {
         String uid = SharePreferenceUtils.getString(getContext(), GlobalConstant.USER_ID);
-        FireStoreClass.joinMatchRequest(uid,match_id).addOnCompleteListener(new OnCompleteListener<String>() {
+        FireStoreClass.joinMatchRequest(uid, match_id).addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 Log.i(TAG, " Result find match onComplete:");
@@ -291,6 +297,9 @@ public class FindingMatchFragment extends Fragment {
 
     private void waitingEnableFind(boolean isAccepted) {
         if (isAccepted) {
+            // show button and image necessary in the case request combat fail
+            mBinding.findingBtn.setVisibility(View.VISIBLE);
+            mBinding.findPeople.setVisibility(View.VISIBLE);
             mBinding.findingBtn.setEnabled(true);
             mBinding.statusFinding.setText("Finding.");
             return;
@@ -324,8 +333,8 @@ public class FindingMatchFragment extends Fragment {
         //Add data info player
         Intent intent = new Intent(getActivity(), PlayGameActivity.class);
         Bundle bundle = new Bundle();
-        Log.i(TAG, "navigatePlayActivity mListQuestion :"+mListQuestion.size());
-        bundle.putParcelableArrayList("ListQuestion",  mListQuestion);
+        Log.i(TAG, "navigatePlayActivity mListQuestion :" + mListQuestion.size());
+        bundle.putParcelableArrayList("ListQuestion", mListQuestion);
         intent.putExtras(bundle);
         intent.putExtra(GlobalConstant.MATCH_ID, mMatchId);
         intent.putExtra("isOwner", mIsOwner);

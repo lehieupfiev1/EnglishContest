@@ -85,7 +85,6 @@ public class SettingsFragment extends Fragment {
         Log.d("Settings Fragment xdpi", String.valueOf(displayMetrics.widthPixels/displayMetrics.density));
         this.appConfig = new AppConfig(getActivity());
         this.bindingBackButton();
-        this.createLanguageSpinner();
         this.bindingSoundCheckBox();
         this.bindingSoundEffectCheckBox();
         return binding.getRoot();
@@ -101,43 +100,6 @@ public class SettingsFragment extends Fragment {
                         .commitNow();
             }
         });
-    }
-
-    private void createLanguageSpinner() {
-        // Change language when select on dropdown list (spinner)
-        String[] allLocale = appConfig.getAllLocale();
-        String[] allLocaleShow = appConfig.getAllLocaleShow();
-        String displayLocale = appConfig.getDisplayLanguage();
-
-        // Apply the adapter to the spinner
-//        Toast.makeText(getContext(), "Default " + Locale.getDefault().getDisplayLanguage(), Toast.LENGTH_LONG).show();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                R.layout.spinner_items_experimental_language,
-                allLocaleShow);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.experimentalSettingsLanguageSpinner.setAdapter(adapter);
-        // Selection and set listener
-        binding.experimentalSettingsLanguageSpinner
-                .setSelection(Arrays.asList(allLocale).indexOf(displayLocale));
-
-        binding.experimentalSettingsLanguageSpinner
-                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        Log.d(TAG, " selected " + allLocale[i]);
-                        appConfig.setDisplayLanguage(allLocale[i]);
-                        Locale locale = new Locale(allLocale[i]);
-                        Locale.setDefault(locale);
-                        Log.d(TAG, " selected __ " + locale.getDisplayLanguage());
-                        Configuration config = new Configuration();
-                        config.setLocale(locale);
-                        getActivity().onConfigurationChanged(config);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                    }
-                });
     }
 
     private void bindingSoundCheckBox() {
