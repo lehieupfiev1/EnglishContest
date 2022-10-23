@@ -209,16 +209,16 @@ public class FriendList {
 
     /**
      * Delete friend have uid
-     *
+     * @param ownId
      * @param friendUid
      */
-    public void deleteFriend(String friendUid) {
+    public void deleteFriend(String ownId, String friendUid) {
         this.dbCon.getReference()
-                .child(this.friendListRef).child(this.uid)
+                .child(this.friendListRef).child(ownId)
                 .child(friendUid).removeValue();
         this.dbCon.getReference()
                 .child(this.friendListRef).child(friendUid)
-                .child(this.uid).removeValue();
+                .child(ownId).removeValue();
     }
 
     /**

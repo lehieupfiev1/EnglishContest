@@ -10,6 +10,7 @@ import com.pfiev.englishcontest.model.UserItem;
 public class SharePreferenceUtils {
     private static final String TAG = SharePreferenceUtils.class.getSimpleName();
     private static final String MY_SHARE_FREF = "com.pfiev.english.preferences";
+    private static final String DEVICE_DISPLAY_HASH = "device_display_hash";
 
     public static void updateUserData(Context mContext, UserItem userItem) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARE_FREF, Context.MODE_PRIVATE);
@@ -33,6 +34,18 @@ public class SharePreferenceUtils {
         userItem.setUserPhoneNumber(sharedPreferences.getString(GlobalConstant.USER_PHONE_NUMBER,null));
         userItem.setUserPhotoUrl(sharedPreferences.getString(GlobalConstant.USER_PROFILE_IMAGE,null));
         return userItem;
+    }
+
+    public static String getDeviceDisplayHash(Context mContext) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARE_FREF, Context.MODE_PRIVATE);
+        String deviceHash = sharedPreferences.getString(DEVICE_DISPLAY_HASH, null);
+        if (deviceHash == null) {
+            deviceHash = Utility.randomString(8);
+            SharedPreferences.Editor myEdit = sharedPreferences.edit();
+            myEdit.putString(DEVICE_DISPLAY_HASH, deviceHash);
+            myEdit.commit();
+        }
+        return deviceHash;
     }
 
     public static void putInt(Context mContext,String key, int value) {

@@ -46,4 +46,6 @@ public class GlobalConstant {
     public static final String CROP_RATIO_WIDTH = "CROP_RATIO_WIDTH";
     public static final String CROP_RATIO_HEIGHT = "CROP_RATIO_HEIGHT";
     public static final String BEFORE_CROP_IMAGE = "/before_crop_image.jpg";
+
+    public static final int REQUEST_COMBAT_WAITING_JOIN_TIME = 20;
 }

@@ -1,7 +1,7 @@
 package com.pfiev.englishcontest.model;
 
 public class NotificationItem {
-    private String matchId, name, userPhotoUrl, type;
+    private String matchId, name, userPhotoUrl, type, userId;
     private float timestamp;
     private boolean hasRead;
 
@@ -58,10 +58,15 @@ public class NotificationItem {
         this.hasRead = hasRead;
     }
 
+    public String getUserId() {return userId;}
+
+    public void setUserId(String userId) {this.userId = userId;}
+
     public final static String COLLECTION_NAME = "";
 
     public static class FIELD_NAME {
         public final static String TYPE = "type";
+        public final static String USER_ID = "userId";
         public final static String USER_NAME = "name";
         public final static String MATCH_ID = "matchId";
         public final static String USER_PHOTO_URL = "userPhotoUrl";
@@ -71,5 +76,6 @@ public class NotificationItem {
 
     public static class TYPE_VALUE {
         public final static String REQUEST_COMBAT = "request_combat";
+        public final static String MAKE_FRIEND = "friend_invitation";
     }
 }

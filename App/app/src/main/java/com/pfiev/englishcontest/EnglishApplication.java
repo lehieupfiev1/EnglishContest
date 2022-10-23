@@ -17,16 +17,25 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.pfiev.englishcontest.realtimedb.Status;
 import com.pfiev.englishcontest.service.ListenCombatRequestService;
 import com.pfiev.englishcontest.service.SoundBackgroundService;
+import com.pfiev.englishcontest.setup.FacebookSignInActivity;
+import com.pfiev.englishcontest.setup.GoogleSignInActivity;
+import com.pfiev.englishcontest.setup.TwitterSignInActivity;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EnglishApplication extends Application implements LifecycleObserver {
     public ActivityManager activityManager;
     ListenCombatRequestService mService;
-    boolean mBound;
+    boolean mBound, isSetOnDisconnectAction;
     private static Activity currentActivity;
     private static boolean isShowNotification;
+    private ArrayList<Class> excludeClass;
 
     public static Activity getCurrentActivity() {
         return currentActivity;
@@ -41,6 +50,19 @@ public class EnglishApplication extends Application implements LifecycleObserver
         super.onCreate();
         Log.d("Application init", "On Create");
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
+        excludeClass = new ArrayList<>();
+        excludeClass.add(LoginActivity.class);
+        excludeClass.add(PlayGameActivity.class);
+        excludeClass.add(FacebookSignInActivity.class);
+        excludeClass.add(TwitterSignInActivity.class);
+        excludeClass.add(GoogleSignInActivity.class);
+        isSetOnDisconnectAction = false;
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        Status.getInstance().destroyListener();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
@@ -89,19 +111,37 @@ public class EnglishApplication extends Application implements LifecycleObserver
         @Override
         public void onActivityResumed(@NonNull Activity activity) {
             currentActivity = activity;
-            if (activity instanceof PlayGameActivity) return;
-            if (activity instanceof LoginActivity) return;
+            Log.d("Activity now", activity.getClass().getName());
+            if (excludeClass.contains(activity.getClass())) {
+                return;
+            }
+            String ownUid = SharePreferenceUtils.getString(
+                    getApplicationContext(), GlobalConstant.USER_ID);
+            if (!isSetOnDisconnectAction) {
+                Status.getInstance().setOwnUid(ownUid);
+                Status.getInstance().setOnDisconnectAction(activity, new Status.StateCallBack() {
+                    @Override
+                    public void notSameHashCallback() {
+                        isSetOnDisconnectAction = false;
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(activity, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                });
+                isSetOnDisconnectAction = true;
+            }
             Intent intent = new Intent(activity, ListenCombatRequestService.class);
-            intent.putExtra(GlobalConstant.USER_ID,
-                    SharePreferenceUtils.getString(getApplicationContext(), GlobalConstant.USER_ID)
-            );
+            intent.putExtra(GlobalConstant.USER_ID, ownUid);
             bindService(intent, connection, Context.BIND_AUTO_CREATE);
         }
 
         @Override
         public void onActivityPaused(@NonNull Activity activity) {
-            if (activity instanceof PlayGameActivity) return;
-            if (activity instanceof LoginActivity) return;
+            if (excludeClass.contains(activity.getClass())) {
+                return;
+            }
             if (mBound) unbindService(connection);
             mBound = false;
 

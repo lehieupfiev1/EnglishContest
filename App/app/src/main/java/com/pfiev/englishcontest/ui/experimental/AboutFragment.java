@@ -14,6 +14,7 @@ import com.pfiev.englishcontest.adapter.FriendListAdapter;
 import com.pfiev.englishcontest.databinding.FragmentExperimentalAboutBinding;
 import com.pfiev.englishcontest.model.FriendItem;
 import com.pfiev.englishcontest.realtimedb.FriendList;
+import com.pfiev.englishcontest.ui.dialog.CustomToast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,9 +72,6 @@ public class AboutFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentExperimentalAboutBinding.inflate(inflater, container, false);
         this.bindingBackButton();
-        FriendListAdapter adapter = new FriendListAdapter(getContext());
-        FriendList friendList = FriendList.getInstance();
-        friendList.updateStatusToFriends(FriendItem.STATUS.PLAYING);
         return binding.getRoot();
     }
 

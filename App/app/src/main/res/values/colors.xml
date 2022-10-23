@@ -58,9 +58,36 @@
     <color name="dialog_request_combat_bg">#FFFFFF</color>
     <color name="dialog_request_combat_user_name">#EE883A</color>
     <color name="dialog_request_combat_btn_text">#FFFFFF</color>
+    <color name="dialog_request_combat_btn_accept_background">#2196F3</color>
+    <color name="dialog_request_combat_btn_reject_background">#F44336</color>
     <color name="dialog_request_combat">#FFFFFF</color>
+
+    <!--    Dialog make friend -->
+    <color name="dialog_make_friend_bg">#FFFFFF</color>
+    <color name="dialog_make_friend_user_name">#EE883A</color>
+    <color name="dialog_make_friend_btn_text">#FFFFFF</color>
+    <color name="dialog_make_friend_btn_accept_background">#2196F3</color>
+    <color name="dialog_make_friend_btn_later_background">#B6B6B6</color>
+    <color name="dialog_make_friend_btn_reject_background">#F44336</color>
+    <color name="dialog_make_friend">#FFFFFF</color>
+
+    <!--    Dialog un friend -->
+    <color name="dialog_unfriend_bg">#FFFFFF</color>
+    <color name="dialog_unfriend_user_name">#EE883A</color>
+    <color name="dialog_unfriend_btn_text">#FFFFFF</color>
+    <color name="dialog_unfriend_btn_accept_background">#2196F3</color>
+    <color name="dialog_unfriend_btn_later_background">#B6B6B6</color>
+    <color name="dialog_unfriend_btn_reject_background">#F44336</color>
+    <color name="dialog_unfriend">#FFFFFF</color>
 
     <!--    Experimental request combat  -->
     <color name="experimental_request_combat_loading_txt">#FFFFFF</color>
+
+    <!--    Custom toast -->
+    <color name="toast_custom_text">#FFFFFF</color>
+    <color name="toast_custom_success">#2DE35B</color>
+    <color name="toast_custom_warning">#FF9800</color>
+    <color name="toast_custom_error">#E91E63</color>
+    <color name="toast_custom_confusing">#2196F3</color>
 
 </resources>

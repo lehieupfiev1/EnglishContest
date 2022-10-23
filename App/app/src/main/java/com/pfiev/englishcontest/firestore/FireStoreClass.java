@@ -307,4 +307,30 @@ public class FireStoreClass {
                 });
     }
 
+    public static Task<String> rejectCombatRequest(String matchId) {
+        // Create the arguments to the callable function.
+        JSONObject mainObject = new JSONObject();
+        JSONObject messageObject = new JSONObject();
+        try {
+            messageObject.put("matchId", matchId);
+            mainObject.put("message", messageObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return FirebaseFunctions.getInstance()
+                .getHttpsCallable("rejectCombatRequest")
+                .call(mainObject)
+                .continueWith(new Continuation<HttpsCallableResult, String>() {
+                    @Override
+                    public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                        // This continuation runs on either success or failure, but if the task
+                        // has failed then getResult() will throw an Exception which will be
+                        // propagated down.
+                        HashMap result = (HashMap) task.getResult().getData();
+                        return result.toString();
+                    }
+                });
+    }
 }

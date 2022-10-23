@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.model.BlockItem;
 import com.pfiev.englishcontest.realtimedb.BlockList;
+import com.pfiev.englishcontest.ui.dialog.CustomToast;
 import com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView;
 
 import java.util.Collections;
@@ -124,18 +125,25 @@ public class BlockListAdapter extends RecyclerView.Adapter
             unblockBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    long currentClickTime = SystemClock.uptimeMillis();
-                    long elapsedTime = currentClickTime - mLastClickTime;
-                    mLastClickTime = currentClickTime;
-                    // Return if double tap to prevent error in position;
-                    if (elapsedTime <= MIN_CLICK_INTERVAL) return;
-
+                    if (isDoubleClick()) return;
                     BlockList.getInstance().unBlockUser(holderUid);
                     int position = instance.getAdapterPosition();
                     BlockListAdapter.this.blockList.remove(position);
                     notifyItemRemoved(position);
+                    String message = mContext.getString(R.string.toast_custom_unblock_message);
+                    CustomToast.makeText(mContext, message, CustomToast.SUCCESS,
+                            CustomToast.LENGTH_SHORT).show();
                 }
             });
+        }
+
+        private boolean isDoubleClick() {
+            long currentClickTime = SystemClock.uptimeMillis();
+            long elapsedTime = currentClickTime - mLastClickTime;
+            mLastClickTime = currentClickTime;
+            // Return if double tap to prevent error in position;
+            if (elapsedTime <= MIN_CLICK_INTERVAL) return true;
+            return false;
         }
     }
 

@@ -2,8 +2,12 @@ package com.pfiev.englishcontest.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -12,27 +16,36 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.pfiev.englishcontest.ExperimentalActivity;
+import com.pfiev.englishcontest.GlobalConstant;
 import com.pfiev.englishcontest.R;
+import com.pfiev.englishcontest.firestore.FireStoreClass;
 import com.pfiev.englishcontest.model.NotificationItem;
 import com.pfiev.englishcontest.ui.experimental.FindingMatchFragment;
 import com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView;
 
+import java.time.Instant;
+
 public class RequestCombatDialog extends Dialog implements
         View.OnClickListener {
 
-    private Bundle mBundle;
+    private NotificationItem notificationItem;
     public Button acceptBtn, rejectBtn;
     private RoundedAvatarImageView avatar;
-    private TextView username;
-    private String matchId;
+    private TextView username, timeRemaining;
+    private int timeRemain;
+    private CountDownTimer countDownTimer;
+
+    private long mLastClickTime;
+    private static final long MIN_CLICK_INTERVAL = 600;
 
     public RequestCombatDialog(@NonNull Context context) {
         super(context);
     }
 
-    public void setData(Bundle bundle) {
-        this.mBundle = bundle;
+    public void setData(NotificationItem notificationItem) {
+        this.notificationItem = notificationItem;
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,21 +54,47 @@ public class RequestCombatDialog extends Dialog implements
         setContentView(R.layout.dialog_request_combat);
 
         avatar = (RoundedAvatarImageView) findViewById(R.id.dialog_request_combat_avatar);
-        avatar.load(getContext(), mBundle.getString(NotificationItem.FIELD_NAME.USER_PHOTO_URL));
+        avatar.load(getContext(), notificationItem.getUserPhotoUrl());
 
         username = (TextView) findViewById(R.id.dialog_request_combat_username);
-        username.setText(mBundle.getString(NotificationItem.FIELD_NAME.USER_NAME));
+        username.setText(notificationItem.getName());
 
         acceptBtn = (Button) findViewById(R.id.dialog_request_combat_accept_btn);
         rejectBtn = (Button) findViewById(R.id.dialog_request_combat_reject_btn);
         acceptBtn.setOnClickListener(this);
         rejectBtn.setOnClickListener(this);
+
+        timeRemaining = (TextView) findViewById(R.id.dialog_request_combat_time_remaining);
+        this.setOnShowListener(new OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                float timePassed = Instant.now().getEpochSecond() - notificationItem.getTimestamp();
+                timeRemain = Math.round(GlobalConstant.REQUEST_COMBAT_WAITING_JOIN_TIME - timePassed);
+                timeRemain = timeRemain * 1000;
+                countDownTimer = new CountDownTimer(timeRemain, 1000) {
+                    @Override
+                    public void onTick(long l) {
+                        String mess = getContext().getString(
+                                R.string.dialog_request_combat_time_remaining, "" + l/1000);
+                        timeRemaining.setText(mess);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        RequestCombatDialog.this.dismiss();
+                    }
+                };
+                countDownTimer.start();
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
+        if (isDoubleClick()) return;
         switch (view.getId()) {
             case R.id.dialog_request_combat_accept_btn:
+                countDownTimer.cancel();
                 Intent intent = new Intent(getContext(), ExperimentalActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(
@@ -63,18 +102,29 @@ public class RequestCombatDialog extends Dialog implements
                         ExperimentalActivity.FRAGMENT.FINDING_MATCH);
                 bundle.putString(
                         FindingMatchFragment.MATCH_ID_FIELD,
-                        mBundle.getString(NotificationItem.FIELD_NAME.MATCH_ID)
+                        notificationItem.getMatchId()
                 );
                 bundle.putBoolean(FindingMatchFragment.IS_OWNER_FIELD, false);
                 intent.putExtras(bundle);
                 getContext().startActivity(intent, bundle);
                 break;
             case R.id.dialog_request_combat_reject_btn:
-
+                FireStoreClass.rejectCombatRequest(notificationItem.getMatchId());
+                countDownTimer.cancel();
                 break;
             default:
                 break;
         }
         dismiss();
     }
+
+    private boolean isDoubleClick() {
+        long currentClickTime = SystemClock.uptimeMillis();
+        long elapsedTime = currentClickTime - mLastClickTime;
+        mLastClickTime = currentClickTime;
+        // Return if double tap to prevent error in position;
+        if (elapsedTime <= MIN_CLICK_INTERVAL) return true;
+        return false;
+    }
+
 }

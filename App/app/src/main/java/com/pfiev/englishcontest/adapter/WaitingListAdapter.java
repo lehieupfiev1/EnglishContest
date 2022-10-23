@@ -23,6 +23,8 @@ import com.pfiev.englishcontest.model.WaitingItem;
 import com.pfiev.englishcontest.realtimedb.BlockList;
 import com.pfiev.englishcontest.realtimedb.FriendList;
 import com.pfiev.englishcontest.realtimedb.WaitingList;
+import com.pfiev.englishcontest.ui.dialog.CustomToast;
+import com.pfiev.englishcontest.ui.dialog.MakeFriendDialog;
 import com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
@@ -113,7 +115,8 @@ public class WaitingListAdapter extends RecyclerView.Adapter
     /**
      * View holder for waiting list
      */
-    public class ViewHolderWaiting extends RecyclerView.ViewHolder {
+    public class ViewHolderWaiting extends RecyclerView.ViewHolder
+            implements MakeFriendDialog.OnAcceptCallBack, MakeFriendDialog.OnRejectCallBack {
         public RoundedAvatarImageView avatar;
         public TextView username;
         public TextView userTextMore;
@@ -141,44 +144,17 @@ public class WaitingListAdapter extends RecyclerView.Adapter
             replyBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    String mess = view.getResources().
-                            getString(R.string.friend_list_invitation_confirm_mess);
-                    builder.setMessage(mess + " " + username.getText().toString() + "?");
-                    builder.setPositiveButton(
-                            R.string.friend_list_invitation_confirm_accept,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    UserItem ownItem = SharePreferenceUtils.getUserData(mContext);
-                                    Map<String, FriendItem> friends = new HashMap<String, FriendItem>();
-                                    friends.put(ownItem.getUserId(), new FriendItem(
-                                            holderUid,
-                                            username.getText().toString(),
-                                            avatar.getSourceUrl(),
-                                            BaseFriendListItem.STATUS.OFFLINE
-                                    ));
-                                    friends.put(holderUid, new FriendItem(
-                                            ownItem.getUserId(),
-                                            ownItem.getName(),
-                                            ownItem.getUserPhotoUrl(),
-                                            BaseFriendListItem.STATUS.ONLINE
-                                    ));
-                                    FriendList.getInstance().addFriend(friends);
-                                    WaitingList.getInstance().deleteInvitation(holderUid);
-                                    deleteItemInList();
-                                }
-                            }
-                    ).setNegativeButton(
-                            R.string.friend_list_invitation_confirm_reject,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    WaitingList.getInstance().deleteInvitation(holderUid);
-                                    deleteItemInList();
-                                }
-                            }
-                    ).show();
+                    if (isDoubleClick()) return;
+                    MakeFriendDialog makeFriendDialog = new MakeFriendDialog(mContext);
+                    makeFriendDialog.setData(new FriendItem(
+                            holderUid,
+                            username.getText().toString(),
+                            avatar.getSourceUrl(),
+                            BaseFriendListItem.STATUS.OFFLINE
+                    ));
+                    makeFriendDialog.setAcceptCallBack(ViewHolderWaiting.this);
+                    makeFriendDialog.setRejectCallBack(ViewHolderWaiting.this);
+                    makeFriendDialog.show();
                 }
             });
             /**
@@ -187,11 +163,7 @@ public class WaitingListAdapter extends RecyclerView.Adapter
             blockBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    long currentClickTime = SystemClock.uptimeMillis();
-                    long elapsedTime = currentClickTime - mLastClickTime;
-                    mLastClickTime = currentClickTime;
-                    // Return if double tap to prevent error in position;
-                    if (elapsedTime <= MIN_CLICK_INTERVAL) return;
+                    if (isDoubleClick()) return;
                     BlockItem blockItem = new BlockItem(
                             holderUid,
                             username.getText().toString(),
@@ -208,14 +180,44 @@ public class WaitingListAdapter extends RecyclerView.Adapter
                     // Delete invitation
                     WaitingList.getInstance().deleteInvitation(holderUid);
                     deleteItemInList();
+                    String message = mContext.getString(R.string.toast_custom_block_message);
+                    CustomToast.makeText(mContext, message, CustomToast.WARNING,
+                            CustomToast.LENGTH_SHORT).show();
                 }
             });
+        }
+
+        private boolean isDoubleClick() {
+            long currentClickTime = SystemClock.uptimeMillis();
+            long elapsedTime = currentClickTime - mLastClickTime;
+            mLastClickTime = currentClickTime;
+            // Return if double tap to prevent error in position;
+            if (elapsedTime <= MIN_CLICK_INTERVAL) return true;
+            return false;
         }
 
         private void deleteItemInList() {
             int position = instance.getAdapterPosition();
             WaitingListAdapter.this.waitingList.remove(position);
             notifyItemRemoved(position);
+        }
+
+        @Override
+        public void acceptCallback() {
+            WaitingList.getInstance().deleteInvitation(holderUid);
+            deleteItemInList();
+            String message = mContext.getString(R.string.toast_custom_accept_friend);
+            CustomToast.makeText(mContext, message, CustomToast.SUCCESS,
+                    CustomToast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void rejectCallback() {
+            WaitingList.getInstance().deleteInvitation(holderUid);
+            deleteItemInList();
+            String message = mContext.getString(R.string.toast_custom_reject_friend);
+            CustomToast.makeText(mContext, message, CustomToast.SUCCESS,
+                    CustomToast.LENGTH_SHORT).show();
         }
     }
 
@@ -234,5 +236,6 @@ public class WaitingListAdapter extends RecyclerView.Adapter
     public void setStartAtTime(Long startAtTime) {
         this.startAtTime = startAtTime;
     }
+
 
 }

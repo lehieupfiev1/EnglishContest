@@ -20,7 +20,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.pfiev.englishcontest.EnglishApplication;
 import com.pfiev.englishcontest.GlobalConstant;
 import com.pfiev.englishcontest.firestore.NotificationCollection;
+import com.pfiev.englishcontest.model.BaseFriendListItem;
+import com.pfiev.englishcontest.model.FriendItem;
 import com.pfiev.englishcontest.model.NotificationItem;
+import com.pfiev.englishcontest.ui.dialog.MakeFriendDialog;
 import com.pfiev.englishcontest.ui.dialog.RequestCombatDialog;
 
 import java.time.Instant;
@@ -53,27 +56,45 @@ public class ListenCombatRequestService extends Service {
                                         dc.getDocument().toObject(NotificationItem.class);
                                 Map<String, Object> data = dc.getDocument().getData();
                                 String type = data.get(NotificationItem.FIELD_NAME.TYPE).toString();
-                                if (type.equals(NotificationItem.TYPE_VALUE.REQUEST_COMBAT)) {
-                                    long timestamp = (long) data.get(
-                                            NotificationItem.FIELD_NAME.TIMESTAMP);
-                                    if (timestamp > fromTime) {
+                                // Check time notification is expired
+                                long timestamp = (long) data.get(
+                                        NotificationItem.FIELD_NAME.TIMESTAMP);
+                                if (timestamp > fromTime) {
+                                    if (type.equals(NotificationItem.TYPE_VALUE.REQUEST_COMBAT)) {
                                         Handler handler = new Handler();
                                         handler.post(new Runnable() {
                                             @Override
                                             public void run() {
                                                 RequestCombatDialog dialog = new RequestCombatDialog(
                                                         EnglishApplication.getCurrentActivity());
-                                                dialog.setData(getBundleData(notificationItem));
+                                                dialog.setData(notificationItem);
                                                 dialog.show();
                                             }
                                         });
                                     }
-                                    // Update notificationItem has read
-                                    dc.getDocument().getReference().update(
-                                            NotificationItem.FIELD_NAME.HAS_READ,
-                                            true
-                                    );
+                                    if (type.equals(NotificationItem.TYPE_VALUE.MAKE_FRIEND)) {
+                                        Handler handler = new Handler();
+                                        handler.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                MakeFriendDialog dialog = new MakeFriendDialog(
+                                                        EnglishApplication.getCurrentActivity());
+                                                dialog.setData(new FriendItem(
+                                                        notificationItem.getUserId(),
+                                                        notificationItem.getName(),
+                                                        notificationItem.getUserPhotoUrl(),
+                                                        BaseFriendListItem.STATUS.OFFLINE
+                                                ));
+                                                dialog.show();
+                                            }
+                                        });
+                                    }
                                 }
+                                // Update notificationItem has read
+                                dc.getDocument().getReference().update(
+                                        NotificationItem.FIELD_NAME.HAS_READ,
+                                        true
+                                );
                             }
                         }
                     }
@@ -85,27 +106,6 @@ public class ListenCombatRequestService extends Service {
     public boolean onUnbind(Intent intent) {
         listenerRegistration.remove();
         return super.onUnbind(intent);
-    }
-
-    private Bundle getBundleData(NotificationItem notificationItem) {
-        Bundle bundle = new Bundle();
-        bundle.putString(
-                NotificationItem.FIELD_NAME.USER_NAME,
-                notificationItem.getName()
-        );
-        bundle.putString(
-                NotificationItem.FIELD_NAME.MATCH_ID,
-                notificationItem.getMatchId()
-        );
-        bundle.putString(
-                NotificationItem.FIELD_NAME.USER_PHOTO_URL,
-                notificationItem.getUserPhotoUrl()
-        );
-        bundle.putString(
-                NotificationItem.FIELD_NAME.TYPE,
-                notificationItem.getType()
-        );
-        return bundle;
     }
 
     public class ListenLocalBinder extends Binder {

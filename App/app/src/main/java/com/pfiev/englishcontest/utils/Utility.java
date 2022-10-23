@@ -37,4 +37,19 @@ public  class Utility {
     public static boolean isInvalid(Fragment fragment) {
         return !isValid(fragment);
     }
+
+    public static String randomString(int length){
+
+        char[] ALPHANUMERIC = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+                .toCharArray();
+
+        StringBuilder random = new StringBuilder();
+
+        for(int i =0; i < length; i++) {
+            int index = (int) (Math.random() * ALPHANUMERIC.length);
+            random.append(ALPHANUMERIC[index]);
+        }
+        return random.toString();
+    }
+
 }

@@ -77,22 +77,25 @@ public class FindingMatchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        String matchId = getArguments().getString(MATCH_ID_FIELD);
-        boolean isOwner = getArguments().getBoolean(IS_OWNER_FIELD);
 
         mBinding = FragmentExperimentalFindingmatchBinding.inflate(inflater, container, false);
         finding_lottie = mBinding.findingProgress;
         mFunctions = FirebaseFunctions.getInstance();
+        if (getArguments() != null) {
+            String matchId = getArguments().getString(MATCH_ID_FIELD);
+            boolean isOwner = getArguments().getBoolean(IS_OWNER_FIELD);
 
-        if (matchId != null && !matchId.isEmpty()) {
-            mMatchId = matchId;
-            listenerStateMatchHistoryDoc(matchId, isOwner);
-            if (!isOwner) sendRequestAcceptJoinMatch(matchId);
-            if (isOwner) mBinding.statusFinding.setText(R.string.experimental_request_combat_loading_txt);
-            // hide button and image necessary
-            mBinding.findingBtn.setVisibility(View.GONE);
-            mBinding.findPeople.setVisibility(View.GONE);
-            return mBinding.getRoot();
+            if (matchId != null && !matchId.isEmpty()) {
+                mMatchId = matchId;
+                listenerStateMatchHistoryDoc(matchId, isOwner);
+                if (!isOwner) sendRequestAcceptJoinMatch(matchId);
+                if (isOwner)
+                    mBinding.statusFinding.setText(R.string.experimental_request_combat_loading_txt);
+                // hide button and image necessary
+                mBinding.findingBtn.setVisibility(View.GONE);
+                mBinding.findPeople.setVisibility(View.GONE);
+                return mBinding.getRoot();
+            }
         }
 
         mBinding.findingBtn.setOnClickListener(new View.OnClickListener() {

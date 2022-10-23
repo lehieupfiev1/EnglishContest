@@ -1,5 +1,11 @@
 package com.pfiev.englishcontest.realtimedb;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -120,8 +126,8 @@ public class WaitingList {
      * @param toUid
      * @param waitingItem
      */
-    public void sendInvitation(String toUid, WaitingItem waitingItem) {
-        this.dbCon.getReference()
+    public Task<Void> sendInvitation(String toUid, WaitingItem waitingItem) {
+        return this.dbCon.getReference()
                 .child(this.waitingListRef).child(toUid)
                 .child(this.uid).setValue(waitingItem);
     }

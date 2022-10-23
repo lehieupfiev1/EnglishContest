@@ -49,7 +49,6 @@ public class MainFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         binding = FragmentExperimentalMainBinding.inflate(inflater, container, false);
-        Log.i(TAG, binding.getClass().getClasses().toString());
 
         // Change to Friends List Screen using fragment
         binding.experimentalFriendsListBtn.setOnClickListener(new View.OnClickListener() {

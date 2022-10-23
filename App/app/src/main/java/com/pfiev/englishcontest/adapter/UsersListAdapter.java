@@ -2,6 +2,7 @@ package com.pfiev.englishcontest.adapter;
 
 import android.content.Context;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +12,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.pfiev.englishcontest.R;
+import com.pfiev.englishcontest.firestore.NotificationCollection;
+import com.pfiev.englishcontest.model.BaseFriendListItem;
 import com.pfiev.englishcontest.model.UserItem;
 import com.pfiev.englishcontest.model.WaitingItem;
 import com.pfiev.englishcontest.realtimedb.WaitingList;
+import com.pfiev.englishcontest.ui.dialog.CustomToast;
 import com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,12 +128,23 @@ public class UsersListAdapter extends RecyclerView.Adapter {
                     UserItem userItem = SharePreferenceUtils.getUserData(mContext);
                     waitingList.setUid(userItem.getUserId());
                     // New waiting Item
-                    WaitingItem waitingItem = new WaitingItem();
-                    waitingItem.setUid(userItem.getUserId());
-                    waitingItem.setName(userItem.getName());
-                    waitingItem.setUserPhotoUrl(userItem.getUserPhotoUrl());
-                    waitingItem.setTimestamp(Instant.now().getEpochSecond());
-                    waitingList.sendInvitation(holderId, waitingItem);
+                    waitingList.sendInvitation(holderId, new WaitingItem(
+                            userItem.getUserId(),
+                            userItem.getName(),
+                            userItem.getUserPhotoUrl(),
+                            BaseFriendListItem.STATUS.ONLINE
+                    )).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.getException() == null) {
+                                NotificationCollection collection = new NotificationCollection();
+                                collection.sendFriendInvitation(holderId);
+                            }
+                        }
+                    });
+                    String message = mContext.getString(R.string.toast_custom_invite_friend);
+                    CustomToast.makeText(mContext, message, CustomToast.SUCCESS,
+                            CustomToast.LENGTH_SHORT).show();
                 }
             });
         }

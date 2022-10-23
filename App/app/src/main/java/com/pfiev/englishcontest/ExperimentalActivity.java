@@ -26,6 +26,7 @@ public class ExperimentalActivity extends AppCompatActivity {
 
     private final String TAG = "ExperimentalActivity";
     public static final String START_FRAGMENT_KEY = "start_fragment";
+
     public static interface FRAGMENT {
         public static final String FINDING_MATCH = "findingMatch";
     }
@@ -103,11 +104,6 @@ public class ExperimentalActivity extends AppCompatActivity {
     private ActivityExperimentalBinding binding;
     private LottieAnimationView lottie;
 
-    // Listen service
-//    ListenCombatRequestService mService;
-//    boolean mBound = false;
-//    NotificationReceiver notificationReceiver;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,13 +119,13 @@ public class ExperimentalActivity extends AppCompatActivity {
                         .add(R.id.experimental_fullscreen_content,
                                 FindingMatchFragment.class,
                                 bundle
-                                )
+                        )
                         .commitNow();
 
             }
         }
 
-        if (savedInstanceState == null && bundle == null) {
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.experimental_fullscreen_content, MainFragment.newInstance())
                     .commitNow();
@@ -152,22 +148,10 @@ public class ExperimentalActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        // bind listener service
-//        Intent intent = new Intent(this, ListenCombatRequestService.class);
-//        intent.putExtra(GlobalConstant.USER_ID,
-//                SharePreferenceUtils.getString(getApplicationContext(), GlobalConstant.USER_ID)
-//        );
-//        bindService(intent, connection, Context.BIND_AUTO_CREATE);
-//        // This registers messageReceiver to receive messages.
-//        registerReceiver(notificationReceiver,
-//                        new IntentFilter(ListenCombatRequestService.Broadcast.MESSAGE_NAME));
     }
 
     @Override
     protected void onPause() {
-//        unbindService(connection);
-//        // Unregister since the activity is not visible
-//        unregisterReceiver(notificationReceiver);
         super.onPause();
     }
 
@@ -192,23 +176,4 @@ public class ExperimentalActivity extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
-
-    /**
-     * Service connection of listen request service
-     */
-//    private ServiceConnection connection = new ServiceConnection() {
-//
-//        @Override
-//        public void onServiceConnected(ComponentName componentName, IBinder service) {
-//            ListenCombatRequestService.ListenLocalBinder binder =
-//                    (ListenCombatRequestService.ListenLocalBinder) service;
-//            mService = binder.getService();
-//            mBound = true;
-//        }
-//
-//        @Override
-//        public void onServiceDisconnected(ComponentName componentName) {
-//            mBound = false;
-//        }
-//    };
 }

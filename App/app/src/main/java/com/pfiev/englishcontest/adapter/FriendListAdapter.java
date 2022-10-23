@@ -26,6 +26,8 @@ import com.pfiev.englishcontest.firestore.FireStoreClass;
 import com.pfiev.englishcontest.model.BaseFriendListItem;
 import com.pfiev.englishcontest.model.FriendItem;
 import com.pfiev.englishcontest.realtimedb.FriendList;
+import com.pfiev.englishcontest.ui.dialog.CustomToast;
+import com.pfiev.englishcontest.ui.dialog.UnFriendDialog;
 import com.pfiev.englishcontest.ui.experimental.FindingMatchFragment;
 import com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView;
 import com.pfiev.englishcontest.utils.TextUtils;
@@ -204,10 +206,17 @@ public class FriendListAdapter extends RecyclerView.Adapter
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    FriendList.getInstance().deleteFriend(holderUid);
-                                    int position = instance.getAdapterPosition();
-                                    FriendListAdapter.this.friendsLists.remove(position);
-                                    notifyItemRemoved(position);
+                                    UnFriendDialog dialog = new UnFriendDialog(mContext);
+                                    dialog.setAcceptCallBack(new UnFriendDialog.OnAcceptCallBack() {
+                                        @Override
+                                        public void acceptCallback() {
+                                            String message = mContext.getString(
+                                                    R.string.toast_custom_unfriend_success);
+                                            CustomToast.makeText(mContext, message, CustomToast.WARNING,
+                                                    CustomToast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                    dialog.show();
                                 }
                             }
                     ).setNegativeButton(
