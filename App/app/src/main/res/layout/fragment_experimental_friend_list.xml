@@ -7,7 +7,7 @@
     android:background="@color/experimental_about_background_color"
     tools:context=".ui.experimental.FriendListFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -16,36 +16,84 @@
             android:id="@+id/experimental_friends_back_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/friends_list_back_button_mg_start"
+            android:layout_marginTop="@dimen/friends_list_back_button_mg_top"
             android:background="@drawable/ic_experimental_return_back"
-            android:contentDescription="Back to main">
+            android:contentDescription="Back to main"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
         </ImageButton>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/experimental_friends_list_big_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/friends_list_main_btn_group_margin_top"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_marginHorizontal="@dimen/friends_list_big_title_mg_horizontal"
+            android:layout_marginTop="@dimen/friends_list_big_title_mg_top"
+            android:background="@drawable/bg_experimental_main_big_title_layout"
+            android:fontFamily="@font/mali_bold"
+            android:padding="@dimen/friends_list_big_title_padding"
+            android:text="@string/experimental_friends_list_big_title"
+            android:textAlignment="center"
+            android:textColor="@color/experimental_friends_list_big_title_color"
+            android:textSize="@dimen/friends_list_big_title_text_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/experimental_friends_back_btn" />
+
+        <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
+            android:id="@+id/experimental_friends_list_sys_name_avatar"
+            android:layout_width="@dimen/friends_list_sys_name_avatar_width"
+            android:layout_height="@dimen/actionbar_avatar_size"
+            android:layout_marginStart="@dimen/friends_list_sys_name_avatar_mg_horizontal"
+            android:layout_marginTop="@dimen/friends_list_table_margin_top"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bg_profile_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/experimental_friends_list_big_title" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/friends_list_table_margin_start"
+            android:layout_marginTop="@dimen/friends_list_table_margin_top"
+            android:paddingHorizontal="@dimen/friends_list_table_padding_horizontal"
+            android:background="@drawable/bg_experimental_main_group_btn_layout"
+            app:layout_constraintStart_toEndOf="@id/experimental_friends_list_sys_name_avatar"
+            app:layout_constraintTop_toBottomOf="@id/experimental_friends_list_big_title">
+
+            <TextView
+                android:id="@+id/experimental_friends_list_sys_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/settings_sys_name_mg_bottom"
+                android:fontFamily="@font/mali_bold"
+                android:text="@string/experimental_friends_list_sys_name"
+                android:textColor="@color/experimental_settings_sys_name"
+                android:textSize="@dimen/settings_sys_name_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <RadioGroup
                 android:id="@+id/friends_list_type_select"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/experimental_friends_list_sys_name"
+                >
 
                 <androidx.appcompat.widget.AppCompatRadioButton
-                    android.id="@+id/friends_type_friend"
+                    android.id="@+id/friends_list_type_select"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/radio_btn_friends_list_first"
                     android:button="@android:color/transparent"
-                    android:fontFamily="@font/svn_supercell_magic"
+                    android:fontFamily="@font/mali_bold"
+                    android:paddingHorizontal="@dimen/friends_list_main_btn_padding_horizontal"
                     android:text="@string/friend_list_friend"
                     android:textAlignment="center"
                     android:textColor="@color/friends_list_radio_button_text_default"
@@ -59,7 +107,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/radio_btn_friends_list_mid"
                     android:button="@android:color/transparent"
-                    android:fontFamily="@font/svn_supercell_magic"
+                    android:fontFamily="@font/mali_bold"
+                    android:paddingHorizontal="@dimen/friends_list_main_btn_padding_horizontal"
                     android:text="@string/friend_list_waiting"
                     android:textAlignment="center"
                     android:textColor="@color/friends_list_radio_button_text_default"
@@ -73,7 +122,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/radio_btn_friends_list_mid"
                     android:button="@android:color/transparent"
-                    android:fontFamily="@font/svn_supercell_magic"
+                    android:fontFamily="@font/mali_bold"
+                    android:paddingHorizontal="@dimen/friends_list_main_btn_padding_horizontal"
                     android:text="@string/friend_list_block"
                     android:textAlignment="center"
                     android:textColor="@color/friends_list_radio_button_text_default"
@@ -87,7 +137,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/radio_btn_friends_list_last"
                     android:button="@android:color/transparent"
-                    android:fontFamily="@font/svn_supercell_magic"
+                    android:fontFamily="@font/mali_bold"
+                    android:paddingHorizontal="@dimen/friends_list_main_btn_padding_horizontal"
                     android:text="@string/friend_list_search"
                     android:textAlignment="center"
                     android:textColor="@color/friends_list_radio_button_text_default"
@@ -96,66 +147,70 @@
                 </androidx.appcompat.widget.AppCompatRadioButton>
             </RadioGroup>
 
-        </LinearLayout>
 
-
-        <LinearLayout
-            android:id="@+id/friends_list_search_box_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:padding="@dimen/friends_list_search_box_padding">
-
-            <EditText
-                android:id="@+id/friends_list_search_box_edt"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.75"
-                android:background="@drawable/edit_text_friends_list_search"
-                android:hint="Type name of the user you want to find"
-                android:singleLine="true"
-                android:textSize="16dp">
-
-            </EditText>
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/friends_list_search_box_btn"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".15"
-                android:background="@drawable/radio_btn_friends_list_mid_active"
-                android:backgroundTint="@color/teal_700"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:minHeight="0dp"
-                android:src="@drawable/ic_baseline_search_24">
-
-            </androidx.appcompat.widget.AppCompatImageButton>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/friends_list_frame_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/friends_list_lv_container_padding">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/friends_list_recycle_lv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/friends_list_loading"
+            <LinearLayout
+                android:id="@+id/friends_list_search_box_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                app:lottie_rawRes="@raw/friend_list_loading">
-            </com.airbnb.lottie.LottieAnimationView>
-        </LinearLayout>
-    </LinearLayout>
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/friends_list_search_box_padding"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/friends_list_type_select">
+
+                <EditText
+                    android:id="@+id/friends_list_search_box_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.75"
+                    android:background="@drawable/edit_text_friends_list_search"
+                    android:hint="Type name of the user you want to"
+                    android:singleLine="true"
+                    android:textSize="@dimen/friends_list_search_box_text_size">
+
+                </EditText>
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/friends_list_search_box_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".15"
+                    android:background="@drawable/radio_btn_friends_list_mid_active"
+                    android:backgroundTint="@color/teal_700"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minHeight="0dp"
+                    android:src="@drawable/ic_baseline_search_24">
+
+                </androidx.appcompat.widget.AppCompatImageButton>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/friends_list_frame_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/friends_list_search_box_layout"
+                >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/friends_list_recycle_lv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/friends_list_loading"
+                    android:layout_width="@dimen/friends_list_loading_anim_wh"
+                    android:layout_height="@dimen/friends_list_loading_anim_wh"
+                    android:layout_gravity="center_horizontal"
+                    app:lottie_rawRes="@raw/friend_list_loading" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

@@ -273,7 +273,7 @@ public class FriendListFragment extends Fragment {
                     if (linearLayoutManager != null
                             &&
                             linearLayoutManager.findLastCompletelyVisibleItemPosition() ==
-                                    binding.friendsListRecycleLv.getAdapter().getItemCount() - 1) {
+                                    binding.friendsListRecycleLv.getAdapter().getItemCount() - 5) {
                         //bottom of list!
                         isLoadingMore = true;
                         loadDataMore(displayType, false);

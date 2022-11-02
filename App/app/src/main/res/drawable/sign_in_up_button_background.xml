@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="?attr/colorControlHighlight">
+    android:color="@color/white"
+    android:effectColor="@color/purple_700"
+    >
     <item android:id="@android:id/mask">
+
         <shape>
             <solid android:color="#ffffff" />
             <corners android:radius="@dimen/sign_in_up_button_background_radius" />
@@ -9,7 +12,7 @@
     </item>
     <item>
         <shape>
-            <solid android:color="@color/sign_in_up_button_background_color" />
+            <solid android:color="@color/white" />
             <corners android:radius="@dimen/sign_in_up_button_background_radius" />
         </shape>
     </item>

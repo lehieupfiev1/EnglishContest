@@ -11,12 +11,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.model.BaseFriendListItem;
 import com.pfiev.englishcontest.model.FriendItem;
 import com.pfiev.englishcontest.model.NotificationItem;
 import com.pfiev.englishcontest.model.UserItem;
 import com.pfiev.englishcontest.realtimedb.FriendList;
+import com.pfiev.englishcontest.realtimedb.Status;
 import com.pfiev.englishcontest.realtimedb.WaitingList;
 import com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
@@ -83,16 +86,26 @@ public class MakeFriendDialog extends Dialog implements
         UserItem ownItem = SharePreferenceUtils.getUserData(mContext);
         switch (view.getId()) {
             case R.id.dialog_make_friend_accept_btn:
-                Map<String, FriendItem> friends = new HashMap<String, FriendItem>();
-                friends.put(ownItem.getUserId(), friendItem);
-                friends.put(friendId, new FriendItem(
-                        ownItem.getUserId(),
-                        ownItem.getName(),
-                        ownItem.getUserPhotoUrl(),
-                        BaseFriendListItem.STATUS.ONLINE
-                ));
-                FriendList.getInstance().addFriend(friends);
-                if (onAcceptCb != null) onAcceptCb.acceptCallback();
+                // Update status state of new friend
+                Status.getInstance().getStatusByUid(friendId).addOnCompleteListener(
+                        new OnCompleteListener<String>() {
+                            @Override
+                            public void onComplete(@NonNull Task<String> task) {
+                                // Put data to create two new friend item
+                                friendItem.setStatus(task.getResult());
+                                Map<String, FriendItem> friends = new HashMap<String, FriendItem>();
+                                friends.put(ownItem.getUserId(), friendItem);
+                                friends.put(friendId, new FriendItem(
+                                        ownItem.getUserId(),
+                                        ownItem.getName(),
+                                        ownItem.getUserPhotoUrl(),
+                                        BaseFriendListItem.STATUS.ONLINE
+                                ));
+                                FriendList.getInstance().addFriend(friends);
+                                if (onAcceptCb != null) onAcceptCb.acceptCallback();
+                            }
+                        }
+                );
                 break;
             case R.id.dialog_make_friend_reject_btn:
                 WaitingList.getInstance().setUid(ownItem.getUserId());

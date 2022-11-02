@@ -201,6 +201,7 @@ public class FriendList {
      */
     public void detachFriendStatusListener() {
         if (friendStatusListener != null) {
+            isListenFriendStatus = false;
             String friendRefWillCard = this.friendListRef + "/" + uid;
             DatabaseReference dbRef = this.dbCon.getReference().child(friendRefWillCard);
             dbRef.removeEventListener(friendStatusListener);

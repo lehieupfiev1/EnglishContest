@@ -25,13 +25,16 @@
     <string name="experimental_leaderboard" translatable="false">Leaderboard</string>
     <string name="experimental_settings" translatable="false">Settings</string>
     <string name="experimental_about" translatable="false">About</string>
-
+    <string name="experimental_main_big_title" translatable="false"> ENGLISH FUNNY </string>
+    <string name="experimental_main_programmer_name" translatable="false"> The Lazy Programmers </string>
     <!--    Experimental Settings   -->
     <string name="experimental_settings_title_language">Language</string>
     <string name="experimental_settings_title_background_music" translatable="false">Background Music</string>
     <string name="experimental_settings_title_sound_effect" translatable="false">Sound Effects</string>
     <string name="experimental_settings_lazy_programmer" translatable="false">The Lazy Programmers</string>
-    <string name="experimental_about_content">Một trò chơi nho nhỏ được lập trình vào thời gian rảnh. Mong các bạn đã có thời gian thú vị khi sử dụng.\n Đừng quên thi thoảng click quảng cáo cho 2 thanh niên lập trình viên có chút tiền cafe ạ.\nYêu các bạn nhiều !!!\n\n(*) Hình ảnh sử dụng được download\n từ trang freepik và icon8</string>
+    <string name="experimental_about_content" translatable="false">Một trò chơi nho nhỏ được lập trình vào thời gian rảnh. Mong các bạn đã có thời gian thú vị khi sử dụng.\n Đừng quên thi thoảng click quảng cáo cho 2 thanh niên lập trình viên có chút tiền cafe ạ.\nYêu các bạn nhiều !!!\n\n(*) Hình ảnh sử dụng được download\n từ trang freepik và icon8</string>
+    <string name="experimental_settings_sys_name" translatable="false">The Dreamer Coder</string>
+    <string name="experimental_settings_big_title" translatable="false">Settings</string>
     <!--    Shared preferences key  -->
     <string name="shared_preferences_key" translatable="false">com.pfiev.english.preferences</string>
     <!--    Display language    -->
@@ -46,11 +49,14 @@
     <string name="preferences_sound_status" translatable="false">sound_status</string>
     <string name="preferences_sound_status_on" translatable="false">sound_status_on</string>
     <string name="preferences_sound_status_off" translatable="false">sound_status_off</string>
-    <!--    Background Music status-->
+    <!--    Background Music status -->
     <string name="preferences_bg_music_status" translatable="false">bg_music_status</string>
     <string name="preferences_bg_music_status_on" translatable="false">bg_music_status_on</string>
     <string name="preferences_bg_music_status_off" translatable="false">bg_music_status_off</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <!--    Leader Board -->
+    <string name="experimental_leaderboard_sys_name" translatable="false">The Forgetful Data Analysis</string>
+    <string name="experimental_leaderboard_big_title" translatable="false">Leaderboard</string>
 
     <!--    Profile-->
     <string name="profile_change_avatar">Change avatar</string>
@@ -75,6 +81,8 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
     <!--    Friend List -->
+    <string name="experimental_friends_list_sys_name" translatable="false">The Introverted Tester</string>
+    <string name="experimental_friends_list_big_title" translatable="false">Settings</string>
     <string name="friend_list_friend">FRIEND</string>
     <string name="friend_list_waiting">WAITING</string>
     <string name="friend_list_block">BLOCK</string>
@@ -117,5 +125,10 @@
     <string name="toast_custom_accept_friend" translatable="false">You have a new friend </string>
     <string name="toast_custom_reject_friend" translatable="false">Successfully declined invitation </string>
     <string name="toast_custom_unfriend_success" translatable="false">Successfully unfriend </string>
+    <string name="toast_custom_default_error_display" translatable="false">Something wrong. Please try again later</string>
+
+    <!--  Sign in / Sign up  -->
+    <string name="app_name_big_title" translatable="false">ENGLISH FUNNY QUIZ</string>
+    <string name="app_name_intro_title" translatable="false">Have fun while playing quiz with friends</string>
 
 </resources>

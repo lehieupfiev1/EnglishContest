@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -89,11 +90,11 @@ public class FriendListAdapter extends RecyclerView.Adapter
         return friendsLists.size();
     }
 
-    public void swapItem(List<FriendItem> mList, int fromPosition, int toPosition) {
-        mList.add(toPosition, mList.remove(fromPosition));
+    public void swapItem(List<FriendItem> mList, int fromPosition, int toPosition, FriendItem item) {
+        mList.remove(fromPosition);
+        mList.add(toPosition, item);
 //        Collections.swap(mList, fromPosition, toPosition);
-        notifyDataSetChanged();
-//        notifyItemMoved(fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
     }
 
     public int getItemPositionByUid(List<FriendItem> mList, String uid) {
@@ -118,18 +119,15 @@ public class FriendListAdapter extends RecyclerView.Adapter
                 .getFriendsLists();
         int position = getItemPositionByUid(mFriendsList, data.getUid());
         mFriendsList.set(position, data);
+        notifyItemChanged(position, data);
 
-        notifyItemChanged(position);
-        if (data.getStatus().equals(FriendItem.STATUS.ONLINE)) {
-            swapItem(mFriendsList, position, 0);
-            position = 0;
-        }
         ViewHolderFriends viewHolderFriends = ((ViewHolderFriends)
                 recyclerView.findViewHolderForAdapterPosition(position));
         if (viewHolderFriends != null) {
+            position = viewHolderFriends.getAdapterPosition();
             if (data.getStatus().equals(FriendItem.STATUS.ONLINE)) {
                 viewHolderFriends.requestCombatBtn.setVisibility(View.VISIBLE);
-
+                swapItem(mFriendsList, position, 0, data);
             } else {
                 viewHolderFriends.requestCombatBtn.setVisibility(View.INVISIBLE);
             }

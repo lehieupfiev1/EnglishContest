@@ -23,7 +23,7 @@
     </style>
 
     <style name="ThemeOverlay.EnglishContest.FullscreenContainer" parent="">
-        <item name="fullscreenBackgroundColor">#7BD2BE</item>
+        <item name="fullscreenBackgroundColor">#4BD5D4</item>
         <item name="fullscreenTextColor">@color/light_blue_A200</item>
     </style>
 </resources>

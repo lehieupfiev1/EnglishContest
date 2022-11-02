@@ -19,12 +19,15 @@ import androidx.fragment.app.Fragment;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
 import com.google.firebase.auth.FirebaseAuth;
+import com.pfiev.englishcontest.EnglishApplication;
 import com.pfiev.englishcontest.ProfileActivity;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.databinding.FragmentExperimentalMainBinding;
+import com.pfiev.englishcontest.model.BaseFriendListItem;
 import com.pfiev.englishcontest.model.FriendItem;
 import com.pfiev.englishcontest.model.UserItem;
 import com.pfiev.englishcontest.realtimedb.FriendList;
+import com.pfiev.englishcontest.realtimedb.Status;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
 
@@ -104,7 +107,7 @@ public class MainFragment extends Fragment {
         });
 
         // Change to Profile Activity
-        binding.profileLayout.setOnClickListener(new View.OnClickListener() {
+        binding.profileBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "Move to Profile Activity");
@@ -135,9 +138,9 @@ public class MainFragment extends Fragment {
         });
 
         // Create lottie animation background
-        lottie = binding.lottieExBg;
-        lottie.setRepeatCount(LottieDrawable.INFINITE);
-        lottie.playAnimation();
+//        lottie = binding.lottieExBg;
+//        lottie.setRepeatCount(LottieDrawable.INFINITE);
+//        lottie.playAnimation();
 
         return binding.getRoot();
 
@@ -167,6 +170,10 @@ public class MainFragment extends Fragment {
         FriendList friendList = FriendList.getInstance();
         friendList.setUid(ownerUid);
         friendList.updateStatusToFriends(FriendItem.STATUS.ONLINE);
+        // Set current state is online
+        if (EnglishApplication.isSetOnDisconnectEvent())
+            Status.getInstance().setState(Status.STATE_ONLINE);
+        EnglishApplication.setCurrentUserStatus(Status.STATE_ONLINE);
     }
 
     public void showLogOutDialog(Context context) {
@@ -196,7 +203,16 @@ public class MainFragment extends Fragment {
     }
 
     private void signOut() {
-        // Firebase sign out
+        // Update offline status to friends and listen their status
+        String ownerUid = SharePreferenceUtils.getUserData(getActivity()).getUserId();
+        FriendList friendList = FriendList.getInstance();
+        friendList.setUid(ownerUid);
+        friendList.updateStatusToFriends(FriendItem.STATUS.OFFLINE);
+        // Set current state is online
+        if (EnglishApplication.isSetOnDisconnectEvent())
+            Status.getInstance().setState(Status.STATE_OFFLINE);
+        EnglishApplication.setCurrentUserStatus(Status.STATE_OFFLINE);
+        // Sign out
         FirebaseAuth.getInstance().signOut();
         Toast.makeText(getActivity(), "Sign Out", Toast.LENGTH_SHORT);
         getActivity().finish();

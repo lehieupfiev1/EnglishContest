@@ -4,10 +4,11 @@
 
     <item>
         <shape>
-            <solid android:color="@color/experimental_main_button_color" />
+            <solid android:color="@color/leaderboard_item_score_bg" />
 
             <corners
-                android:radius="@dimen/experimental_main_btn_corner_radius"
+                android:topRightRadius="@dimen/leaderboard_lv_item_corner_radius"
+                android:bottomRightRadius="@dimen/leaderboard_lv_item_corner_radius"
                 />
         </shape>
     </item>

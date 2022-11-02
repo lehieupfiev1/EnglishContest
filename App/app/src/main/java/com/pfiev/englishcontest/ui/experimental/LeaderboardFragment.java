@@ -1,20 +1,32 @@
 package com.pfiev.englishcontest.ui.experimental;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.functions.FirebaseFunctionsException;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.adapter.LeaderboardAdapter;
 import com.pfiev.englishcontest.databinding.FragmentExperimentalLeaderboardBinding;
+import com.pfiev.englishcontest.firestore.FireStoreClass;
 import com.pfiev.englishcontest.model.LeaderboardItem;
+import com.pfiev.englishcontest.ui.dialog.CustomToast;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,13 +35,10 @@ import java.util.List;
  */
 public class LeaderboardFragment extends Fragment {
 
-
+    private String TAG = getClass().getName();
     private FragmentExperimentalLeaderboardBinding binding;
-    private List<LeaderboardItem> listLeaderboard;
+    private LottieAnimationView loadingAnim;
 
-    interface bindingListViewCallback {
-        void bindingList(String result);
-    }
 
     public LeaderboardFragment() {
         // Required empty public constructor
@@ -56,6 +65,7 @@ public class LeaderboardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentExperimentalLeaderboardBinding.inflate(inflater, container, false);
+        loadingAnim = binding.experimentalLeaderboardLoading;
         this.bindingBackButton();
         this.bindingListView();
         return binding.getRoot();
@@ -74,31 +84,64 @@ public class LeaderboardFragment extends Fragment {
     }
 
     private void bindingListView() {
-        listLeaderboard = new ArrayList<>();
+        showLoadingAnim();
+        FireStoreClass.getLeaderBoard().addOnCompleteListener(
+                new OnCompleteListener<HashMap>() {
+                    @Override
+                    public void onComplete(@NonNull Task<HashMap> task) {
+                        hideLoadingAnim();
+                        if (!task.isSuccessful()) {
+                            Exception e = task.getException();
+                            if (e instanceof FirebaseFunctionsException) {
+                                FirebaseFunctionsException ffe = (FirebaseFunctionsException) e;
+                                FirebaseFunctionsException.Code code = ffe.getCode();
+                                Object details = ffe.getDetails();
+                            }
+                            Log.i(TAG, " task is not success :" + e.getMessage());
+                            String messageDisplay = getString(R.string.toast_custom_default_error_display);
+                            CustomToast.makeText(getActivity(), messageDisplay,
+                                    CustomToast.ERROR, Toast.LENGTH_LONG);
+                        } else {
+                            ArrayList data = (ArrayList) task.getResult().get(
+                                    FireStoreClass.LEADERBOARD_FIELD);
 
-        getLeaderboardFromServer(new bindingListViewCallback() {
-            @Override
-            public void bindingList(String result) {
-
-                for (int i = 1; i < 9; i++) {
-                    LeaderboardItem user = new LeaderboardItem();
-                    user.setOrderId(String.valueOf(i));
-                    user.setAvatar("https://scontent.fhan2-2.fna.fbcdn.net/v/t1.6435-9/97085964_2967579086666431_472265966688927744_n.jpg?stp=cp0_dst-jpg_e15_fr_q65&_nc_cat=110&ccb=1-7&_nc_sid=85a577&_nc_ohc=hl49kIFuzmUAX-4NKVH&_nc_ht=scontent.fhan2-2.fna&oh=00_AT9lOdHFHzSqC6XUU9Ke84dqlUyr84VeSYegnrdqEIThiA&oe=6323286F");
-                    user.setUsername("Candy Milton");
-                    user.setScore(String.valueOf(1402));
-                    listLeaderboard.add(user);
+                            ArrayList<LeaderboardItem> list = new ArrayList<>();
+                            for(int i =0; i< data.size(); i++) {
+                                LeaderboardItem item = new LeaderboardItem();
+                                item.setProperties((HashMap) data.get(i));
+                                int orderId = i +1;
+                                item.setOrderId("" +orderId);
+                                list.add(item);
+                            }
+                            LeaderboardAdapter adapter = new LeaderboardAdapter(
+                                    getContext(), R.layout.listview_experimental_leaderboard, list);
+                            binding.experimentalLeaderboardLv.setAdapter(adapter);
+                            binding.experimentalLeaderboardLv.setDivider(
+                                    new ColorDrawable(
+                                            ContextCompat.getColor(getContext(),
+                                                    R.color.leaderboard_item_divider))
+                            );
+                            binding.experimentalLeaderboardLv.setDividerHeight(10);
+                        }
+                    }
                 }
-                LeaderboardAdapter adapter = new LeaderboardAdapter(
-                        getContext(), R.layout.listview_experimental_leaderboard, listLeaderboard);
-                binding.experimentalLeaderboardLv.setAdapter(adapter);
-            }
-        });
+        );
 
     }
 
-    public void getLeaderboardFromServer(bindingListViewCallback callback) {
-        //Todo Implement get data from server.
-        String result = "";
-        callback.bindingList("");
+    /**
+     * Show loading animation
+     */
+    private void showLoadingAnim() {
+        loadingAnim.setVisibility(View.VISIBLE);
+        loadingAnim.playAnimation();
+    }
+
+    /**
+     * Hide loading animation
+     */
+    private void hideLoadingAnim() {
+        loadingAnim.setVisibility(View.INVISIBLE);
+        loadingAnim.pauseAnimation();
     }
 }

@@ -43,6 +43,7 @@ import java.util.HashMap;
 public class FireStoreClass {
     //private static FireStoreClass mFireStoreClass = null;
     public static String TAG  = "FireStoreClass";
+    public static String LEADERBOARD_FIELD = "leaderboard";
 //    public FireStoreClass getInstance() {
 //        if (mFireStoreClass == null) {
 //            mFireStoreClass = new FireStoreClass();
@@ -330,6 +331,23 @@ public class FireStoreClass {
                         // propagated down.
                         HashMap result = (HashMap) task.getResult().getData();
                         return result.toString();
+                    }
+                });
+    }
+
+    public static Task<HashMap> getLeaderBoard() {
+
+        return FirebaseFunctions.getInstance()
+                .getHttpsCallable("getLeaderBoard")
+                .call()
+                .continueWith(new Continuation<HttpsCallableResult, HashMap>() {
+                    @Override
+                    public HashMap then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                        // This continuation runs on either success or failure, but if the task
+                        // has failed then getResult() will throw an Exception which will be
+                        // propagated down.
+                        HashMap result = (HashMap) task.getResult().getData();
+                        return result;
                     }
                 });
     }

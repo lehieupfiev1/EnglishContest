@@ -34,13 +34,18 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.FirebaseFunctionsException;
+import com.pfiev.englishcontest.EnglishApplication;
 import com.pfiev.englishcontest.GlobalConstant;
 import com.pfiev.englishcontest.PlayGameActivity;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.databinding.FragmentExperimentalFindingmatchBinding;
 import com.pfiev.englishcontest.firestore.FireStoreClass;
+import com.pfiev.englishcontest.model.BaseFriendListItem;
 import com.pfiev.englishcontest.model.ChoiceItem;
+import com.pfiev.englishcontest.model.FriendItem;
 import com.pfiev.englishcontest.model.QuestionItem;
+import com.pfiev.englishcontest.realtimedb.FriendList;
+import com.pfiev.englishcontest.realtimedb.Status;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 import com.pfiev.englishcontest.utils.TextUtils;
 
@@ -228,7 +233,8 @@ public class FindingMatchFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        listenerRegistration.remove();
+        if (listenerRegistration != null)
+            listenerRegistration.remove();
     }
 
     public void showAgreeDialog(Context context, String match_id) {
@@ -327,6 +333,15 @@ public class FindingMatchFragment extends Fragment {
         super.onResume();
         mBinding.findingBtn.setEnabled(true);
         finding_lottie.pauseAnimation();
+        // update playing status to friends
+        String ownerUid = SharePreferenceUtils.getUserData(getActivity()).getUserId();
+        FriendList friendList = FriendList.getInstance();
+        friendList.setUid(ownerUid);
+        friendList.updateStatusToFriends(FriendItem.STATUS.PLAYING);
+        // Set current status
+        Status.getInstance().setState(Status.STATE_PLAYING);
+        EnglishApplication.setCurrentUserStatus(Status.STATE_PLAYING);
+
         if (getActivity() != null && getActivity().getWindow() != null) {
             getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }

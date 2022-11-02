@@ -27,23 +27,40 @@ import com.pfiev.englishcontest.setup.TwitterSignInActivity;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class EnglishApplication extends Application implements LifecycleObserver {
     public ActivityManager activityManager;
     ListenCombatRequestService mService;
-    boolean mBound, isSetOnDisconnectAction;
+    boolean mBound;
+    private static boolean isSetOnDisconnectAction;
     private static Activity currentActivity;
+    private static String currentUserStatus;
     private static boolean isShowNotification;
     private ArrayList<Class> excludeClass;
 
     public static Activity getCurrentActivity() {
         return currentActivity;
     }
-//    public static void setIsShowNotification(Boolean isShow) {
-////        isShowNotification = isShow;
-//        if (isShow)
-//    }
+
+    /**
+     * Check if allow show notification
+     * @return
+     */
+    public static Boolean isAllowedShowNotification() {
+        return !currentUserStatus.equals(Status.STATE_PLAYING);
+    }
+
+    /**
+     * Set current status state of user
+     * @param status
+     */
+    public static void setCurrentUserStatus(String status) {
+        currentUserStatus = status;
+    }
+
+    public static boolean isSetOnDisconnectEvent() {
+        return isSetOnDisconnectAction;
+    }
 
     @Override
     public void onCreate() {
@@ -121,6 +138,11 @@ public class EnglishApplication extends Application implements LifecycleObserver
                 Status.getInstance().setOwnUid(ownUid);
                 Status.getInstance().setOnDisconnectAction(activity, new Status.StateCallBack() {
                     @Override
+                    public void afterSetOnDisconnectAction() {
+                        isSetOnDisconnectAction = true;
+                    }
+
+                    @Override
                     public void notSameHashCallback() {
                         isSetOnDisconnectAction = false;
                         FirebaseAuth.getInstance().signOut();
@@ -130,7 +152,6 @@ public class EnglishApplication extends Application implements LifecycleObserver
                         startActivity(intent);
                     }
                 });
-                isSetOnDisconnectAction = true;
             }
             Intent intent = new Intent(activity, ListenCombatRequestService.class);
             intent.putExtra(GlobalConstant.USER_ID, ownUid);

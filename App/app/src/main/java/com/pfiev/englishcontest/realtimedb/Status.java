@@ -5,13 +5,16 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.functions.FirebaseFunctionsException;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
 public class Status {
@@ -23,8 +26,9 @@ public class Status {
     private DatabaseReference connectedRef;
 
     private final String TAG = "Status Db";
-    private final String STATE_ONLINE = "online";
-    private final String STATE_OFFLINE = "offline";
+    public static String STATE_ONLINE = "online";
+    public static String STATE_OFFLINE = "offline";
+    public static String STATE_PLAYING = "playing";
 
     public static Status getInstance() {
         if (instance == null) {
@@ -61,26 +65,44 @@ public class Status {
             public void onDataChange(DataSnapshot snapshot) {
                 boolean connected = snapshot.getValue(Boolean.class);
                 if (connected) {
-                    ownStatusRef.get().addOnSuccessListener(
-                            new OnSuccessListener<DataSnapshot>() {
+                    ownStatusRef.get().addOnCompleteListener(
+                            new OnCompleteListener<DataSnapshot>() {
                                 @Override
-                                public void onSuccess(DataSnapshot dataSnapshot) {
-                                    StatusModel status = null;
-                                    if (dataSnapshot != null && dataSnapshot.exists()) {
-                                        status = dataSnapshot.getValue(Status.StatusModel.class);
-                                    }
-                                    if (status == null || status.state.equals(STATE_OFFLINE)) {
-                                        myStateRef.onDisconnect().setValue(STATE_OFFLINE);
-                                        // When I disconnect, update the last time I was seen online
-                                        lastOnlineRef.onDisconnect().setValue(ServerValue.TIMESTAMP);
-                                        // Set state online and device hash
-                                        hashDisplayRef.setValue(deviceHash);
-                                        // Set value is online now
-                                        myStateRef.setValue(STATE_ONLINE);
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                    if (!task.isSuccessful()) {
+                                        Exception e = task.getException();
+                                        if (e instanceof FirebaseFunctionsException) {
+                                            FirebaseFunctionsException ffe = (FirebaseFunctionsException) e;
+                                            FirebaseFunctionsException.Code code = ffe.getCode();
+                                            Object details = ffe.getDetails();
+                                        }
+                                        Log.i(TAG, " task is not success :" + e.getMessage());
                                     } else {
-                                        if (!status.hashDisplay.equals(deviceHash)) {
-                                            stateCallBack.notSameHashCallback();
-                                            connectedRef.removeEventListener(listener);
+                                        StatusModel status = null;
+                                        DataSnapshot dataSnapshot = task.getResult();
+                                        if (dataSnapshot != null && dataSnapshot.exists()) {
+                                            status = dataSnapshot.getValue(Status.StatusModel.class);
+                                        }
+                                        if (status == null || status.state.equals(STATE_OFFLINE)) {
+                                            myStateRef.onDisconnect().setValue(STATE_OFFLINE);
+                                            // When I disconnect, update the last time I was seen online
+                                            lastOnlineRef.onDisconnect().setValue(ServerValue.TIMESTAMP);
+                                            // Set new timestamp
+                                            lastOnlineRef.setValue(ServerValue.TIMESTAMP);
+                                            // Set state online and device hash
+                                            hashDisplayRef.setValue(deviceHash);
+                                            // Set value is online now
+                                            myStateRef.setValue(STATE_ONLINE);
+                                            stateCallBack.afterSetOnDisconnectAction();
+                                        } else {
+                                            if (!status.hashDisplay.equals(deviceHash)) {
+                                                connectedRef.removeEventListener(listener);
+                                                stateCallBack.notSameHashCallback();
+                                            } else {
+                                                myStateRef.onDisconnect().setValue(STATE_OFFLINE);
+                                                // When I disconnect, update the last time I was seen online
+                                                lastOnlineRef.onDisconnect().setValue(ServerValue.TIMESTAMP);
+                                            }
                                         }
                                     }
                                 }
@@ -99,6 +121,28 @@ public class Status {
 
     public void destroyListener() {
         connectedRef.removeEventListener(listener);
+    }
+
+    /**
+     * Get status state of user by uid
+     * @param uid
+     * @return
+     */
+    public Task<String> getStatusByUid(String uid) {
+        DatabaseReference friendStatusRef = database.getReference()
+                .child(this.statusRef + "/" + uid).child("state");
+        return friendStatusRef.get().continueWith(new Continuation<DataSnapshot, String>() {
+
+            @Override
+            public String then(@NonNull Task<DataSnapshot> task) throws Exception {
+                return task.getResult().getValue().toString();
+            }
+        });
+    }
+
+    public void setState(String newState) {
+        database.getReference().child(this.statusRef + "/" + this.ownUid).child("state")
+                .setValue(newState);
     }
 
     public static class StatusModel {
@@ -136,6 +180,7 @@ public class Status {
     }
 
     public static interface StateCallBack {
+        public void afterSetOnDisconnectAction();
         public void notSameHashCallback();
     }
 }

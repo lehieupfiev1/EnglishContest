@@ -1,259 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/experimental_root_fragment_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/fullscreenBackgroundColor"
     android:theme="@style/ThemeOverlay.EnglishContest.FullscreenContainer"
     tools:context=".ui.experimental.MainFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_experimental_root_layout"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/big_title_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp">
-
-                <LinearLayout
-                    android:id="@+id/profile_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
-                        android:id="@+id/avatar"
-                        android:layout_width="@dimen/actionbar_avatar_size"
-                        android:layout_height="@dimen/actionbar_avatar_size"
-                        android:layout_marginStart="30dp"
-                        android:gravity="center"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/bg_profile_image" />
-
-                    <TextView
-                        android:id="@+id/user_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="15dp"
-                        android:fontFamily="@font/svn_supercell_magic"
-                        android:text="User name"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/log_out"
-                    android:layout_width="@dimen/actionbar_avatar_size"
-                    android:layout_height="@dimen/actionbar_avatar_size"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="30dp"
-                    android:gravity="center"
-                    android:src="@drawable/log_out" />
-            </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/main_big_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="50dp"
-                android:fontFamily="@font/svn_supercell_magic"
-                android:text="ENGLISH FUNNY QUIZ"
+                android:layout_marginTop="@dimen/experimental_main_big_title_margin_vertical"
+                android:layout_marginEnd="@dimen/experimental_main_big_title_margin_end"
+                android:background="@drawable/bg_experimental_main_big_title_layout"
+                android:fontFamily="@font/mali_bold"
+                android:padding="@dimen/experimental_main_big_title_padding"
+                android:text="@string/experimental_main_big_title"
                 android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="30sp"
-                tools:layout_editor_absoluteX="189dp"
-                tools:layout_editor_absoluteY="160dp" />
+                android:textColor="@color/experimental_main_big_title_color"
+                android:textSize="@dimen/experimental_main_big_title_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/group_btn_root_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/profile_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/big_title_layout">
+
+
+            <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
+                android:id="@+id/programmer_avatar"
+                android:layout_width="@dimen/actionbar_avatar_size"
+                android:layout_height="@dimen/actionbar_avatar_size"
+                android:layout_marginStart="@dimen/experimental_main_programmer_margin_start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/bg_profile_image"
+                />
+
+            <LinearLayout
+                android:id="@+id/group_btn_parent_layout"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/lottie_ex_bg"
-                    android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/experimental_main_group_btn_parent_mg_start"
+                android:background="@drawable/bg_experimental_main_group_btn_layout"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/experimental_main_group_btn_padding_horizontal"
+                android:paddingBottom="@dimen/experimental_main_group_btn_parent_pd_vertical"
+                app:layout_constraintStart_toEndOf="@id/programmer_avatar"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:scaleX="2"
-                    android:scaleY="2"
-                    app:lottie_rawRes="@raw/experimental_background_lottie">
+                    android:text="@string/experimental_main_programmer_name"
+                    android:textSize="@dimen/experimental_main_programmer_text_size"
+                    android:fontFamily="@font/mali_bold"
+                    android:textColor="@color/experimental_main_programmer_name"
+                    android:layout_marginBottom="@dimen/experimental_main_programmer_margin_bottom"
+                    >
 
-                </com.airbnb.lottie.LottieAnimationView>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                </TextView>
+                <!-- New Game -->
+                <LinearLayout
+                    android:id="@+id/experimental_new_game_btn"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/experimental_main_margin_top"
-                    android:padding="40dp">
-                    <!-- New Game -->
-                    <LinearLayout
-                        android:id="@+id/experimental_new_game_btn"
-                        android:layout_width="match_parent"
+                    android:background="@drawable/bg_experimental_main_button_parent"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="@dimen/experimental_btn_padding_vertical"
+                    android:paddingStart="@dimen/experimental_main_btn_parent_padding_start"
+                    >
+
+                    <TextView
+                        android:id="@+id/experimental_friends_list_txt"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
                         android:background="@drawable/bg_experimental_main_button"
-                        android:elevation="@dimen/experimental_btn_elevation"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/experimental_btn_height"
-                        android:paddingStart="@dimen/experimental_btn_padding_start"
-                        android:paddingTop="@dimen/experimental_btn_padding_top_bottom"
-                        android:paddingEnd="@dimen/experimental_btn_padding_end"
-                        android:paddingBottom="@dimen/experimental_btn_padding_top_bottom">
+                        android:fontFamily="@font/mali_bold"
+                        android:padding="@dimen/experimental_main_btn_padding"
+                        android:text="@string/experimental_new_game"
+                        android:textAlignment="center"
+                        android:textColor="@color/experimental_btn_text_color"
+                        android:textSize="@dimen/experimental_main_btn_text_size" />
+                </LinearLayout>
+                <!-- Friends List -->
+                <LinearLayout
+                    android:id="@+id/experimental_friends_list_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_experimental_main_button_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/experimental_btn_padding_vertical"
+                    android:paddingStart="@dimen/experimental_main_btn_parent_padding_start"
+                    android:paddingEnd="@dimen/experimental_main_btn_parent_padding_end"
+                    >
 
-                        <ImageView
-                            android:layout_width="@dimen/dialog_experimental_icon_size"
-                            android:layout_height="@dimen/dialog_experimental_icon_size"
-                            android:src="@drawable/ic_tank_icon" />
-
-                        <TextView
-                            android:id="@+id/sign_in_google_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/experimental_btn_text_margin_start"
-                            android:fontFamily="@font/svn_supercell_magic"
-                            android:text="@string/experimental_new_game"
-                            android:textAlignment="center"
-                            android:textColor="@color/experimental_btn_text_color" />
-                    </LinearLayout>
-                    <!-- Friends List -->
-                    <LinearLayout
-                        android:id="@+id/experimental_friends_list_btn"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/experimental_new_game_txt"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/experimental_new_game_btn"
-                        android:layout_marginTop="@dimen/experimental_btn_margin_top"
                         android:background="@drawable/bg_experimental_main_button"
-                        android:elevation="@dimen/experimental_btn_elevation"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/experimental_btn_height"
-                        android:paddingStart="@dimen/experimental_btn_padding_start"
-                        android:paddingTop="@dimen/experimental_btn_padding_top_bottom"
-                        android:paddingEnd="@dimen/experimental_btn_padding_end"
-                        android:paddingBottom="@dimen/experimental_btn_padding_top_bottom">
+                        android:fontFamily="@font/mali_bold"
+                        android:padding="@dimen/experimental_main_btn_padding"
+                        android:text="@string/experimental_friends_list"
+                        android:textAlignment="center"
+                        android:textColor="@color/experimental_btn_text_color"
+                        android:textSize="@dimen/experimental_main_btn_text_size" />
+                </LinearLayout>
+                <!-- LeaderboardFragment -->
+                <LinearLayout
+                    android:id="@+id/experimental_leaderboard_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_experimental_main_button_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/experimental_btn_padding_vertical"
+                    android:paddingStart="@dimen/experimental_main_btn_parent_padding_start"
+                    android:paddingEnd="@dimen/experimental_main_btn_parent_padding_end"
+                    >
 
-                        <ImageView
-                            android:layout_width="@dimen/dialog_experimental_icon_size"
-                            android:layout_height="@dimen/dialog_experimental_icon_size"
-                            android:src="@drawable/ic_tank_icon" />
-
-                        <TextView
-                            android:id="@+id/experimental_friends_list_txt"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/experimental_btn_text_margin_start"
-                            android:fontFamily="@font/svn_supercell_magic"
-                            android:text="@string/experimental_friends_list"
-                            android:textAlignment="center"
-                            android:textColor="@color/experimental_btn_text_color" />
-                    </LinearLayout>
-                    <!-- LeaderboardFragment -->
-                    <LinearLayout
-                        android:id="@+id/experimental_leaderboard_btn"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/main_leaderboard_tv"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/experimental_friends_list_btn"
-                        android:layout_marginTop="@dimen/experimental_btn_margin_top"
                         android:background="@drawable/bg_experimental_main_button"
-                        android:elevation="@dimen/experimental_btn_elevation"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/experimental_btn_height"
-                        android:paddingStart="@dimen/experimental_btn_padding_start"
-                        android:paddingTop="@dimen/experimental_btn_padding_top_bottom"
-                        android:paddingEnd="@dimen/experimental_btn_padding_end"
-                        android:paddingBottom="@dimen/experimental_btn_padding_top_bottom">
+                        android:fontFamily="@font/mali_bold"
+                        android:padding="@dimen/experimental_main_btn_padding"
+                        android:text="@string/experimental_leaderboard"
+                        android:textAlignment="center"
+                        android:textColor="@color/experimental_btn_text_color"
+                        android:textSize="@dimen/experimental_main_btn_text_size" />
+                </LinearLayout>
+                <!-- Settings -->
+                <LinearLayout
+                    android:id="@+id/experimental_settings_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_experimental_main_button_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/experimental_btn_padding_vertical"
+                    android:paddingStart="@dimen/experimental_main_btn_parent_padding_start"
+                    android:paddingEnd="@dimen/experimental_main_btn_parent_padding_end"
+                    >
 
-                        <ImageView
-                            android:layout_width="@dimen/dialog_experimental_icon_size"
-                            android:layout_height="@dimen/dialog_experimental_icon_size"
-                            android:src="@drawable/ic_experimental_leaderboard" />
 
-                        <TextView
-                            android:id="@+id/main_leaderboard_tv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/experimental_btn_text_margin_start"
-                            android:fontFamily="@font/svn_supercell_magic"
-                            android:text="@string/experimental_leaderboard"
-                            android:textAlignment="center"
-                            android:textColor="@color/experimental_btn_text_color" />
-                    </LinearLayout>
-                    <!-- Settings -->
-                    <LinearLayout
-                        android:id="@+id/experimental_settings_btn"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/sign_in_twitter_text"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/experimental_leaderboard_btn"
-                        android:layout_marginTop="@dimen/experimental_btn_margin_top"
                         android:background="@drawable/bg_experimental_main_button"
-                        android:elevation="@dimen/experimental_btn_elevation"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/experimental_btn_height"
-                        android:paddingStart="@dimen/experimental_btn_padding_start"
-                        android:paddingTop="@dimen/experimental_btn_padding_top_bottom"
-                        android:paddingEnd="@dimen/experimental_btn_padding_end"
-                        android:paddingBottom="@dimen/experimental_btn_padding_top_bottom">
+                        android:fontFamily="@font/mali_bold"
+                        android:padding="@dimen/experimental_main_btn_padding"
+                        android:text="@string/experimental_settings"
+                        android:textAlignment="center"
+                        android:textColor="@color/experimental_btn_text_color"
+                        android:textSize="@dimen/experimental_main_btn_text_size" />
+                </LinearLayout>
+                <!-- About -->
+                <LinearLayout
+                    android:id="@+id/experimental_about_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_experimental_main_button_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/experimental_btn_padding_vertical"
+                    android:paddingStart="@dimen/experimental_main_btn_parent_padding_start"
+                    android:paddingEnd="@dimen/experimental_main_btn_parent_padding_end"
+                    >
 
-                        <ImageView
-                            android:layout_width="@dimen/dialog_experimental_icon_size"
-                            android:layout_height="@dimen/dialog_experimental_icon_size"
-                            android:src="@drawable/ic_experimental_main_settings" />
-
-                        <TextView
-                            android:id="@+id/sign_in_twitter_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/experimental_btn_text_margin_start"
-                            android:fontFamily="@font/svn_supercell_magic"
-                            android:text="@string/experimental_settings"
-                            android:textAlignment="center"
-                            android:textColor="@color/experimental_btn_text_color" />
-                    </LinearLayout>
-                    <!-- About -->
-                    <LinearLayout
-                        android:id="@+id/experimental_about_btn"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/sign_in_facebook_text"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/experimental_settings_btn"
-                        android:layout_marginTop="12dp"
                         android:background="@drawable/bg_experimental_main_button"
-                        android:elevation="@dimen/experimental_btn_elevation"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/experimental_btn_height"
-                        android:paddingStart="@dimen/experimental_btn_padding_start"
-                        android:paddingTop="@dimen/experimental_btn_padding_top_bottom"
-                        android:paddingEnd="@dimen/experimental_btn_padding_end"
-                        android:paddingBottom="@dimen/experimental_btn_padding_top_bottom">
+                        android:fontFamily="@font/mali_bold"
+                        android:padding="@dimen/experimental_main_btn_padding"
+                        android:text="@string/experimental_about"
+                        android:textAlignment="center"
+                        android:textColor="@color/experimental_btn_text_color"
+                        android:textSize="@dimen/experimental_main_btn_text_size" />
+                </LinearLayout>
+            </LinearLayout>
+            <!-- Group btn -->
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="@dimen/experimental_main_group_btn_emoji_width"
+                android:layout_height="@dimen/experimental_main_group_btn_emoji_height"
+                android:layout_marginTop="@dimen/experimental_main_group_btn_emoji_margin_top"
+                android:layout_marginEnd="@dimen/experimental_main_group_btn_emoji_margin_end"
+                android:background="@drawable/bg_experimental_main_emoji"
+                android:paddingStart="@dimen/experimental_main_group_btn_emoji_padding_start_end"
+                android:paddingTop="@dimen/experimental_main_group_btn_emoji_padding_top_bottom"
+                android:paddingEnd="@dimen/experimental_main_group_btn_emoji_padding_start_end"
+                android:src="@drawable/ic_party_emoji"
+                app:layout_constraintEnd_toEndOf="@id/group_btn_parent_layout"
+                app:layout_constraintTop_toBottomOf="@id/group_btn_parent_layout">
 
-                        <ImageView
-                            android:layout_width="@dimen/dialog_experimental_icon_size"
-                            android:layout_height="@dimen/dialog_experimental_icon_size"
-                            android:src="@drawable/ic_experimental_main_info" />
+            </ImageView>
 
-                        <TextView
-                            android:id="@+id/sign_in_facebook_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/experimental_btn_text_margin_start"
-                            android:fontFamily="@font/svn_supercell_magic"
-                            android:text="@string/experimental_about"
-                            android:textAlignment="center"
-                            android:textColor="@color/experimental_btn_text_color" />
-                    </LinearLayout>
-                </RelativeLayout>
-            </RelativeLayout>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/experimental_main_profile_bar_margin_end"
+            android:layout_marginBottom="@dimen/experimental_main_profile_bar_margin_bottom"
+            android:padding="@dimen/experimental_main_profile_bar_padding"
+            android:background="@drawable/bg_experimental_main_info_tab"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
+                android:id="@+id/avatar"
+                android:layout_width="@dimen/actionbar_avatar_size"
+                android:layout_height="@dimen/actionbar_avatar_size"
+                android:gravity="center"
+                android:scaleType="fitCenter"
+                android:src="@drawable/bg_profile_image" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="@dimen/experimental_main_profile_bar_username_mg_horizontal"
+                android:fontFamily="@font/mali_bold"
+                android:text="User name of user"
+                android:textColor="@color/experimental_main_profile_bar_username"
+                android:textSize="@dimen/experimental_main_profile_bar_username_text_size" />
+
+            <ImageView
+                android:id="@+id/log_out"
+                android:layout_width="@dimen/actionbar_avatar_size"
+                android:layout_height="@dimen/actionbar_avatar_size"
+                android:gravity="center"
+                android:src="@drawable/ic_profile_bar_settings" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,8 @@
 
     <!--Sign In/Sign Up-->
     <color name="sign_in_up_button_background_color">#5D000000</color>
-    <color name="sign_in_up_button_text_color">#FCFCFC</color>
+    <color name="sign_in_up_background_color">#4BD5D4</color>
+    <color name="sign_in_up_button_text_color">#FF9800</color>
     <color name="sign_in_up_change_mode_button_color">#FCFCFC</color>
     <color name="sign_in_up_notice_text_color">#505050</color>
     <color name="sign_in_additional_message_text_color">#858585</color>
@@ -34,21 +35,36 @@
 
     <!-- Color for experimental    -->
     <color name="experimental_main_button_color">#EE883A</color>
+    <color name="experimental_main_big_title_color">#FF9800</color>
+    <color name="experimental_main_programmer_name">#00BCD4</color>
+    <color name="experimental_main_btn_parent_bg_color">#F8C822</color>
+    <color name="experimental_main_profile_bar_username">#00BCD4</color>
     <color name="experimental_btn_background_color">#5D000000</color>
     <color name="experimental_about_background_color">#FFB961</color>
-    <color name="experimental_btn_text_color">#FCFCFC</color>
+    <color name="experimental_btn_text_color">#FFFFFF</color>
     <color name="experimental_change_mode_button_color">#FCFCFC</color>
     <color name="experimental_notice_text_color">#505050</color>
     <!--    <color name="sign_in_additional_message_text_color">#858585</color>-->
 
     <!--    Leaderboard color-->
-    <color name="leaderboard_item_main_default_bg">#FFFFFF</color>
+    <color name="experimental_leaderboard_big_title_color">#FF9800</color>
+    <color name="experimental_sys_name">#00BCD4</color>
+    <color name="leaderboard_item_text">#00BCD4</color>
+    <color name="leaderboard_item_score_text">#FFFFFF</color>
+    <color name="leaderboard_item_main_default_bg">#DDDDDD</color>
     <color name="leaderboard_item_main_first_bg">#FAE800</color>
-    <color name="leaderboard_item_main_second_bg">#C0C0C0</color>
+    <color name="leaderboard_item_main_second_bg">#FFFFFF</color>
     <color name="leaderboard_item_main_third_bg">#CD7F32</color>
     <color name="leaderboard_item_score_bg">#EE883A</color>
+    <color name="leaderboard_item_divider">#00FFFFFF</color>
+
+    <!--Settings color -->
+    <color name="experimental_settings_big_title_color">#FF9800</color>
+    <color name="experimental_settings_sys_name">#00BCD4</color>
 
     <!--    FriendList color   -->
+    <color name="experimental_friends_list_big_title_color">#FF9800</color>
+    <color name="experimental_friends_list_sys_name">#00BCD4</color>
     <color name="friends_list_radio_button_default">#888888</color>
     <color name="friends_list_radio_button_active">#FF4AC695</color>
     <color name="friends_list_radio_button_border">#888888</color>

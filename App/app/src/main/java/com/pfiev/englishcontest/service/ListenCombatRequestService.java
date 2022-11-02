@@ -50,6 +50,9 @@ public class ListenCombatRequestService extends Service {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value,
                                         @Nullable FirebaseFirestoreException error) {
+                        // Check if allowed show notification
+                        if (!EnglishApplication.isAllowedShowNotification()) return;
+
                         for (DocumentChange dc : value.getDocumentChanges()) {
                             if (dc.getType() == DocumentChange.Type.ADDED) {
                                 NotificationItem notificationItem =

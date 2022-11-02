@@ -1,43 +1,99 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_experimental_leaderboard"
     tools:context=".ui.experimental.LeaderboardFragment">
 
-    <ImageButton
-        android:id="@+id/experimental_leaderboard_back_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:background="@drawable/ic_experimental_return_back"
-        android:contentDescription="Back to main"
-        >
-    </ImageButton>
-
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:padding="20dp"
-        >
-        <ImageView
-            android:id="@+id/experimental_leaderboard_top_img"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:src="@drawable/experimental_leaderboard_top_img">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_experimental_root_layout"
+        android:orientation="vertical">
 
-        </ImageView>
-
-        <ListView
-            android:id="@+id/experimental_leaderboard_lv"
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/experimental_leaderboard_back_btn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/experimental_leaderboard_top_img">
+            android:layout_marginStart="@dimen/leaderboard_back_button_mg_start"
+            android:layout_marginTop="@dimen/leaderboard_back_button_mg_top"
+            android:background="@drawable/ic_experimental_return_back"
+            android:contentDescription="Back to main"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </ListView>
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/leaderboard_big_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/leaderboard_big_title_mg_top"
+            android:layout_marginHorizontal="@dimen/leaderboard_big_title_mg_horizontal"
+            android:background="@drawable/bg_experimental_main_big_title_layout"
+            android:fontFamily="@font/mali_bold"
+            android:padding="@dimen/leaderboard_big_title_padding"
+            android:text="@string/experimental_leaderboard_big_title"
+            android:textAlignment="center"
+            android:textColor="@color/experimental_leaderboard_big_title_color"
+            android:textSize="@dimen/leaderboard_big_title_text_size"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/experimental_leaderboard_back_btn"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
+            android:id="@+id/leaderboard_sys_name_avatar"
+            android:layout_width="@dimen/leaderboard_sys_name_avatar_width"
+            android:layout_height="@dimen/actionbar_avatar_size"
+            android:layout_marginTop="@dimen/leaderboard_table_margin_top"
+            android:layout_marginHorizontal="@dimen/leaderboard_sys_name_avatar_mg_horizontal"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bg_profile_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/leaderboard_big_title"
+            />
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/leaderboard_table_margin_start"
+            android:layout_marginEnd="@dimen/leaderboard_table_margin_end"
+            android:layout_marginTop="@dimen/leaderboard_table_margin_top"
+            android:background="@drawable/bg_experimental_main_group_btn_layout"
+            android:paddingBottom="@dimen/leaderboard_table_padding"
+            android:paddingHorizontal="@dimen/leaderboard_table_padding"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/leaderboard_big_title"
+            >
+
+            <TextView
+                android:id="@+id/experimental_leaderboard_sys_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/leaderboard_sys_name_mg_bottom"
+                android:fontFamily="@font/mali_bold"
+                android:text="@string/experimental_leaderboard_sys_name"
+                android:textColor="@color/experimental_sys_name"
+                android:textSize="@dimen/leaderboard_sys_name_text_size" />
+
+            <ListView
+                android:id="@+id/experimental_leaderboard_lv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/experimental_leaderboard_sys_name"
+                />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/experimental_leaderboard_loading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                app:lottie_rawRes="@raw/friend_list_loading">
+
+            </com.airbnb.lottie.LottieAnimationView>
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

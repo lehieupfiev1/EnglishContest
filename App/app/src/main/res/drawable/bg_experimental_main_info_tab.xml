@@ -4,10 +4,10 @@
 
     <item>
         <shape>
-            <solid android:color="@color/experimental_main_button_color" />
+            <solid android:color="#FFFFFF" />
 
             <corners
-                android:radius="@dimen/experimental_main_btn_corner_radius"
+                android:radius="@dimen/experimental_main_big_title_layout_corner_radius"
                 />
         </shape>
     </item>
