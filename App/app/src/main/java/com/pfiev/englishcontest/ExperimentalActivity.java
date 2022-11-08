@@ -111,6 +111,8 @@ public class ExperimentalActivity extends AppCompatActivity {
         binding = ActivityExperimentalBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Bundle bundle = getIntent().getExtras();
+        mContentView = binding.experimentalFullscreenContent;
+        mVisible = true;
 
         if (bundle != null) {
             String startFragment = bundle.getString(START_FRAGMENT_KEY);
@@ -123,6 +125,7 @@ public class ExperimentalActivity extends AppCompatActivity {
                         .commitNow();
 
             }
+            return;
         }
 
         if (savedInstanceState == null) {
@@ -130,9 +133,6 @@ public class ExperimentalActivity extends AppCompatActivity {
                     .add(R.id.experimental_fullscreen_content, MainFragment.newInstance())
                     .commitNow();
         }
-
-        mContentView = binding.experimentalFullscreenContent;
-        mVisible = true;
     }
 
     @Override

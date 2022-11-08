@@ -106,4 +106,10 @@
     <color name="toast_custom_error">#E91E63</color>
     <color name="toast_custom_confusing">#2196F3</color>
 
+    <!--    Menu bubble-->
+    <color name="menu_bubble_sys_name">#00BCD4</color>
+    <color name="menu_bubble_badge_enable">#00FFFFFF</color>
+
+    <!--    Finding match -->
+    <color name="finding_match_bubble_intro_mess">#FF4AC695</color>
 </resources>

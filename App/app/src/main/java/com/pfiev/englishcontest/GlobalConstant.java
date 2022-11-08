@@ -48,4 +48,5 @@ public class GlobalConstant {
     public static final String BEFORE_CROP_IMAGE = "/before_crop_image.jpg";
 
     public static final int REQUEST_COMBAT_WAITING_JOIN_TIME = 20;
+    public static final int DEFAULT_WAITING_JOIN_TIME = 20;
 }

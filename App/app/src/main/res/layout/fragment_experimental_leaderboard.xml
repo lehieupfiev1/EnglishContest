@@ -26,8 +26,8 @@
             android:id="@+id/leaderboard_big_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/leaderboard_big_title_mg_top"
             android:layout_marginHorizontal="@dimen/leaderboard_big_title_mg_horizontal"
+            android:layout_marginTop="@dimen/leaderboard_big_title_mg_top"
             android:background="@drawable/bg_experimental_main_big_title_layout"
             android:fontFamily="@font/mali_bold"
             android:padding="@dimen/leaderboard_big_title_padding"
@@ -36,52 +36,26 @@
             android:textColor="@color/experimental_leaderboard_big_title_color"
             android:textSize="@dimen/leaderboard_big_title_text_size"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/experimental_leaderboard_back_btn"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
-            android:id="@+id/leaderboard_sys_name_avatar"
-            android:layout_width="@dimen/leaderboard_sys_name_avatar_width"
-            android:layout_height="@dimen/actionbar_avatar_size"
-            android:layout_marginTop="@dimen/leaderboard_table_margin_top"
-            android:layout_marginHorizontal="@dimen/leaderboard_sys_name_avatar_mg_horizontal"
-            android:scaleType="fitCenter"
-            android:src="@drawable/bg_profile_image"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/leaderboard_big_title"
-            />
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/leaderboard_table_margin_start"
-            android:layout_marginEnd="@dimen/leaderboard_table_margin_end"
-            android:layout_marginTop="@dimen/leaderboard_table_margin_top"
-            android:background="@drawable/bg_experimental_main_group_btn_layout"
-            android:paddingBottom="@dimen/leaderboard_table_padding"
-            android:paddingHorizontal="@dimen/leaderboard_table_padding"
-            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/leaderboard_big_title"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/experimental_leaderboard_back_btn" />
 
-            <TextView
-                android:id="@+id/experimental_leaderboard_sys_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/leaderboard_sys_name_mg_bottom"
-                android:fontFamily="@font/mali_bold"
-                android:text="@string/experimental_leaderboard_sys_name"
-                android:textColor="@color/experimental_sys_name"
-                android:textSize="@dimen/leaderboard_sys_name_text_size" />
+        <com.pfiev.englishcontest.ui.wiget.MenuBubble
+            android:id="@+id/menuBubble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/leaderboard_table_margin_top"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/leaderboard_big_title"
+            app:sysUserName="@string/experimental_leaderboard_sys_name"
+            app:bubble_width="@dimen/leaderboard_table_width"
+            >
 
             <ListView
                 android:id="@+id/experimental_leaderboard_lv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/experimental_leaderboard_sys_name"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/menu_bubble_sys_name" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/experimental_leaderboard_loading"
@@ -90,10 +64,10 @@
                 android:layout_gravity="center_vertical"
                 android:scaleX="0.5"
                 android:scaleY="0.5"
-                app:lottie_rawRes="@raw/friend_list_loading">
-
-            </com.airbnb.lottie.LottieAnimationView>
-        </RelativeLayout>
+                app:layout_constraintStart_toStartOf="@+id/experimental_leaderboard_lv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_rawRes="@raw/friend_list_loading"/>
+        </com.pfiev.englishcontest.ui.wiget.MenuBubble>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

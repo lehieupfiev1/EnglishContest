@@ -60,9 +60,9 @@ public class SharePreferenceUtils {
         return sharedPreferences.getInt(key, 0);
     }
 
-    public static int getInt(Context mContext, String key, int defaulValue) {
+    public static int getInt(Context mContext, String key, int defaultValue) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARE_FREF, Context.MODE_PRIVATE);
-        return sharedPreferences.getInt(key, defaulValue);
+        return sharedPreferences.getInt(key, defaultValue);
     }
 
     public static void putString(Context mContext,String key, String value) {
@@ -78,9 +78,9 @@ public class SharePreferenceUtils {
         return value;
     }
 
-    public static String getString(Context mContext, String key, String defaulValue) {
+    public static String getString(Context mContext, String key, String defaultValue) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARE_FREF, Context.MODE_PRIVATE);
-        String value = sharedPreferences.getString(key, defaulValue);
+        String value = sharedPreferences.getString(key, defaultValue);
         return value;
     }
     public static void putBoolean(Context mContext,String key, boolean value) {
@@ -95,10 +95,21 @@ public class SharePreferenceUtils {
         return sharedPreferences.getBoolean(key, false);
     }
 
-    public static boolean getBoolean(Context mContext, String key, boolean defaulValue) {
+    public static boolean getBoolean(Context mContext, String key, boolean defaultValue) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARE_FREF, Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean(key, defaulValue);
+        return sharedPreferences.getBoolean(key, defaultValue);
     }
 
+    public static void putLong(Context mContext,String key, long value) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARE_FREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+        myEdit.putLong(key, value);
+        myEdit.apply();
+    }
+
+    public static long getLong(Context mContext, String key) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(MY_SHARE_FREF, Context.MODE_PRIVATE);
+        return sharedPreferences.getLong(key, 0);
+    }
 
 }

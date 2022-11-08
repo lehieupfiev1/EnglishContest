@@ -39,7 +39,7 @@ public class UsersCollection {
                         for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                             userItemList.add(documentSnapshot.toObject(UserItem.class));
                         }
-                        if(userItemList.size() == 1 && keyword != lastResult) return;
+                        if(userItemList.size() == 1 && !keyword.equals(lastResult)) return;
                         findUserCb.process(userItemList);
                     }
                 });

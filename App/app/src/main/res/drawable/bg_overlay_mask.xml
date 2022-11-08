@@ -2,13 +2,10 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="?attr/colorControlHighlight">
 
-    <item>
+    <item
+        >
         <shape>
-            <solid android:color="#FFFFFF" />
-
-            <corners
-                android:radius="@dimen/experimental_main_btn_radius"
-                />
+            <solid android:color="#B3000000" />
         </shape>
     </item>
 </layer-list>

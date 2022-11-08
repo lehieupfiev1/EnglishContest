@@ -63,4 +63,13 @@
         <attr name="fullscreenBackgroundColor" format="color" />
         <attr name="fullscreenTextColor" format="color" />
     </declare-styleable>
+    <declare-styleable name="MenuBubble">
+        <attr name="sysUserName" format="reference"/>
+        <attr name="sysUserAvatar" format="reference"/>
+        <attr name="sysUserViewId" format="string"/>
+        <attr name="bubble_width" format="dimension"/>
+        <attr name="bubble_margin_end" format="dimension"/>
+        <attr name="bubble_inner_elem_padding_horizontal" format="dimension"/>
+        <attr name="bubble_inner_elem_padding_bottom" format="dimension"/>
+    </declare-styleable>
 </resources>

@@ -4,13 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/experimental_about_background_color"
+    android:background="@drawable/bg_experimental_root_layout"
     tools:context=".ui.experimental.FriendListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/finding_match_mask_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/bg_overlay_mask"
+            android:translationZ="100dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/friends_list_loading_long_request"
+            android:layout_width="@dimen/friends_list_loading_long_request_anim_wh"
+            android:layout_height="@dimen/friends_list_loading_long_request_anim_wh"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            android:translationZ="100dp"
+            app:lottie_rawRes="@raw/friend_list_loading"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
         <ImageButton
             android:id="@+id/experimental_friends_back_btn"
@@ -42,39 +66,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/experimental_friends_back_btn" />
 
-        <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
-            android:id="@+id/experimental_friends_list_sys_name_avatar"
-            android:layout_width="@dimen/friends_list_sys_name_avatar_width"
-            android:layout_height="@dimen/actionbar_avatar_size"
-            android:layout_marginStart="@dimen/friends_list_sys_name_avatar_mg_horizontal"
-            android:layout_marginTop="@dimen/friends_list_table_margin_top"
-            android:scaleType="fitCenter"
-            android:src="@drawable/bg_profile_image"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/experimental_friends_list_big_title" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.pfiev.englishcontest.ui.wiget.MenuBubble
+            android:id="@+id/menuBubble2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/friends_list_table_margin_start"
             android:layout_marginTop="@dimen/friends_list_table_margin_top"
-            android:paddingHorizontal="@dimen/friends_list_table_padding_horizontal"
-            android:background="@drawable/bg_experimental_main_group_btn_layout"
-            app:layout_constraintStart_toEndOf="@id/experimental_friends_list_sys_name_avatar"
-            app:layout_constraintTop_toBottomOf="@id/experimental_friends_list_big_title">
-
-            <TextView
-                android:id="@+id/experimental_friends_list_sys_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/settings_sys_name_mg_bottom"
-                android:fontFamily="@font/mali_bold"
-                android:text="@string/experimental_friends_list_sys_name"
-                android:textColor="@color/experimental_settings_sys_name"
-                android:textSize="@dimen/settings_sys_name_text_size"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/experimental_friends_list_big_title"
+            app:sysUserName="@string/experimental_friends_list_sys_name">
 
             <RadioGroup
                 android:id="@+id/friends_list_type_select"
@@ -82,8 +81,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/experimental_friends_list_sys_name"
-                >
+                app:layout_constraintTop_toBottomOf="@id/menu_bubble_sys_name">
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android.id="@+id/friends_list_type_select"
@@ -147,7 +145,6 @@
                 </androidx.appcompat.widget.AppCompatRadioButton>
             </RadioGroup>
 
-
             <LinearLayout
                 android:id="@+id/friends_list_search_box_layout"
                 android:layout_width="match_parent"
@@ -155,8 +152,8 @@
                 android:layout_gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:paddingVertical="@dimen/friends_list_search_box_padding"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/friends_list_type_select">
 
                 <EditText
@@ -190,17 +187,17 @@
                 android:id="@+id/friends_list_frame_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:gravity="center_horizontal"
-                app:layout_constraintStart_toStartOf="parent"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/friends_list_search_box_layout"
-                >
+                app:layout_constraintHeight_max="@dimen/recycler_view_friends_max_height"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/friends_list_search_box_layout">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/friends_list_recycle_lv"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content" />
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/friends_list_loading"
@@ -210,7 +207,7 @@
                     app:lottie_rawRes="@raw/friend_list_loading" />
 
             </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.pfiev.englishcontest.ui.wiget.MenuBubble>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

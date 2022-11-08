@@ -96,6 +96,7 @@
     <string name="friend_list_unfriend_confirm_mess" translatable="false">Unfriend with </string>
     <string name="friend_list_unfriend_confirm_accept" translatable="false">Yes</string>
     <string name="friend_list_unfriend_confirm_reject" translatable="false">No </string>
+    <string name="friend_list_request_combat_loading" translatable="false">Send request to friend. Please wait </string>
 
     <!--    Dialog request combat-->
     <string name="dialog_request_combat_message" translatable="false">Want to invite you join a battle </string>
@@ -130,5 +131,20 @@
     <!--  Sign in / Sign up  -->
     <string name="app_name_big_title" translatable="false">ENGLISH FUNNY QUIZ</string>
     <string name="app_name_intro_title" translatable="false">Have fun while playing quiz with friends</string>
+
+    <!--    Finding match-->
+    <string name="finding_match_big_title" translatable="false">NEW MATCH</string>
+    <string name="finding_match_sys_name" translatable="false">The happy marketer</string>
+    <string name="finding_match_bubble_intro_mess" translatable="false">Look for a new match</string>
+    <string name="finding_match_bubble_intro_mess_looking" translatable="false">We are searching ...</string>
+    <string name="finding_match_bubble_intro_mess_found" translatable="false">Yeah, have a match for you !!</string>
+    <string name="finding_match_bubble_intro_mess_waiting_competitor" translatable="false">Waiting for your competitor</string>
+    <string name="finding_match_btn_find_match" translatable="false">Let\'s Start</string>
+    <string name="finding_match_btn_cancel_find_match" translatable="false">Cancel</string>
+    <!--    Fight agree layout-->
+    <string name="fight_agree_layout_accept_btn_text" translatable="false">Join match ( %1$ss ) </string>
+    <!--    Finding match toast-->
+    <string name="finding_match_not_join_match_warning" translatable="false">You are not join match. Please wait %1$s to continue</string>
+    <string name="finding_match_competitor_not_join_warning" translatable="false">The competitor not join. We will search for other player</string>
 
 </resources>

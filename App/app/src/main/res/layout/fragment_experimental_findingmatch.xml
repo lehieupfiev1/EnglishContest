@@ -1,80 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_experimental_leaderboard"
     tools:context=".ui.experimental.FindingMatchFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_experimental_root_layout">
 
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/finding_match_mask_overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="1dp">
+            android:src="@drawable/bg_overlay_mask"
+            android:visibility="invisible"
+            android:translationZ="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_height="225dp">
+        <ImageButton
+            android:id="@+id/experimental_leaderboard_back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/leaderboard_back_button_mg_start"
+            android:layout_marginTop="@dimen/leaderboard_back_button_mg_top"
+            android:background="@drawable/ic_experimental_return_back"
+            android:contentDescription="Back to main"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/find_people"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_gravity="center"
-                    android:scaleX="2"
-                    android:scaleY="2"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/finding_people"/>
+        <TextView
+            android:id="@+id/finding_match_big_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/leaderboard_big_title_mg_horizontal"
+            android:layout_marginTop="@dimen/leaderboard_big_title_mg_top"
+            android:background="@drawable/bg_experimental_main_big_title_layout"
+            android:fontFamily="@font/mali_bold"
+            android:paddingHorizontal="@dimen/leaderboard_big_title_padding"
+            android:text="@string/finding_match_big_title"
+            android:textAlignment="center"
+            android:textColor="@color/experimental_leaderboard_big_title_color"
+            android:textSize="@dimen/leaderboard_big_title_text_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/experimental_leaderboard_back_btn" />
 
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="250dp">
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/finding_progress"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:scaleX="2"
-                    android:scaleY="2"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/monitor_progress">
-
-                </com.airbnb.lottie.LottieAnimationView>
-
-            </FrameLayout>
+        <com.pfiev.englishcontest.ui.wiget.MenuBubble
+            android:id="@+id/finding_menu_bubble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/finding_match_bubble_margin_top"
+            android:translationZ="150dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/finding_match_big_title"
+            app:sysUserAvatar="@drawable/google_icon"
+            app:sysUserName="@string/finding_match_sys_name"
+            >
 
             <TextView
-                android:id="@+id/status_finding"
-                android:layout_width="match_parent"
+                android:id="@+id/finding_match_bubble_intro_mess"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:fontFamily="@font/mali_regular"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:text="Finding" />
+                android:fontFamily="@font/mali_bold"
+                android:text="@string/finding_match_bubble_intro_mess"
+                android:textColor="@color/finding_match_bubble_intro_mess"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/menu_bubble_sys_name" />
 
-            <Button
+            <TextView
                 android:id="@+id/finding_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="40dp"
-                android:fontFamily="@font/svn_supercell_magic"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:text="Find match" />
+                android:layout_marginTop="@dimen/finding_match_looking_btn_margin_top"
+                android:background="@drawable/bg_experimental_main_button"
+                android:fontFamily="@font/mali_bold"
+                android:paddingHorizontal="@dimen/finding_match_looking_btn_padding_horizontal"
+                android:paddingVertical="@dimen/finding_match_looking_btn_padding_vertical"
+                android:text="@string/finding_match_btn_find_match"
+                android:textColor="@color/white"
+                android:textSize="@dimen/finding_match_looking_btn_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/finding_match_bubble_intro_mess" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/finding_progress"
+                android:layout_width="@dimen/finding_match_lottie_look_match_size"
+                android:layout_height="@dimen/finding_match_lottie_look_match_size"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/finding_match_bubble_intro_mess"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/lottie_cat_looking_match"
+                app:lottie_speed="2.5">
+
+            </com.airbnb.lottie.LottieAnimationView>
+
+            <TextView
+                android:id="@+id/finding_cancel_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/finding_match_looking_btn_margin_top"
+                android:visibility="gone"
+                android:background="@drawable/bg_experimental_main_button"
+                android:fontFamily="@font/mali_bold"
+                android:paddingHorizontal="@dimen/finding_match_looking_btn_padding_horizontal"
+                android:paddingVertical="@dimen/finding_match_looking_btn_padding_vertical"
+                android:text="@string/finding_match_btn_cancel_find_match"
+                android:textColor="@color/white"
+                android:textSize="@dimen/finding_match_looking_btn_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/finding_progress" />
+
+        </com.pfiev.englishcontest.ui.wiget.MenuBubble>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/finding_menu_bubble">
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,6 +33,7 @@ import com.pfiev.englishcontest.model.WaitingItem;
 import com.pfiev.englishcontest.realtimedb.BlockList;
 import com.pfiev.englishcontest.realtimedb.FriendList;
 import com.pfiev.englishcontest.realtimedb.WaitingList;
+import com.pfiev.englishcontest.ui.dialog.CustomToast;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
 import java.nio.charset.Charset;
@@ -101,6 +102,10 @@ public class FriendListFragment extends Fragment {
         // Declare loading animation and hide it
         loadingAnim = binding.friendsListLoading;
         loadingAnim.setRepeatCount(LottieDrawable.INFINITE);
+        loadingAnim.setVisibility(View.INVISIBLE);
+        // Set long request anim hide
+        binding.friendsListLoadingLongRequest.setRepeatCount(LottieDrawable.INFINITE);
+        binding.friendsListLoadingLongRequest.setVisibility(View.INVISIBLE);
 
         // Binding to button
         this.bindingBackButton();
@@ -363,6 +368,23 @@ public class FriendListFragment extends Fragment {
     public void loadFriendList() {
         FriendListAdapter adapter = new FriendListAdapter(getContext());
         adapter.setRecyclerView(binding.friendsListRecycleLv);
+        adapter.setLongRequestStartAnim(new Runnable() {
+            @Override
+            public void run() {
+                CustomToast.makeText(
+                        getContext(),
+                        getString(R.string.friend_list_request_combat_loading),
+                        CustomToast.LENGTH_SHORT, CustomToast.SUCCESS)
+                        .show();
+                showLongRequestAnim();
+            }
+        });
+        adapter.setLongRequestEndAnim(new Runnable() {
+            @Override
+            public void run() {
+                hideLongRequestAnim();
+            }
+        });
         FriendList friendList = FriendList.getInstance();
         friendList.listenFriendStatus(adapter);
         String displayHash = getDisplayHash();
@@ -474,6 +496,18 @@ public class FriendListFragment extends Fragment {
                     }
                 });
 
+    }
+
+    public void showLongRequestAnim() {
+        binding.findingMatchMaskOverlay.setVisibility(View.VISIBLE);
+        binding.friendsListLoadingLongRequest.setVisibility(View.VISIBLE);
+        binding.friendsListLoadingLongRequest.playAnimation();
+    }
+
+    public void hideLongRequestAnim() {
+        binding.findingMatchMaskOverlay.setVisibility(View.INVISIBLE);
+        binding.friendsListLoadingLongRequest.setVisibility(View.INVISIBLE);
+        binding.friendsListLoadingLongRequest.pauseAnimation();
     }
 
     private void showToastNotFound() {

@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:paddingVertical="@dimen/recycler_view_friends_item_padding_vertical"
+    >
 
     <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
         android:id="@+id/recycler_view_friends_user_avatar"
         android:layout_width="@dimen/recycler_view_friends_user_avatar_width"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/recycler_view_friends_user_avatar_width"
         android:layout_gravity="center"
         android:scaleType="fitCenter"
         android:src="@drawable/bg_profile_image"
@@ -18,11 +18,13 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center_vertical"
-        android:paddingLeft="15dp">
+        android:paddingStart="@dimen/recycler_view_friends_user_name_padding_left"
+        android:paddingEnd="0dp"
+        >
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

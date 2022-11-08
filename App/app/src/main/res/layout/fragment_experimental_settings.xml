@@ -40,54 +40,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/experimental_settings_back_btn" />
 
-        <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
-            android:id="@+id/experimental_settings_sys_name_avatar"
-            android:layout_width="@dimen/settings_sys_name_avatar_width"
-            android:layout_height="@dimen/actionbar_avatar_size"
-            android:layout_marginHorizontal="@dimen/settings_sys_name_avatar_mg_horizontal"
-            android:layout_marginTop="@dimen/settings_table_margin_top"
-            android:scaleType="fitCenter"
-            android:src="@drawable/bg_profile_image"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/experimental_settings_big_title" />
-
-        <RelativeLayout
-            android:id="@+id/settings_box_data"
-            android:layout_width="@dimen/settings_table_width"
+        <com.pfiev.englishcontest.ui.wiget.MenuBubble
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/settings_table_margin_start"
             android:layout_marginTop="@dimen/settings_table_margin_top"
-            android:layout_marginEnd="@dimen/settings_table_margin_end"
-            android:background="@drawable/bg_experimental_main_group_btn_layout"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/settings_table_padding"
-            android:paddingBottom="@dimen/settings_table_padding"
+            app:bubble_width="@dimen/settings_table_width"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/experimental_settings_big_title">
+            app:layout_constraintTop_toBottomOf="@id/experimental_settings_big_title"
+            app:sysUserName="@string/experimental_settings_sys_name"
+            app:sysUserViewId="experimental_setting_sys_id">
 
-            <TextView
-                android:id="@+id/experimental_settings_sys_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/settings_sys_name_mg_bottom"
-                android:fontFamily="@font/mali_bold"
-                android:text="@string/experimental_settings_sys_name"
-                android:textColor="@color/experimental_settings_sys_name"
-                android:textSize="@dimen/settings_sys_name_text_size" />
-
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/experimental_background_parent_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/experimental_settings_sys_name"
+                android:layout_below="@id/menu_bubble_sys_name"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingVertical="@dimen/settings_parameter_parent_pd_vertical"
-                android:paddingStart="@dimen/settings_parameter_parent_pd_horizontal">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/menu_bubble_sys_name">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_weight="1"
                     android:fontFamily="@font/mali_bold"
                     android:text="@string/experimental_settings_title_sound_effect"
                     android:textSize="@dimen/experimental_settings_font_size"
@@ -99,24 +77,26 @@
                     android:id="@+id/experimental_settings_sound_effect_checkbox"
                     android:layout_width="@dimen/experimental_settings_rel_layout_h"
                     android:layout_height="@dimen/experimental_settings_rel_layout_h"
-                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="end"
                     app:lottie_rawRes="@raw/experimental_settings_checkbox_lottie">
 
                 </com.airbnb.lottie.LottieAnimationView>
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/experimental_background_parent_layout"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingStart="@dimen/settings_parameter_parent_pd_horizontal"
-                android:paddingVertical="@dimen/settings_parameter_parent_pd_vertical">
+                android:paddingVertical="@dimen/settings_parameter_parent_pd_vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/experimental_background_parent_layout">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_weight="1"
                     android:fontFamily="@font/mali_bold"
                     android:text="@string/experimental_settings_title_background_music"
                     android:textSize="@dimen/experimental_settings_font_size"
@@ -129,7 +109,7 @@
                     android:layout_alignParentEnd="true"
                     app:lottie_rawRes="@raw/experimental_settings_checkbox_lottie" />
 
-            </RelativeLayout>
-        </RelativeLayout>
+            </LinearLayout>
+        </com.pfiev.englishcontest.ui.wiget.MenuBubble>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
