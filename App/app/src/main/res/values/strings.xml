@@ -146,5 +146,7 @@
     <!--    Finding match toast-->
     <string name="finding_match_not_join_match_warning" translatable="false">You are not join match. Please wait %1$s to continue</string>
     <string name="finding_match_competitor_not_join_warning" translatable="false">The competitor not join. We will search for other player</string>
+    <string name="finding_match_cancel_looking_not_allow" translatable="false">You can\'t cancel now. Please wait </string>
+    <string name="finding_match_cancel_looking_waiting" translatable="false">We are canceling. Please wait</string>
 
 </resources>

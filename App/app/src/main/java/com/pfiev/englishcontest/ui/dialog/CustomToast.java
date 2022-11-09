@@ -42,17 +42,13 @@ public class CustomToast extends Toast {
         switch (type) {
             case SUCCESS:
                 frontIcon.setImageResource(R.drawable.ic_baseline_check_24);
-
-//                linearLayout.setBackgroundColor((context.getColor(R.color.toast_custom_success)));
                 break;
             case WARNING:
                 frontIcon.setImageResource(R.drawable.ic_baseline_check_24);
-
                 linearLayout.getBackground().setColorFilter(
                         ContextCompat.getColor(context, R.color.toast_custom_warning),
                         PorterDuff.Mode.SRC_ATOP);
                 break;
-//                linearLayout.setBackgroundColor((context.getColor(R.color.toast_custom_warning)));
             case ERROR:
                 frontIcon.setImageResource(R.drawable.ic_baseline_check_24);
                 linearLayout.getBackground().setColorFilter(

@@ -53,7 +53,7 @@ import java.util.Map;
 
 
 public class FindingMatchFragment extends Fragment {
-
+    // TODO bind back button, cancel find match when back, destroy view
     private final String TAG = "FindingMatchFragment";
     private FragmentExperimentalFindingmatchBinding mBinding;
     private static boolean isFirstChangePlay = false;
@@ -63,7 +63,9 @@ public class FindingMatchFragment extends Fragment {
     public boolean mIsOwner;
     private boolean mIsAccepted = false;
     ListenerRegistration listenerRegistration;
+    // Update UI object
     private UpdateUI updateUI;
+    private boolean isFindingCancelable = true;
 
     public final static String MATCH_ID_FIELD = "match_id";
     public final static String IS_OWNER_FIELD = "is_owner";
@@ -80,7 +82,9 @@ public class FindingMatchFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mBinding = FragmentExperimentalFindingmatchBinding.inflate(inflater, container, false);
-        if (updateUI == null) updateUI = new UpdateUI();
+        if (updateUI == null) updateUI = new UpdateUI(mBinding);
+
+        // Binding finding button
         mBinding.findingBtn.setOnClickListener(view -> {
             String timeBlockRemain = MatchJoinable.getBlockTimeRemainString(getContext());
             if (!timeBlockRemain.isEmpty()) {
@@ -92,6 +96,39 @@ public class FindingMatchFragment extends Fragment {
                     updateUI::showLooking
             );
             sendRequestFindMatch();
+        });
+
+        // Binding back button
+        mBinding.experimentalFindingMatchBackButton.setOnClickListener(view -> {
+            Log.d(TAG, "Click back button");
+            if (!isFindingCancelable) {
+                updateUI.showNotAllowCancelToast();
+                return;
+            }
+            if (listenerRegistration != null) {
+                updateUI.showMask();
+                updateUI.showWaitingCancelToast();
+                MatchCollection.cancelFindMatch(mMatchId).addOnCompleteListener(new OnCompleteListener<MatchCollection.DeleteMatchResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<MatchCollection.DeleteMatchResult> task) {
+                        updateUI.hideMask();
+                        if (task.getException() != null) {
+                            Log.d(TAG, task.getException().getMessage());
+                            return;
+                        }
+                        MatchCollection.DeleteMatchResult result = task.getResult();
+                        if (result.isSuccess) {
+                            listenerRegistration.remove();
+                            updateUI.navigateToMainMenu();
+                        } else if (result.code == MatchCollection.DEL_MATCH_RESULT_CODE.IN_MATCHING) {
+                            Log.d(TAG, "in matching");
+                            updateUI.showNotAllowCancelToast();
+                        }
+                    }
+                });
+            } else {
+                updateUI.navigateToMainMenu();
+            }
         });
 
         // Check if navigate from request combat
@@ -150,12 +187,14 @@ public class FindingMatchFragment extends Fragment {
 
                         String state = (String) value.get(GlobalConstant.STATE);
                         if (state == null) {
+                            isFindingCancelable = true;
                             waitingEnableFind(mIsAccepted);
                             return;
                         }
                         switch (state) {
-                            case GlobalConstant.FINDING_STATE:
+                            case MatchCollection.STATE.FINDING:
                                 isFirstChangePlay = false;
+                                isFindingCancelable = true;
                                 // If user accept last time then looking match again
                                 if (mIsAccepted) {
                                     updateUI.hideMask();
@@ -164,13 +203,18 @@ public class FindingMatchFragment extends Fragment {
                                     updateUI.showCompetitorNotJoinToast();
                                 }
                                 break;
-                            case GlobalConstant.WAITING_ACCEPT_STATE:
+                            case MatchCollection.STATE.WAITING_ACCEPT:
                                 isFirstChangePlay = false;
+                                isFindingCancelable = false;
                                 mIsAccepted = false;
                                 long createdTime = (Long) value.get(MatchCollection.FIELD_NAME.CREATED_AT);
                                 showAgreeDialog(matchId, createdTime);
                                 break;
-                            case GlobalConstant.PLAYING_STATE:
+                            case MatchCollection.STATE.DUEL_ONE_JOIN:
+                                isFindingCancelable = false;
+                                break;
+                            case MatchCollection.STATE.PLAYING:
+                                isFindingCancelable = false;
                                 if (isFirstChangePlay) {
                                     getMatchHistoryData(value);
                                 } else {
@@ -351,7 +395,7 @@ public class FindingMatchFragment extends Fragment {
         private CountDownTimer countDownAccept;
         private View confirmationLayout;
 
-        public UpdateUI() {
+        public UpdateUI(FragmentExperimentalFindingmatchBinding mBinding) {
             maskLayer = mBinding.findingMatchMaskOverlay;
             lookingLottie = mBinding.findingProgress;
             findingBtn = mBinding.findingBtn;
@@ -466,6 +510,33 @@ public class FindingMatchFragment extends Fragment {
         }
 
         /**
+         * Add confirmation layout
+         */
+        public void addConfirmationLayout() {
+            // Insert join match layout
+            confirmationLayout = LayoutInflater.from(getContext())
+                    .inflate(R.layout.fight_layout_dialog, menuBubble, false);
+            ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            layoutParams.topToBottom = R.id.finding_match_bubble_intro_mess;
+            layoutParams.startToStart = menuBubble.getMainContainer().getId();
+            confirmationLayout.setLayoutParams(layoutParams);
+            menuBubble.getMainContainer().addView(confirmationLayout);
+            acceptBtn = mBinding.getRoot().findViewById(R.id.fight_agree_layout_accept_btn);
+        }
+
+        /**
+         * Navigate to main menu fragment
+         */
+        public void navigateToMainMenu() {
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.experimental_fullscreen_content, MainFragment.newInstance())
+                    .commitNow();
+        }
+
+        /**
          * Show block time remaining toast
          *
          * @param timeBlockRemain time block string
@@ -491,21 +562,25 @@ public class FindingMatchFragment extends Fragment {
         }
 
         /**
-         * Add confirmation layout
+         * Show toast not allow cancel looking match
          */
-        public void addConfirmationLayout() {
-            // Insert join match layout
-            confirmationLayout = LayoutInflater.from(getContext())
-                    .inflate(R.layout.fight_layout_dialog, menuBubble, false);
-            ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            );
-            layoutParams.topToBottom = R.id.finding_match_bubble_intro_mess;
-            layoutParams.startToStart = menuBubble.getMainContainer().getId();
-            confirmationLayout.setLayoutParams(layoutParams);
-            menuBubble.getMainContainer().addView(confirmationLayout);
-            acceptBtn = mBinding.getRoot().findViewById(R.id.fight_agree_layout_accept_btn);
+        public void showNotAllowCancelToast() {
+            CustomToast.makeText(
+                            getContext(),
+                            getString(R.string.finding_match_cancel_looking_not_allow),
+                            CustomToast.WARNING, CustomToast.LENGTH_SHORT)
+                    .show();
+        }
+
+        /**
+         * Show toast waiting while cancel looking match
+         */
+        public void showWaitingCancelToast() {
+            CustomToast.makeText(
+                            getContext(),
+                            getString(R.string.finding_match_cancel_looking_waiting),
+                            CustomToast.CONFUSING, CustomToast.LENGTH_SHORT)
+                    .show();
         }
     }
 }

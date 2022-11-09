@@ -97,7 +97,6 @@ public class LeaderboardFragment extends Fragment {
                                 FirebaseFunctionsException.Code code = ffe.getCode();
                                 Object details = ffe.getDetails();
                             }
-                            Log.i(TAG, " task is not success :" + e.getMessage());
                             String messageDisplay = getString(R.string.toast_custom_default_error_display);
                             CustomToast.makeText(getActivity(), messageDisplay,
                                     CustomToast.ERROR, Toast.LENGTH_LONG);

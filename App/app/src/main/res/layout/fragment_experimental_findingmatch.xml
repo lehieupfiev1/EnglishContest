@@ -23,7 +23,7 @@
             />
 
         <ImageButton
-            android:id="@+id/experimental_leaderboard_back_btn"
+            android:id="@+id/experimental_finding_match_back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/leaderboard_back_button_mg_start"
@@ -48,7 +48,7 @@
             android:textSize="@dimen/leaderboard_big_title_text_size"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/experimental_leaderboard_back_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/experimental_finding_match_back_button" />
 
         <com.pfiev.englishcontest.ui.wiget.MenuBubble
             android:id="@+id/finding_menu_bubble"

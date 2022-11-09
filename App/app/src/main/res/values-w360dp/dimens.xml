@@ -53,6 +53,7 @@
 
     <!--    Experimental -->
     <!--    Experimental main -->
+    <dimen name="experimental_main_btn_corner_radius">15dp</dimen>
     <dimen name="experimental_btn_background_radius">22dp</dimen>
     <dimen name="experimental_group_btn_padding_vertical">20dp</dimen>
     <dimen name="experimental_group_btn_padding_bottom">20dp</dimen>

@@ -29,11 +29,6 @@ public class GlobalConstant {
     public static String OWNER_ID = "owner_id";
     public static String PARTICIPANTS = "participants";
     public static String ACTION = "action";
-    public static final String FINDING_STATE = "FINDING";
-    public static final String WAITING_ACCEPT_STATE = "WAITING_ACCEPT";
-    public static final String DUEL_ONE_JOIN_STATE = "DUEL_ONE_JOIN";
-    public static final String PLAYING_STATE = "PLAYING";
-    public static final String COMPLETE_STATE = "COMPLETE";
 
     public static final String QUESTION = "question";
     public static final String QUESTION_ID = "qid";

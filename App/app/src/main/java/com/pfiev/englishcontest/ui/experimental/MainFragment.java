@@ -16,18 +16,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.LottieDrawable;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pfiev.englishcontest.EnglishApplication;
 import com.pfiev.englishcontest.ProfileActivity;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.databinding.FragmentExperimentalMainBinding;
-import com.pfiev.englishcontest.model.BaseFriendListItem;
 import com.pfiev.englishcontest.model.FriendItem;
 import com.pfiev.englishcontest.model.UserItem;
 import com.pfiev.englishcontest.realtimedb.FriendList;
 import com.pfiev.englishcontest.realtimedb.Status;
+import com.pfiev.englishcontest.ui.dialog.CustomToast;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
 
@@ -39,7 +37,6 @@ public class MainFragment extends Fragment {
 
     private final String TAG = "MainFragment";
     private FragmentExperimentalMainBinding binding;
-    private LottieAnimationView lottie;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -54,88 +51,61 @@ public class MainFragment extends Fragment {
         binding = FragmentExperimentalMainBinding.inflate(inflater, container, false);
 
         // Change to Friends List Screen using fragment
-        binding.experimentalFriendsListBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getParentFragmentManager().beginTransaction()
+        binding.experimentalFriendsListBtn.setOnClickListener(
+                view -> getParentFragmentManager().beginTransaction()
                         .replace(
                                 R.id.experimental_fullscreen_content,
                                 FriendListFragment.newInstance(),
                                 null
                         )
-                        .commitAllowingStateLoss();
-            }
-        });
+                        .commitAllowingStateLoss());
 
         // Change to Leaderboard Screen using fragment
-        binding.experimentalLeaderboardBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getParentFragmentManager().beginTransaction()
+        binding.experimentalLeaderboardBtn.setOnClickListener(
+                view -> getParentFragmentManager().beginTransaction()
                         .replace(
                                 R.id.experimental_fullscreen_content,
                                 LeaderboardFragment.newInstance()
                         )
-                        .commitNow();
-            }
-        });
+                        .commitNow());
 
         // Change to Settings Screen using fragment
-        binding.experimentalSettingsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getParentFragmentManager().beginTransaction()
+        binding.experimentalSettingsBtn.setOnClickListener(
+                view -> getParentFragmentManager().beginTransaction()
                         .replace(
                                 R.id.experimental_fullscreen_content,
                                 SettingsFragment.newInstance("", "")
                         )
-                        .commitNow();
-            }
-        });
+                        .commitNow()
+        );
 
         // Change to About Screen using fragment
-        binding.experimentalAboutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getParentFragmentManager().beginTransaction()
+        binding.experimentalAboutBtn.setOnClickListener(
+                view -> getParentFragmentManager().beginTransaction()
                         .replace(
                                 R.id.experimental_fullscreen_content,
-                                AboutFragment.newInstance("", "")
+                                AboutFragment.newInstance()
                         )
-                        .commitNow();
-            }
-        });
+                        .commitNow());
 
         // Change to Profile Activity
-        binding.profileBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "Move to Profile Activity");
-                Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                startActivity(intent);
-            }
+        binding.profileBar.setOnClickListener(view -> {
+            Log.i(TAG, "Move to Profile Activity");
+            Intent intent = new Intent(getActivity(), ProfileActivity.class);
+            startActivity(intent);
         });
 
         // Finding new game
-        binding.experimentalNewGameBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getParentFragmentManager().beginTransaction()
+        binding.experimentalNewGameBtn.setOnClickListener(
+                view -> getParentFragmentManager().beginTransaction()
                         .replace(
                                 R.id.experimental_fullscreen_content,
                                 FindingMatchFragment.newInstance()
                         )
-                        .commitNow();
-            }
-        });
+                        .commitNow());
 
         // Logout this account
-        binding.logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showLogOutDialog(getContext());
-            }
-        });
+        binding.logOut.setOnClickListener(view -> showLogOutDialog(getContext()));
 
         // Create lottie animation background
 //        lottie = binding.lottieExBg;
@@ -214,7 +184,8 @@ public class MainFragment extends Fragment {
         EnglishApplication.setCurrentUserStatus(Status.STATE_OFFLINE);
         // Sign out
         FirebaseAuth.getInstance().signOut();
-        Toast.makeText(getActivity(), "Sign Out", Toast.LENGTH_SHORT);
+        CustomToast.makeText(getActivity(), "Sign out successful",
+                Toast.LENGTH_SHORT, CustomToast.SUCCESS).show();
         getActivity().finish();
     }
 
