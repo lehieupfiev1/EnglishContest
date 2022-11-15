@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorControlHighlight">
+
+    <item
+        android:id="@+id/bg_message_bubble_main_layer"
+        >
+        <shape>
+            <solid android:color="#FFFFFF" />
+
+            <corners
+                android:topRightRadius="@dimen/message_bubble_corner_radius"
+                android:topLeftRadius="@dimen/message_bubble_corner_radius"
+                android:bottomRightRadius="@dimen/message_bubble_corner_radius"
+                />
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorControlHighlight">
+
+    <item>
+        <shape>
+            <solid android:color="@color/play_activity_user_params_background" />
+
+            <corners
+                android:radius="@dimen/order_row_user_params_background_corner_radius"
+                />
+        </shape>
+    </item>
+</layer-list>

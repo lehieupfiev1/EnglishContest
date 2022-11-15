@@ -124,8 +124,8 @@ public class ExperimentalActivity extends AppCompatActivity {
                         )
                         .commitNow();
 
+                return;
             }
-            return;
         }
 
         if (savedInstanceState == null) {

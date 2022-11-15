@@ -127,52 +127,7 @@ public class FireStoreClass {
 
     }
 
-    public static void pushAnswer(Activity activity, String matchId, String userId, AnswerItem answerItem, String position) {
-
-        FirebaseFirestore.getInstance().collection(GlobalConstant.MATCH_HISTORY).document(matchId)
-                .collection(GlobalConstant.CHOICES).document(userId)
-                .collection(GlobalConstant.LIST_CHOICE).document(position).set(answerItem)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.i(TAG, "pushAnswer answer "+position);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
-                    }
-                });
-    }
-
-    public static void updateDataOtherPlayer(Activity activity,String matchId, String userId) {
-        FirebaseFirestore.getInstance().collection(GlobalConstant.MATCH_HISTORY).document(matchId)
-                .collection(GlobalConstant.CHOICES).document(userId)
-                .collection(GlobalConstant.LIST_CHOICE).whereEqualTo("is_right",true)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if (error != null) {
-                            Log.w(TAG, "listen:error", error);
-                            return;
-                        }
-
-                        for (DocumentChange dc : value.getDocumentChanges()) {
-                            if (dc.getType() == DocumentChange.Type.ADDED) {
-                                Log.i(TAG, "New answer is right: " + dc.getDocument().getData());
-                                long timeCorrect = (Long) dc.getDocument().getData().get("time_answer");
-                                if (activity instanceof PlayGameActivity) {
-                                    Log.i(TAG, "updateDataOtherPlayer PlayGameActivity "+timeCorrect);
-                                    ((PlayGameActivity) activity).updateDataOtherPlayerInfo(timeCorrect);
-                                }
-                            }
-                        }
-                    }
-                });
-    }
-
-    public static void requestUserInfo(Activity activity, String useId) {
+    public static void requestUserInfo(String useId, CallBack callBack) {
         DocumentReference user = FirebaseFirestore.getInstance().collection(GlobalConstant.USERS)
                 .document(useId);
         user.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -183,10 +138,7 @@ public class FireStoreClass {
                     if (document.exists()) {
                         Log.i(TAG, "registerUser Document exists!" + document.toString());
                         UserItem userItem = document.toObject(UserItem.class);
-                        if (activity instanceof PlayGameActivity) {
-                            Log.i(TAG, "registerUser PlayGameActivity "+userItem.getUserPhotoUrl());
-                            ((PlayGameActivity) activity).getUserProfileSuccess(userItem);
-                        }
+                        if (callBack != null)  callBack.run(userItem);
                     }
                 }
             }
@@ -350,5 +302,9 @@ public class FireStoreClass {
                         return result;
                     }
                 });
+    }
+
+    public static interface CallBack {
+        public void run(UserItem userItem);
     }
 }

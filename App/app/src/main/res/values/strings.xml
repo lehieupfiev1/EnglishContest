@@ -149,4 +149,21 @@
     <string name="finding_match_cancel_looking_not_allow" translatable="false">You can\'t cancel now. Please wait </string>
     <string name="finding_match_cancel_looking_waiting" translatable="false">We are canceling. Please wait</string>
 
+    <!--    Playing Activity-->
+    <string name="play_activity_countdown_time" translatable="false">%1$ds</string>
+    <string name="play_activity_progress_bar_text" translatable="false">%1$ds \/ %2$ds</string>
+    <string name="play_activity_user_score_params" translatable="false">Right answer: %1$d, Times: %2$ds</string>
+    <string name="play_activity_show_sticker_panel_btn" translatable="false">Send Stickers</string>
+
+    <!--    Winner dialog-->
+    <string name="dialog_winner_big_title" translatable="false">You win</string>
+    <string name="dialog_winner_small_title" translatable="false">We\'re very proud of you !!</string>
+    <string name="dialog_winner_btn_ok" translatable="false">Ok</string>
+    <string name="dialog_winner_btn_detail" translatable="false">Detail</string>
+    <!--    Loser dialog-->
+    <string name="dialog_loser_big_title" translatable="false">You lose</string>
+    <string name="dialog_loser_small_title" translatable="false">Keep calm and keep moving forward !</string>
+    <string name="dialog_loser_btn_ok" translatable="false">Ok</string>
+    <string name="dialog_loser_btn_detail" translatable="false">Detail</string>
+
 </resources>

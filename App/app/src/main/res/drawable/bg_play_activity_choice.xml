@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/play_activity_choice_border">
+    <item>
+        <shape>
+            <solid android:color="@color/play_activity_choice_background" />
+            <stroke
+                android:width="@dimen/play_activity_choice_border_with"
+                android:color="@color/play_activity_choice_border"
+                />
+            <corners
+                android:radius="@dimen/play_activity_choice_border_radius"
+                />
+        </shape>
+    </item>
+
+</ripple>

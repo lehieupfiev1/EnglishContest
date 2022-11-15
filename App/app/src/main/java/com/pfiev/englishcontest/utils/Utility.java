@@ -1,6 +1,7 @@
 package com.pfiev.englishcontest.utils;
 
 import android.app.Activity;
+import android.content.Context;
 
 import androidx.fragment.app.Fragment;
 
@@ -50,6 +51,10 @@ public  class Utility {
             random.append(ALPHANUMERIC[index]);
         }
         return random.toString();
+    }
+
+    public static int getDimensionFromRes(Context context, int resId) {
+        return Math.round(context.getResources().getDimension(resId));
     }
 
 }

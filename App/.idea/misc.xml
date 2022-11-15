@@ -60,6 +60,7 @@
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/win_layout_dialog.xml" value="0.21" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/layout/winset_player_detail_layout.xml" value="0.33" />
         <entry key="..\:/HIEU/HOC TAP/ANDROID/EnglishContest/EnglishContest/App/app/src/main/res/menu/menu_save_cancel.xml" value="0.15220179563916203" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable-v31/bg_play_activity_choice_selected.xml" value="0.113" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_corner_badge.xml" value="0.226" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_experimental_leaderboard_item.xml" value="0.25" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_experimental_leaderboard_item_score.xml" value="0.166" />
@@ -71,12 +72,26 @@
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_experimental_main_info_tab.xml" value="0.191" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_experimental_root_layout.xml" value="0.191" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_menu_bubble_main_content.xml" value="0.25" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_message_bubble.xml" value="0.113" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_play_activity_choice.xml" value="0.157" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_play_activity_choice_right.xml" value="0.113" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_play_activity_choice_selected.xml" value="0.113" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_play_activity_choice_wrong.xml" value="0.155" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_play_activity_user_parameter.xml" value="0.113" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_play_activity_wrong.xml" value="0.113" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/close_image.xml" value="0.155" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/custom_progress_bg.xml" value="0.2965" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/dialog_background_basic_rounded_corner.xml" value="0.306" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/edit_text_friends_list_search.xml" value="0.2865" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/edittext_back_ground.xml" value="0.1545" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/gray_bg_button.xml" value="0.113" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/ic_baseline_arrow_drop_down_12.xml" value="0.113" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.155" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/ic_baseline_person_search_36.xml" value="0.3255" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2865" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.113" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/ic_dropdown_bg.xml" value="0.19" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/ic_experimental_return_back.xml" value="0.113" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.19" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/radio_btn_friends_list_first.xml" value="0.2865" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/radio_btn_friends_list_first_active.xml" value="0.2865" />
@@ -91,7 +106,7 @@
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_experimental.xml" value="0.371875" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_main.xml" value="0.17037037037037037" />
-        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_play_game.xml" value="0.25" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_play_game.xml" value="0.569377990430622" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/custom_layout_menu_bubble.xml" value="0.2658514492753623" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/dialog_make_friend.xml" value="0.30512820512820515" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/dialog_request_combat.xml" value="0.33055555555555555" />
@@ -107,6 +122,7 @@
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/fragment_experimental_settings.xml" value="0.33" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/listview_experimental_leaderboard.xml" value="0.33055555555555555" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/lose_layout_dialog.xml" value="0.2658514492753623" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/play_game_order_row.xml" value="0.33" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/recycler_view_friends_list.xml" value="0.33055555555555555" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/recycler_view_friends_list_all_users.xml" value="0.33055555555555555" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/recycler_view_friends_list_block.xml" value="0.33" />
@@ -114,6 +130,7 @@
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/recycler_view_friends_list_waiting.xml" value="0.33" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/spinner_items_experimental_language.xml" value="0.16124661246612465" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/toast_custom.xml" value="0.30512820512820515" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/win_layout_dialog.xml" value="0.33055555555555555" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/winset_player_detail_layout.xml" value="0.33055555555555555" />
       </map>
     </option>

@@ -73,6 +73,7 @@ public class EnglishApplication extends Application implements LifecycleObserver
         excludeClass.add(FacebookSignInActivity.class);
         excludeClass.add(TwitterSignInActivity.class);
         excludeClass.add(GoogleSignInActivity.class);
+        excludeClass.add(TestActivity.class);
         isSetOnDisconnectAction = false;
     }
 

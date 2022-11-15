@@ -239,4 +239,72 @@
     <dimen name="menu_bubble_sys_name_avatar_height">45dp</dimen>
     <dimen name="menu_bubble_sys_name_avatar_mg_horizontal">10dp</dimen>
     <dimen name="menu_bubble_sys_name_avatar_padding_bottom">10dp</dimen>
+
+    <!--_______    Play Activity _________-->
+    <!--    Progress bar -->
+    <dimen name="play_activity_progress_bar_margin_top">20dp</dimen>
+    <dimen name="play_activity_progress_bar_margin_horizontal">20dp</dimen>
+    <dimen name="play_activity_progress_bar_height">30dp</dimen>
+    <dimen name="play_activity_progress_text_size">16sp</dimen>
+    <!--    Question content -->
+    <dimen name="play_activity_question_margin_top">20dp</dimen>
+    <dimen name="play_activity_question_margin_horizontal">20dp</dimen>
+    <dimen name="play_activity_question_min_height">160dp</dimen>
+    <dimen name="play_activity_question_padding">5dp</dimen>
+    <dimen name="play_activity_question_text_size">16sp</dimen>
+    <!--    Choice count down area -->
+    <dimen name="play_activity_choice_countdown_margin_horizontal">20dp</dimen>
+    <dimen name="play_activity_choice_area_margin_end">50dp</dimen>
+    <dimen name="play_activity_choice_area_padding_vertical">10dp</dimen>
+    <dimen name="play_activity_countdown_indicator_size">60dp</dimen>
+    <dimen name="play_activity_countdown_text_size">16sp</dimen>
+    <!--    Order user are-->
+    <dimen name="play_activity_order_user_margin_horizontal">20dp</dimen>
+    <dimen name="play_activity_order_user_margin_bottom">5dp</dimen>
+
+    <!--    Choice -->
+    <dimen name="play_activity_choice_border_with">3dp</dimen>
+    <dimen name="play_activity_choice_border_radius">7dp</dimen>
+    <dimen name="play_activity_choice_margin_bottom">20dp</dimen>
+    <dimen name="play_activity_choice_pd_vertical">20dp</dimen>
+    <dimen name="play_activity_choice_pd_horizontal">5dp</dimen>
+    <dimen name="play_activity_choice_text_size">16sp</dimen>
+
+    <!--    Order row -->
+    <dimen name="order_row_padding_vertical">5dp</dimen>
+    <dimen name="order_row_avatar_width_height">45dp</dimen>
+    <dimen name="order_row_user_play_params_pd_horizontal">10dp</dimen>
+    <dimen name="order_row_user_params_background_corner_radius">8dp</dimen>
+    <dimen name="order_row_user_params_text_size">13sp</dimen>
+
+    <!--    Message bubble-->
+    <dimen name="message_bubble_corner_radius">20dp</dimen>
+    <dimen name="message_bubble_padding">5dp</dimen>
+    <dimen name="message_bubble_sticker_size_width">80dp</dimen>
+    <dimen name="message_bubble_sticker_size_height">70dp</dimen>
+    <dimen name="message_bubble_margin_start">5dp</dimen>
+    <dimen name="message_bubble_margin_bottom">-20dp</dimen>
+
+    <!--    Winner dialog -->
+    <dimen name="dialog_winner_loser_width">350dp</dimen>
+    <dimen name="dialog_winner_loser_big_title_margin_top">40dp</dimen>
+    <dimen name="dialog_winner_loser_big_title_text">40sp</dimen>
+    <dimen name="dialog_winner_loser_mid_img_size">240dp</dimen>
+    <dimen name="dialog_winner_loser_mid_img_margin_top">10dp</dimen>
+    <dimen name="dialog_winner_loser_sub_title_margin_top">10dp</dimen>
+    <dimen name="dialog_winner_loser_sub_title_text">20sp</dimen>
+    <dimen name="dialog_winner_loser_btn_min_width">100dp</dimen>
+    <dimen name="dialog_winner_loser_btn_text">20sp</dimen>
+    <dimen name="dialog_winner_loser_btn_margin_vertical">40dp</dimen>
+    <dimen name="dialog_winner_loser_btn_margin_end_start">30dp</dimen>
+    <dimen name="dialog_winner_loser_btn_padding_horizontal">20dp</dimen>
+
+    <!--    Show sticker panel -->
+    <dimen name="sticker_show_panel_padding_vertical">5dp</dimen>
+    <dimen name="sticker_show_panel_padding_horizontal">10dp</dimen>
+    <dimen name="sticker_show_panel_margin_start">20dp</dimen>
+    <dimen name="sticker_show_panel_margin_bottom">20dp</dimen>
+    <dimen name="sticker_show_panel_img_size">15dp</dimen>
+    <dimen name="sticker_show_panel_text">10sp</dimen>
+    <dimen name="sticker_show_panel_text_margin_start">5dp</dimen>
 </resources>

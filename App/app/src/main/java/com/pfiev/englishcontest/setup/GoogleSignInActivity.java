@@ -10,8 +10,6 @@ import androidx.annotation.NonNull;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -33,7 +31,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.pfiev.englishcontest.GlobalConstant;
 import com.pfiev.englishcontest.LoginActivity;
-import com.pfiev.englishcontest.MainActivity;
 import com.pfiev.englishcontest.PlayGameActivity;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.firestore.FireStoreClass;
@@ -163,7 +160,7 @@ public class GoogleSignInActivity extends LoginActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(getApplicationContext(), "Authentication Failed.", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(), "Authentication Failed.", Toast.LENGTH_SHORT).show();
                             finish();
                         }
 

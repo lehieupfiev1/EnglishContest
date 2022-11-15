@@ -112,4 +112,43 @@
 
     <!--    Finding match -->
     <color name="finding_match_bubble_intro_mess">#FF4AC695</color>
+
+    <!--___________  Playing activity________-->
+    <color name="play_activity_progress_bar_text">#FFFFFF</color>
+    <color name="play_activity_question_content">#59ADFF</color>
+
+    <!--    Choice button Default-->
+    <color name="play_activity_choice_background">#FFFFFF</color>
+    <color name="play_activity_choice_border">#59ADFF</color>
+    <color name="play_activity_choice_text">#90C418</color>
+    <!--    Choice button Selected-->
+    <color name="play_activity_choice_selected_background">#59ADFF</color>
+    <color name="play_activity_choice_selected_border">#FFFFFF</color>
+    <color name="play_activity_choice_selected_text">#FFFFFF</color>
+    <!--    Choice button Right-->
+    <color name="play_activity_choice_right_background">#90C418</color>
+    <color name="play_activity_choice_right_border">#FFFFFF</color>
+    <color name="play_activity_choice_right_text">#FFFFFF</color>
+    <!--    Choice button Wrong-->
+    <color name="play_activity_choice_wrong_background">#DF646A</color>
+    <color name="play_activity_choice_wrong_border">#FFFFFF</color>
+    <color name="play_activity_choice_wrong_text">#FFFFFF</color>
+
+    <!--    Countdown time indicator -->
+    <color name="play_activity_countdown_indicator">#F8C822</color>
+    <color name="play_activity_countdown_track">#CDCDCD</color>
+    <color name="play_activity_countdown_text">#FFFFFF</color>
+    <!--    User answer parameter-->
+    <color name="play_activity_user_params_background">#F8C822</color>
+    <color name="play_activity_user_params_text">#FFFFFF</color>
+    <!--___________ End of Playing activity________-->
+
+    <!--    Winner dialog -->
+    <color name="dialog_winner_big_title">#F8C822</color>
+    <color name="dialog_winner_small_title">#F8C822</color>
+    <color name="dialog_winner_btn">#FFFFFF</color>
+    <!--    Loser dialog -->
+    <color name="dialog_loser_big_title">#FF5722</color>
+    <color name="dialog_loser_small_title">#FF5722</color>
+    <color name="dialog_loser_btn">#FFFFFF</color>
 </resources>

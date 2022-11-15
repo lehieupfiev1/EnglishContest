@@ -97,13 +97,17 @@
             android:configChanges="keyboardHidden|screenSize|orientation|locale"
             android:exported="true"
             android:theme="@style/Theme.EnglishContest.Fullscreen">
+        </activity>
+        <activity
+            android:name=".TestActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation|locale"
+            android:exported="true"
+            android:theme="@style/Theme.EnglishContest.Fullscreen">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <service

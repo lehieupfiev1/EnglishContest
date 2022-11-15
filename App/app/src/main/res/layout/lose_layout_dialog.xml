@@ -5,91 +5,83 @@
     android:layout_width="350dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/red_bg_button"
-    android:backgroundTint="@color/red"
-    android:backgroundTintMode="src_atop">
+    android:background="@drawable/bg_menu_bubble_main_content">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardCornerRadius="20dp">
+    <TextView
+        android:id="@+id/dialog_loser_big_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dialog_winner_loser_big_title_margin_top"
+        android:text="@string/dialog_loser_big_title"
+        android:textColor="@color/dialog_loser_big_title"
+        android:textSize="@dimen/dialog_winner_loser_big_title_text"
+        android:fontFamily="@font/mali_bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="543dp">
+    <ImageView
+        android:id="@+id/fight_image"
+        android:layout_width="@dimen/dialog_winner_loser_mid_img_size"
+        android:layout_height="@dimen/dialog_winner_loser_mid_img_size"
+        android:layout_marginTop="@dimen/dialog_winner_loser_mid_img_margin_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_loser_big_title"
+        app:srcCompat="@drawable/loser_image" />
 
+    <TextView
+        android:id="@+id/lose_subtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dialog_winner_loser_sub_title_margin_top"
+        android:text="@string/dialog_loser_small_title"
+        android:textAlignment="center"
+        android:textColor="@color/dialog_loser_small_title"
+        android:textSize="@dimen/dialog_winner_loser_sub_title_text"
+        android:fontFamily="@font/mali_bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fight_image" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/ok_btn"
-                android:layout_width="90dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="46dp"
-                android:layout_marginEnd="30dp"
-                android:background="@drawable/red_bg_button"
-                android:text="OK"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lose_subtext" />
+    <TextView
+        android:id="@+id/ok_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/dialog_winner_loser_btn_min_width"
+        android:paddingHorizontal="@dimen/dialog_winner_loser_btn_padding_horizontal"
+        android:layout_marginVertical="@dimen/dialog_winner_loser_btn_margin_vertical"
+        android:layout_marginEnd="@dimen/dialog_winner_loser_btn_margin_end_start"
+        android:background="@drawable/bg_experimental_main_button"
+        android:text="@string/dialog_winner_btn_ok"
+        android:textSize="@dimen/dialog_winner_loser_btn_text"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:fontFamily="@font/mali_bold"
+        android:backgroundTint="@color/dialog_loser_small_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lose_subtext"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/show_result_btn"
-                android:layout_width="90dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="46dp"
-                android:background="@drawable/red_bg_button"
-                android:text="Detail"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lose_subtext" />
-
-            <ImageView
-                android:id="@+id/close_lose_layout"
-                android:layout_width="44dp"
-                android:layout_height="43dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/close_image" />
-
-            <ImageView
-                android:id="@+id/fight_image"
-                android:layout_width="245dp"
-                android:layout_height="244dp"
-                android:layout_marginTop="11dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2"
-                app:srcCompat="@drawable/loser_image" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:text="You lose !"
-                android:textColor="@color/red"
-                android:textSize="35sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/lose_subtext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="30dp"
-                android:lines="2"
-                android:text="Keep calm and keep moving forward !"
-                android:textColor="@color/red"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fight_image" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/show_result_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/dialog_winner_loser_btn_min_width"
+        android:paddingHorizontal="@dimen/dialog_winner_loser_btn_padding_horizontal"
+        android:layout_marginVertical="@dimen/dialog_winner_loser_btn_margin_vertical"
+        android:layout_marginStart="@dimen/dialog_winner_loser_btn_margin_end_start"
+        android:background="@drawable/bg_experimental_main_button"
+        android:text="@string/dialog_winner_btn_detail"
+        android:textSize="@dimen/dialog_winner_loser_btn_text"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:fontFamily="@font/mali_bold"
+        android:backgroundTint="@color/dialog_loser_small_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lose_subtext"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

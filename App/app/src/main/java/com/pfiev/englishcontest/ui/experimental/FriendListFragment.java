@@ -511,8 +511,8 @@ public class FriendListFragment extends Fragment {
     }
 
     private void showToastNotFound() {
-        Toast.makeText(getContext(),
+        CustomToast.makeText(getContext(),
                 getString(R.string.friend_list_no_user_found)
-                , Toast.LENGTH_LONG).show();
+                , CustomToast.SUCCESS, CustomToast.LENGTH_LONG).show();
     }
 }
