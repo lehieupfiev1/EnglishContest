@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +29,8 @@ public class TwitterSignInActivity extends LoginActivity {
 
     FirebaseAuth firebaseAuth;
     private static final String TAG = "TwitterSignInActivity";
+
+    private LottieAnimationView loadingAnim;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +41,7 @@ public class TwitterSignInActivity extends LoginActivity {
 
         // Target specific email with login hint.
         provider.addCustomParameter("lang", "fr");
+        showLoadingAnim();
         Task<AuthResult> pendingResultTask = firebaseAuth.getPendingAuthResult();
         if (pendingResultTask != null) {
             // There's something already here! Finish the sign-in for your user.
@@ -57,7 +62,7 @@ public class TwitterSignInActivity extends LoginActivity {
                                     userItem.setUserGender("");
                                     FireStoreClass.registerUser(TwitterSignInActivity.this,userItem, GlobalConstant.TWITTER_ACCOUNT_TYPE);
                                     //updateUI();
-                                    hideProgressBar();
+                                    hideLoadingAnim();
 
                                     // User is signed in.
                                     // IdP data available in
@@ -102,7 +107,7 @@ public class TwitterSignInActivity extends LoginActivity {
                                     // authResult.getCredential().getAccessToken().
                                     // The OAuth secret can be retrieved by calling:
                                     // authResult.getCredential().getSecret().
-                                    hideProgressBar();
+                                    hideLoadingAnim();
                                 }
                             })
                     .addOnFailureListener(
@@ -117,11 +122,20 @@ public class TwitterSignInActivity extends LoginActivity {
         }
     }
 
-    public void updateUI() {
-        Log.i(TAG, "Navigate to MainActivity ");
-        Intent intent = new Intent(TwitterSignInActivity.this, PlayGameActivity.class);
-        intent.putExtra(GlobalConstant.ACCOUNT_TYPE,GlobalConstant.TWITTER_ACCOUNT_TYPE);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+    /**
+     * Show loading animation
+     */
+    private void showLoadingAnim() {
+        loadingAnim.setVisibility(View.VISIBLE);
+        loadingAnim.playAnimation();
     }
+
+    /**
+     * Hide loading animation
+     */
+    private void hideLoadingAnim() {
+        loadingAnim.setVisibility(View.INVISIBLE);
+        loadingAnim.pauseAnimation();
+    }
+
 }

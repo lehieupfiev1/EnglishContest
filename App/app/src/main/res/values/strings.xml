@@ -14,6 +14,7 @@
     <string name="sign_in_with_facebook">Signing in with your Facebook account</string>
     <string name="sign_in_with_google">Signing in with your Google account</string>
     <string name="sign_in_with_twitter">Signing in with your Twitter account</string>
+    <string name="sign_in_process_loading" translatable="false">We are processing\nPlease waiting</string>
 
     <string name="default_google_client_id" translatable="false">338603681012-vldrduavbfgnivf0ggmnobvppjdmdtu2.apps.googleusercontent.com</string>
     <string name="title_activity_play_game_acivity" translatable="false">PlayGameAcivity</string>

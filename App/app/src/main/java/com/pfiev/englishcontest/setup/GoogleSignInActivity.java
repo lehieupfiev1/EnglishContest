@@ -11,8 +11,10 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.BeginSignInResult;
 import com.google.android.gms.auth.api.identity.GetSignInIntentRequest;
@@ -31,7 +33,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.pfiev.englishcontest.GlobalConstant;
 import com.pfiev.englishcontest.LoginActivity;
-import com.pfiev.englishcontest.PlayGameActivity;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.firestore.FireStoreClass;
 import com.pfiev.englishcontest.model.UserItem;
@@ -42,6 +43,7 @@ public class GoogleSignInActivity extends LoginActivity {
     private FirebaseAuth mAuth;
 
     private SignInClient signInClient;
+    private LottieAnimationView loadingAnim;
 
     private final ActivityResultLauncher<IntentSenderRequest> signInLauncher = registerForActivityResult(
             new ActivityResultContracts.StartIntentSenderForResult(),
@@ -58,6 +60,7 @@ public class GoogleSignInActivity extends LoginActivity {
         setContentView(R.layout.activity_google_sign_in);
         // Configure Google Sign In
         signInClient = Identity.getSignInClient(getApplicationContext());
+        loadingAnim = findViewById(R.id.google_sign_in_activity_loading);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -65,7 +68,7 @@ public class GoogleSignInActivity extends LoginActivity {
         GetSignInIntentRequest signInRequest = GetSignInIntentRequest.builder()
                 .setServerClientId(getString(R.string.default_google_client_id))
                 .build();
-
+        showLoadingAnim();
         signInClient.getSignInIntent(signInRequest)
                 .addOnSuccessListener(new OnSuccessListener<PendingIntent>() {
                     @Override
@@ -164,7 +167,7 @@ public class GoogleSignInActivity extends LoginActivity {
                             finish();
                         }
 
-                        hideProgressBar();
+                        hideLoadingAnim();
                     }
                 });
     }
@@ -177,6 +180,22 @@ public class GoogleSignInActivity extends LoginActivity {
         } catch (Exception e) {
             Log.e(TAG, "Couldn't start Sign In: " + e.getLocalizedMessage());
         }
+    }
+
+    /**
+     * Show loading animation
+     */
+    private void showLoadingAnim() {
+        loadingAnim.setVisibility(View.VISIBLE);
+        loadingAnim.playAnimation();
+    }
+
+    /**
+     * Hide loading animation
+     */
+    private void hideLoadingAnim() {
+        loadingAnim.setVisibility(View.INVISIBLE);
+        loadingAnim.pauseAnimation();
     }
 
 }
