@@ -19,6 +19,8 @@
     <string name="title_activity_play_game_acivity" translatable="false">PlayGameAcivity</string>
     <string name="title_activity_experimental" translatable="false">ExperimentalActivity</string>
 
+    <string name="login_success_notification" translatable="false">Login success</string>
+
     <!--    Experimental -->
     <string name="experimental_new_game" translatable="false">New Game</string>
     <string name="experimental_friends_list" translatable="false">Friends List</string>
@@ -59,24 +61,31 @@
     <string name="experimental_leaderboard_big_title" translatable="false">Leaderboard</string>
 
     <!--    Profile-->
-    <string name="profile_change_avatar">Change avatar</string>
-    <string name="profile_user_name">User Name</string>
-    <string name="profile_email">Email</string>
-    <string name="profile_phone_number">Phone Number</string>
-    <string name="profile_gender">Gender :</string>
-    <string name="profile_gender_male">Male</string>
-    <string name="profile_gender_female">Female</string>
-    <string name="profile_save">Save</string>
+    <string name="profile_big_title" translatable="false">Profile</string>
+    <string name="profile_sys_user_name" translatable="false">The Meticulous Designer</string>
+    <string name="profile_change_avatar" translatable="false">Change Avatar</string>
+    <string name="profile_user_name" translatable="false">User Name</string>
+    <string name="profile_email" translatable="false">Email</string>
+    <string name="profile_phone_number" translatable="false">Phone Number</string>
+    <string name="profile_gender" translatable="false">Gender :</string>
+    <string name="profile_gender_male" translatable="false">Male</string>
+    <string name="profile_gender_female" translatable="false">Female</string>
+    <string name="profile_save_btn" translatable="false">UPDATE</string>
+    <string name="profile_log_out_btn" translatable="false">SIGN OUT</string>
+    <string name="profile_log_out_intro" translatable="false">Change Account</string>
+    <string name="profile_can_not_select_image_notify" translatable="false">Can not select image</string>
+    <string name="profile_upload_image_success_notify" translatable="false">Upload image success</string>
+    <string name="profile_update_info_success_notify" translatable="false">Update profile success</string>
 
     <!-- Play game -->
-    <string name="play_detail_result">Right: %1$d - Times: %2$d s</string>
+    <string name="play_detail_result" translatable="false">Right: %1$d - Times: %2$d s</string>
 
-    <string name="result_detail_play">Result answer is %1$d /%2$d</string>
+    <string name="result_detail_play" translatable="false">Result answer is %1$d /%2$d</string>
 
 
     <!--Dialog -->
-    <string name="dialog_cancel">Cancel</string>
-    <string name="save">Save</string>
+    <string name="dialog_cancel" translatable="false">Cancel</string>
+    <string name="save" translatable="false">Save</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
@@ -101,22 +110,22 @@
     <!--    Dialog request combat-->
     <string name="dialog_request_combat_message" translatable="false">Want to invite you join a battle </string>
     <string name="dialog_request_combat_time_remaining" translatable="false">(Time remaining: %1$ss )</string>
-    <string name="dialog_request_combat_btn_accept" translatable="false">Fighting </string>
-    <string name="dialog_request_combat_btn_reject" translatable="false">No </string>
+    <string name="dialog_request_combat_btn_accept" translatable="false">FIGHTING</string>
+    <string name="dialog_request_combat_btn_reject" translatable="false">NO</string>
 
     <!--    Experimental request combat  -->
     <string name="experimental_request_combat_loading_txt" translatable="false">Wait for the opponent accept. Be patient soldier</string>
 
     <!--    Dialog make friend -->
     <string name="dialog_make_friend_message" translatable="false">Want to be friends with you </string>
-    <string name="dialog_make_friend_btn_accept" translatable="false">Yes </string>
-    <string name="dialog_make_friend_btn_reject" translatable="false">No </string>
-    <string name="dialog_make_friend_btn_later" translatable="false">Later </string>
+    <string name="dialog_make_friend_btn_accept" translatable="false">YES</string>
+    <string name="dialog_make_friend_btn_reject" translatable="false">NO</string>
+    <string name="dialog_make_friend_btn_later" translatable="false">LATER</string>
 
     <!--    Dialog unfriend -->
     <string name="dialog_unfriend_message" translatable="false">Are you sure you want to unfriend with </string>
-    <string name="dialog_unfriend_btn_accept" translatable="false">Yes </string>
-    <string name="dialog_unfriend_btn_reject" translatable="false">No </string>
+    <string name="dialog_unfriend_btn_accept" translatable="false">YES</string>
+    <string name="dialog_unfriend_btn_reject" translatable="false">NO</string>
     <string name="dialog_unfriend_btn_later" translatable="false">Later </string>
 
     <!--    Custom Toast-->
@@ -158,12 +167,14 @@
     <!--    Winner dialog-->
     <string name="dialog_winner_big_title" translatable="false">You win</string>
     <string name="dialog_winner_small_title" translatable="false">We\'re very proud of you !!</string>
-    <string name="dialog_winner_btn_ok" translatable="false">Ok</string>
+    <string name="dialog_winner_btn_ok" translatable="false">OK</string>
     <string name="dialog_winner_btn_detail" translatable="false">Detail</string>
     <!--    Loser dialog-->
     <string name="dialog_loser_big_title" translatable="false">You lose</string>
     <string name="dialog_loser_small_title" translatable="false">Keep calm and keep moving forward !</string>
-    <string name="dialog_loser_btn_ok" translatable="false">Ok</string>
+    <string name="dialog_loser_btn_ok" translatable="false">OK</string>
     <string name="dialog_loser_btn_detail" translatable="false">Detail</string>
 
+
+    <string name="btn_back_to_main" translatable="false">Back to main</string>
 </resources>

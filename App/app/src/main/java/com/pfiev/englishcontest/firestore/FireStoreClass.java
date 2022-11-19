@@ -67,7 +67,7 @@ public class FireStoreClass {
                         Log.i(TAG, "registerUser Document exists!"+document.toString());
                         UserItem userItem = document.toObject(UserItem.class);
                         SharePreferenceUtils.updateUserData(activity.getApplicationContext(),userItem);
-                        Toast.makeText(activity, "UserId"+userItem.getUserId() + " UserName" +userItem.getName()+" UserPhoto"+userItem.getUserPhotoUrl(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(activity, "UserId"+userItem.getUserId() + " UserName" +userItem.getName()+" UserPhoto"+userItem.getUserPhotoUrl(), Toast.LENGTH_SHORT).show();
                         navigateToMainActivity(activity,typeAccount);
 
                     } else {

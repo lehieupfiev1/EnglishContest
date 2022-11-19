@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dialog_request_combat_height"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dialog_default_padding"
     android:background="@drawable/dialog_background_basic_rounded_corner"
     android:orientation="vertical">
 
@@ -31,7 +32,7 @@
             android:layout_margin="@dimen/dialog_request_combat_name_margin"
             android:textColor="@color/dialog_request_combat_user_name"
             android:text="Username here"
-            android:fontFamily="@font/svn_supercell_magic"
+            android:fontFamily="@font/mali_bold"
             android:textSize="@dimen/dialog_request_combat_name_text_size"
             android:textStyle="bold" />
         <TextView
@@ -41,7 +42,8 @@
             android:layout_marginBottom="@dimen/dialog_request_combat_message_margin_bottom"
             android:gravity="center_horizontal"
             android:text="@string/dialog_request_combat_message"
-            android:fontFamily="@font/svn_supercell_magic"
+            android:textColor="@color/dialog_default_intro_text"
+            android:fontFamily="@font/mali_bold"
             android:textSize="@dimen/dialog_request_combat_message_text_size"
             />
         <TextView
@@ -50,7 +52,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/dialog_request_combat_time_remaining"
-            android:fontFamily="@font/svn_supercell_magic"
+            android:fontFamily="@font/mali_bold"
             android:textSize="@dimen/dialog_request_combat_time_remaining_text_size"
             />
     </LinearLayout>
@@ -64,28 +66,38 @@
         android:orientation="horizontal"
         >
 
-        <Button
+        <TextView
             android:id="@+id/dialog_request_combat_accept_btn"
-            android:layout_width="@dimen/dialog_request_combat_btn_width"
-            android:layout_height="@dimen/dialog_request_combat_btn_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/dialog_request_combat_btn_min_width"
+            android:paddingVertical="@dimen/dialog_request_combat_btn_pd_vertical"
+            android:paddingHorizontal="@dimen/dialog_request_combat_btn_pd_horizontal"
             android:layout_marginEnd="@dimen/dialog_request_combat_btn_margin_right"
+            android:background="@drawable/bg_experimental_main_button"
             android:backgroundTint="@color/dialog_request_combat_btn_accept_background"
             android:clickable="true"
-            android:fontFamily="@font/svn_supercell_magic"
+            android:fontFamily="@font/mali_bold"
             android:text="@string/dialog_request_combat_btn_accept"
             android:textColor="@color/dialog_request_combat_btn_text"
-            android:textSize="@dimen/dialog_request_combat_btn_text_size" />
+            android:textSize="@dimen/dialog_request_combat_btn_text_size"
+            android:textAlignment="center"/>
 
-        <Button
+        <TextView
             android:id="@+id/dialog_request_combat_reject_btn"
-            android:layout_width="@dimen/dialog_request_combat_btn_width"
-            android:layout_height="@dimen/dialog_request_combat_btn_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/dialog_request_combat_btn_min_width"
+            android:paddingVertical="@dimen/dialog_request_combat_btn_pd_vertical"
+            android:paddingHorizontal="@dimen/dialog_request_combat_btn_pd_horizontal"
+            android:background="@drawable/bg_experimental_main_button"
             android:backgroundTint="@color/dialog_request_combat_btn_reject_background"
             android:clickable="true"
             android:text="@string/dialog_request_combat_btn_reject"
             android:textSize="@dimen/dialog_request_combat_btn_text_size"
             android:textColor="@color/dialog_request_combat_btn_text"
-            android:fontFamily="@font/svn_supercell_magic"
+            android:fontFamily="@font/mali_bold"
+            android:textAlignment="center"
             />
     </LinearLayout>
 

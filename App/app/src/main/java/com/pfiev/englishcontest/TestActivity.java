@@ -50,6 +50,8 @@ public class TestActivity extends AppCompatActivity {
         Choice secondChoice = new Choice(getApplicationContext());
         binding.playActivityChoices.addView(secondChoice);
         binding.playActivityChoices.addView(new Choice(getApplicationContext()));
+//        binding.playActivityChoices.addView(new Choice(getApplicationContext()));
+//        binding.playActivityChoices.addView(new Choice(getApplicationContext()));
         Choice lastChoice = new Choice(getApplicationContext());
         lastChoice.setContentDisplay("I wouldn’t have gone there");
         lastChoice.deleteMarginBottom();
@@ -62,6 +64,7 @@ public class TestActivity extends AppCompatActivity {
         secondRow.setUserParams("User second");
         binding.playActivityOrderBoard.addView(firstRow);
         binding.playActivityOrderBoard.addView(secondRow);
+        binding.playActivityProgressBar.setProgress(12);
 
 //        firstRow.lastYAxis = firstRow.getY();
 //        Log.d(getClass().getName(), "first " + firstRow.lastYAxis + " " +firstRow.getX());

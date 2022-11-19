@@ -4,13 +4,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,7 +29,7 @@ public class RequestCombatDialog extends Dialog implements
         View.OnClickListener {
 
     private NotificationItem notificationItem;
-    public Button acceptBtn, rejectBtn;
+    public TextView acceptBtn, rejectBtn;
     private RoundedAvatarImageView avatar;
     private TextView username, timeRemaining;
     private int timeRemain;
@@ -52,40 +52,39 @@ public class RequestCombatDialog extends Dialog implements
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_request_combat);
+        // Need this to display background corner radius
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        avatar = (RoundedAvatarImageView) findViewById(R.id.dialog_request_combat_avatar);
+        avatar = findViewById(R.id.dialog_request_combat_avatar);
         avatar.load(getContext(), notificationItem.getUserPhotoUrl());
 
-        username = (TextView) findViewById(R.id.dialog_request_combat_username);
+        username = findViewById(R.id.dialog_request_combat_username);
         username.setText(notificationItem.getName());
 
-        acceptBtn = (Button) findViewById(R.id.dialog_request_combat_accept_btn);
-        rejectBtn = (Button) findViewById(R.id.dialog_request_combat_reject_btn);
+        acceptBtn = findViewById(R.id.dialog_request_combat_accept_btn);
+        rejectBtn = findViewById(R.id.dialog_request_combat_reject_btn);
         acceptBtn.setOnClickListener(this);
         rejectBtn.setOnClickListener(this);
 
-        timeRemaining = (TextView) findViewById(R.id.dialog_request_combat_time_remaining);
-        this.setOnShowListener(new OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialogInterface) {
-                float timePassed = Instant.now().getEpochSecond() - notificationItem.getTimestamp();
-                timeRemain = Math.round(GlobalConstant.REQUEST_COMBAT_WAITING_JOIN_TIME - timePassed);
-                timeRemain = timeRemain * 1000;
-                countDownTimer = new CountDownTimer(timeRemain, 1000) {
-                    @Override
-                    public void onTick(long l) {
-                        String mess = getContext().getString(
-                                R.string.dialog_request_combat_time_remaining, "" + l/1000);
-                        timeRemaining.setText(mess);
-                    }
+        timeRemaining = findViewById(R.id.dialog_request_combat_time_remaining);
+        this.setOnShowListener(dialogInterface -> {
+            float timePassed = Instant.now().getEpochSecond() - notificationItem.getTimestamp();
+            timeRemain = Math.round(GlobalConstant.REQUEST_COMBAT_WAITING_JOIN_TIME - timePassed);
+            timeRemain = timeRemain * 1000;
+            countDownTimer = new CountDownTimer(timeRemain, 1000) {
+                @Override
+                public void onTick(long l) {
+                    String mess = getContext().getString(
+                            R.string.dialog_request_combat_time_remaining, "" + l/1000);
+                    timeRemaining.setText(mess);
+                }
 
-                    @Override
-                    public void onFinish() {
-                        RequestCombatDialog.this.dismiss();
-                    }
-                };
-                countDownTimer.start();
-            }
+                @Override
+                public void onFinish() {
+                    RequestCombatDialog.this.dismiss();
+                }
+            };
+            countDownTimer.start();
         });
     }
 
@@ -123,8 +122,7 @@ public class RequestCombatDialog extends Dialog implements
         long elapsedTime = currentClickTime - mLastClickTime;
         mLastClickTime = currentClickTime;
         // Return if double tap to prevent error in position;
-        if (elapsedTime <= MIN_CLICK_INTERVAL) return true;
-        return false;
+        return elapsedTime <= MIN_CLICK_INTERVAL;
     }
 
 }

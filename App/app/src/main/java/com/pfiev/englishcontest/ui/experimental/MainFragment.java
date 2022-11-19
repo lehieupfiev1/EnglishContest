@@ -104,14 +104,6 @@ public class MainFragment extends Fragment {
                         )
                         .commitNow());
 
-        // Logout this account
-        binding.logOut.setOnClickListener(view -> showLogOutDialog(getContext()));
-
-        // Create lottie animation background
-//        lottie = binding.lottieExBg;
-//        lottie.setRepeatCount(LottieDrawable.INFINITE);
-//        lottie.playAnimation();
-
         return binding.getRoot();
 
     }
@@ -144,49 +136,6 @@ public class MainFragment extends Fragment {
         if (EnglishApplication.isSetOnDisconnectEvent())
             Status.getInstance().setState(Status.STATE_ONLINE);
         EnglishApplication.setCurrentUserStatus(Status.STATE_ONLINE);
-    }
-
-    public void showLogOutDialog(Context context) {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-        builder1.setTitle("Exit game");
-        builder1.setMessage("Do you want to exit game ?");
-        builder1.setCancelable(true);
-        builder1.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        signOut();
-                    }
-                });
-
-        builder1.setNegativeButton(
-                "No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
-    }
-
-    private void signOut() {
-        // Update offline status to friends and listen their status
-        String ownerUid = SharePreferenceUtils.getUserData(getActivity()).getUserId();
-        FriendList friendList = FriendList.getInstance();
-        friendList.setUid(ownerUid);
-        friendList.updateStatusToFriends(FriendItem.STATUS.OFFLINE);
-        // Set current state is online
-        if (EnglishApplication.isSetOnDisconnectEvent())
-            Status.getInstance().setState(Status.STATE_OFFLINE);
-        EnglishApplication.setCurrentUserStatus(Status.STATE_OFFLINE);
-        // Sign out
-        FirebaseAuth.getInstance().signOut();
-        CustomToast.makeText(getActivity(), "Sign out successful",
-                Toast.LENGTH_SHORT, CustomToast.SUCCESS).show();
-        getActivity().finish();
     }
 
     @Override

@@ -12,13 +12,14 @@
 
 
     <item android:id="@android:id/progress">
-
-        <scale android:scaleWidth="100%">
+        <clip>
+<!--        <scale android:scaleWidth="100%">-->
             <shape android:shape="rectangle">
                 <corners android:radius="20dp"/>
                 <solid android:color="#F8C822"/>
             </shape>
-        </scale>
+<!--        </scale>-->
+        </clip>
 
     </item>
 

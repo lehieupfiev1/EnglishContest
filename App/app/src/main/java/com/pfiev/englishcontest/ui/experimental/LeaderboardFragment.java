@@ -117,7 +117,7 @@ public class LeaderboardFragment extends Fragment {
                             binding.experimentalLeaderboardLv.setAdapter(adapter);
                             binding.experimentalLeaderboardLv.setDivider(
                                     new ColorDrawable(
-                                            ContextCompat.getColor(getContext(),
+                                            ContextCompat.getColor(getActivity(),
                                                     R.color.leaderboard_item_divider))
                             );
                             binding.experimentalLeaderboardLv.setDividerHeight(10);

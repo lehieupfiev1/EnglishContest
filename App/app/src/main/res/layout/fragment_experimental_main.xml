@@ -221,11 +221,12 @@
                 android:layout_marginHorizontal="@dimen/experimental_main_profile_bar_username_mg_horizontal"
                 android:fontFamily="@font/mali_bold"
                 android:text="User name of user"
+                android:textStyle="bold"
                 android:textColor="@color/experimental_main_profile_bar_username"
                 android:textSize="@dimen/experimental_main_profile_bar_username_text_size" />
 
             <ImageView
-                android:id="@+id/log_out"
+                android:id="@+id/experimental_main_edit_profile"
                 android:layout_width="@dimen/actionbar_avatar_size"
                 android:layout_height="@dimen/actionbar_avatar_size"
                 android:gravity="center"

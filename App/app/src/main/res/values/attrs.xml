@@ -66,6 +66,7 @@
     <declare-styleable name="MenuBubble">
         <attr name="sysUserName" format="reference"/>
         <attr name="sysUserAvatar" format="reference"/>
+        <attr name="sysUserAvatarHide" format="boolean"/>
         <attr name="sysUserViewId" format="string"/>
         <attr name="bubble_width" format="dimension"/>
         <attr name="bubble_margin_end" format="dimension"/>

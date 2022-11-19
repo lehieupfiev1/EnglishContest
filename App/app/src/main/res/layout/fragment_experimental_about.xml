@@ -13,7 +13,7 @@
     android:layout_marginTop="20dp"
     android:layout_marginStart="20dp"
     android:background="@drawable/ic_experimental_return_back"
-    android:contentDescription="Back to main"
+    android:contentDescription="@string/btn_back_to_main"
     >
 
     </ImageButton>

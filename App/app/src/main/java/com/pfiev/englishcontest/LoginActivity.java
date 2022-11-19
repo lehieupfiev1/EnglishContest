@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.Navigation;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -19,6 +17,7 @@ import com.pfiev.englishcontest.databinding.ActivityLoginBinding;
 import com.pfiev.englishcontest.setup.FacebookSignInActivity;
 import com.pfiev.englishcontest.setup.GoogleSignInActivity;
 import com.pfiev.englishcontest.setup.TwitterSignInActivity;
+import com.pfiev.englishcontest.ui.dialog.CustomToast;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -65,7 +64,9 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         if (firebaseUser != null) {
-            Toast.makeText(getApplicationContext(),"Login success !",Toast.LENGTH_SHORT);
+            CustomToast.makeText(getApplicationContext(),
+                    getString(R.string.login_success_notification),
+                    CustomToast.SUCCESS,CustomToast.LENGTH_SHORT);
             Intent intent = new Intent(LoginActivity.this, ExperimentalActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

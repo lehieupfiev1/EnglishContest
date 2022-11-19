@@ -66,11 +66,11 @@ public class MenuBubble extends ConstraintLayout {
             ((RoundedAvatarImageView) findViewById(R.id.menu_bubble_sys_avatar))
                     .setImageDrawable(sysUserAvatar);
 
-//        LayerDrawable background = LayerDrawable.class.cast(mainBubble.getBackground());
-//        background.findDrawableByLayerId(R.id.bg_menu_bubble_badge).setColorFilter(
-//                ContextCompat.getColor(context, R.color.menu_bubble_badge_enable),
-//                PorterDuff.Mode.CLEAR);
-//        mainBubble.setBackground(background);
+        // Show hide avatar
+        boolean hideAvatar = a.getBoolean(R.styleable.MenuBubble_sysUserAvatarHide, false);
+        if (hideAvatar)
+            findViewById(R.id.menu_bubble_sys_avatar)
+                    .setVisibility(INVISIBLE);
 
         a.recycle();
     }

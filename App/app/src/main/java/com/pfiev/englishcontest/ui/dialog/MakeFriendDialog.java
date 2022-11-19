@@ -2,21 +2,19 @@ package com.pfiev.englishcontest.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.model.BaseFriendListItem;
 import com.pfiev.englishcontest.model.FriendItem;
-import com.pfiev.englishcontest.model.NotificationItem;
 import com.pfiev.englishcontest.model.UserItem;
 import com.pfiev.englishcontest.realtimedb.FriendList;
 import com.pfiev.englishcontest.realtimedb.Status;
@@ -32,7 +30,7 @@ public class MakeFriendDialog extends Dialog implements
 
     private FriendItem friendItem;
     private Context mContext;
-    public Button acceptBtn, laterBtn, rejectBtn;
+    public TextView acceptBtn, laterBtn, rejectBtn;
     public String friendId;
     private RoundedAvatarImageView avatar;
     private TextView username;
@@ -65,16 +63,18 @@ public class MakeFriendDialog extends Dialog implements
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_make_friend);
+        // Need this to display background corner radius
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        avatar = (RoundedAvatarImageView) findViewById(R.id.dialog_make_friend_avatar);
+        avatar = findViewById(R.id.dialog_make_friend_avatar);
         avatar.load(getContext(), friendItem.getUserPhotoUrl());
-        username = (TextView) findViewById(R.id.dialog_make_friend_username);
+        username = findViewById(R.id.dialog_make_friend_username);
         username.setText(friendItem.getName());
         friendId = friendItem.getUid();
 
-        acceptBtn = (Button) findViewById(R.id.dialog_make_friend_accept_btn);
-        laterBtn = (Button) findViewById(R.id.dialog_make_friend_later_btn);
-        rejectBtn = (Button) findViewById(R.id.dialog_make_friend_reject_btn);
+        acceptBtn = findViewById(R.id.dialog_make_friend_accept_btn);
+        laterBtn = findViewById(R.id.dialog_make_friend_later_btn);
+        rejectBtn = findViewById(R.id.dialog_make_friend_reject_btn);
         acceptBtn.setOnClickListener(this);
         laterBtn.setOnClickListener(this);
         rejectBtn.setOnClickListener(this);
@@ -88,22 +88,19 @@ public class MakeFriendDialog extends Dialog implements
             case R.id.dialog_make_friend_accept_btn:
                 // Update status state of new friend
                 Status.getInstance().getStatusByUid(friendId).addOnCompleteListener(
-                        new OnCompleteListener<String>() {
-                            @Override
-                            public void onComplete(@NonNull Task<String> task) {
-                                // Put data to create two new friend item
-                                friendItem.setStatus(task.getResult());
-                                Map<String, FriendItem> friends = new HashMap<String, FriendItem>();
-                                friends.put(ownItem.getUserId(), friendItem);
-                                friends.put(friendId, new FriendItem(
-                                        ownItem.getUserId(),
-                                        ownItem.getName(),
-                                        ownItem.getUserPhotoUrl(),
-                                        BaseFriendListItem.STATUS.ONLINE
-                                ));
-                                FriendList.getInstance().addFriend(friends);
-                                if (onAcceptCb != null) onAcceptCb.acceptCallback();
-                            }
+                        task -> {
+                            // Put data to create two new friend item
+                            friendItem.setStatus(task.getResult());
+                            Map<String, FriendItem> friends = new HashMap<>();
+                            friends.put(ownItem.getUserId(), friendItem);
+                            friends.put(friendId, new FriendItem(
+                                    ownItem.getUserId(),
+                                    ownItem.getName(),
+                                    ownItem.getUserPhotoUrl(),
+                                    BaseFriendListItem.STATUS.ONLINE
+                            ));
+                            FriendList.getInstance().addFriend(friends);
+                            if (onAcceptCb != null) onAcceptCb.acceptCallback();
                         }
                 );
                 break;
@@ -123,8 +120,7 @@ public class MakeFriendDialog extends Dialog implements
         long elapsedTime = currentClickTime - mLastClickTime;
         mLastClickTime = currentClickTime;
         // Return if double tap to prevent error in position;
-        if (elapsedTime <= MIN_CLICK_INTERVAL) return true;
-        return false;
+        return elapsedTime <= MIN_CLICK_INTERVAL;
     }
 
     public interface OnAcceptCallBack {

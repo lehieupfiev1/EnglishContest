@@ -115,7 +115,7 @@ public class GoogleSignInActivity extends LoginActivity {
                         // No saved credentials found. Launch the One Tap sign-up flow, or
                         // do nothing and continue presenting the signed-out UI.
                         Log.e(TAG, "signInWithCredential:failure"+ e.getMessage());
-                        Toast.makeText(getApplicationContext(), "Authentication Failed.", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "Authentication Failed.", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
@@ -144,7 +144,7 @@ public class GoogleSignInActivity extends LoginActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.i(TAG, "signInWithCredential:success");
-                            Toast.makeText(getApplicationContext(), "Authentication Success.", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(), "Authentication Success.", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             UserItem userItem = new UserItem();
                             userItem.setUserId(user.getUid());

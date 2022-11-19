@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dialog_make_friend_height"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dialog_default_padding"
     android:background="@drawable/dialog_background_basic_rounded_corner"
     android:orientation="vertical">
 
@@ -11,8 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView
             android:id="@+id/dialog_make_friend_avatar"
@@ -29,68 +29,81 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/dialog_make_friend_name_margin"
-            android:textColor="@color/dialog_make_friend_user_name"
+            android:fontFamily="@font/mali_bold"
             android:text="Username here"
-            android:fontFamily="@font/svn_supercell_magic"
+            android:textColor="@color/dialog_make_friend_user_name"
             android:textSize="@dimen/dialog_make_friend_name_text_size"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/dialog_make_friend_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="@font/mali_bold"
             android:text="@string/dialog_make_friend_message"
-            android:fontFamily="@font/svn_supercell_magic"
-            android:textSize="@dimen/dialog_make_friend_message_text_size"
-            />
+            android:textColor="@color/dialog_default_intro_text"
+            android:textSize="@dimen/dialog_make_friend_message_text_size" />
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:background="@color/dialog_make_friend_bg"
-        android:orientation="horizontal"
-        >
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <Button
+        <TextView
             android:id="@+id/dialog_make_friend_accept_btn"
-            android:layout_width="@dimen/dialog_make_friend_btn_width"
-            android:layout_height="@dimen/dialog_make_friend_btn_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/dialog_make_friend_btn_pd_vertical"
+            android:paddingHorizontal="@dimen/dialog_make_friend_btn_pd_horizontal"
             android:layout_marginEnd="@dimen/dialog_make_friend_btn_margin_right"
+            android:background="@drawable/bg_experimental_main_button"
             android:backgroundTint="@color/dialog_make_friend_btn_accept_background"
             android:clickable="true"
+            android:fontFamily="@font/mali_bold"
+            android:minWidth="@dimen/dialog_make_friend_btn_min_width"
             android:text="@string/dialog_make_friend_btn_accept"
-            android:textSize="@dimen/dialog_make_friend_btn_text_size"
             android:textColor="@color/dialog_make_friend_btn_text"
-            android:fontFamily="@font/svn_supercell_magic"
+            android:textSize="@dimen/dialog_make_friend_btn_text_size"
+            android:textAlignment="center"
             />
 
-        <Button
+        <TextView
             android:id="@+id/dialog_make_friend_later_btn"
-            android:layout_width="@dimen/dialog_make_friend_btn_width"
-            android:layout_height="@dimen/dialog_make_friend_btn_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/dialog_make_friend_btn_pd_vertical"
+            android:paddingHorizontal="@dimen/dialog_make_friend_btn_pd_horizontal"
             android:layout_marginEnd="@dimen/dialog_make_friend_btn_margin_right"
+            android:background="@drawable/bg_experimental_main_button"
             android:backgroundTint="@color/dialog_make_friend_btn_later_background"
             android:clickable="true"
+            android:fontFamily="@font/mali_bold"
+            android:minWidth="@dimen/dialog_make_friend_btn_min_width"
             android:text="@string/dialog_make_friend_btn_later"
-            android:textSize="@dimen/dialog_make_friend_btn_text_size"
             android:textColor="@color/dialog_make_friend_btn_text"
-            android:fontFamily="@font/svn_supercell_magic"
-            />
+            android:textSize="@dimen/dialog_make_friend_btn_text_size"
+            android:textAlignment="center"/>
 
-        <Button
+        <TextView
             android:id="@+id/dialog_make_friend_reject_btn"
-            android:layout_width="@dimen/dialog_make_friend_btn_width"
-            android:layout_height="@dimen/dialog_make_friend_btn_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/dialog_make_friend_btn_pd_vertical"
+            android:paddingHorizontal="@dimen/dialog_make_friend_btn_pd_horizontal"
+            android:background="@drawable/bg_experimental_main_button"
             android:backgroundTint="@color/dialog_make_friend_btn_reject_background"
             android:clickable="true"
+            android:fontFamily="@font/mali_bold"
+            android:minWidth="@dimen/dialog_make_friend_btn_min_width"
             android:text="@string/dialog_make_friend_btn_reject"
-            android:textSize="@dimen/dialog_make_friend_btn_text_size"
             android:textColor="@color/dialog_make_friend_btn_text"
-            android:fontFamily="@font/svn_supercell_magic"
-            />
+            android:textSize="@dimen/dialog_make_friend_btn_text_size"
+            android:textAlignment="center"/>
     </LinearLayout>
 
 </LinearLayout>

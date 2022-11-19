@@ -129,7 +129,6 @@ public class EnglishApplication extends Application implements LifecycleObserver
         @Override
         public void onActivityResumed(@NonNull Activity activity) {
             currentActivity = activity;
-            Log.d("Activity now", activity.getClass().getName());
             if (excludeClass.contains(activity.getClass())) {
                 return;
             }

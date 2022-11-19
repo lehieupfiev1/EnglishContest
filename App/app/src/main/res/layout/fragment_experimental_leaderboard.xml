@@ -18,7 +18,7 @@
             android:layout_marginStart="@dimen/leaderboard_back_button_mg_start"
             android:layout_marginTop="@dimen/leaderboard_back_button_mg_top"
             android:background="@drawable/ic_experimental_return_back"
-            android:contentDescription="Back to main"
+            android:contentDescription="@string/btn_back_to_main"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

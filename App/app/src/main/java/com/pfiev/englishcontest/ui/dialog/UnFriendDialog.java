@@ -2,34 +2,29 @@ package com.pfiev.englishcontest.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.pfiev.englishcontest.R;
-import com.pfiev.englishcontest.model.BaseFriendListItem;
 import com.pfiev.englishcontest.model.FriendItem;
-import com.pfiev.englishcontest.model.NotificationItem;
 import com.pfiev.englishcontest.model.UserItem;
 import com.pfiev.englishcontest.realtimedb.FriendList;
-import com.pfiev.englishcontest.realtimedb.WaitingList;
 import com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class UnFriendDialog extends Dialog implements
         View.OnClickListener {
 
     private FriendItem friendItem;
     private Context mContext;
-    public Button acceptBtn, rejectBtn;
+    public TextView acceptBtn, rejectBtn;
     public String friendId;
     private RoundedAvatarImageView avatar;
     private TextView username;
@@ -62,15 +57,17 @@ public class UnFriendDialog extends Dialog implements
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_unfriend);
+        // Need this to display background corner radius
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        avatar = (RoundedAvatarImageView) findViewById(R.id.dialog_unfriend_avatar);
+        avatar = findViewById(R.id.dialog_unfriend_avatar);
         avatar.load(getContext(), friendItem.getUserPhotoUrl());
-        username = (TextView) findViewById(R.id.dialog_unfriend_username);
+        username = findViewById(R.id.dialog_unfriend_username);
         username.setText(friendItem.getName());
         friendId = friendItem.getUid();
 
-        acceptBtn = (Button) findViewById(R.id.dialog_unfriend_accept_btn);
-        rejectBtn = (Button) findViewById(R.id.dialog_unfriend_reject_btn);
+        acceptBtn = findViewById(R.id.dialog_unfriend_accept_btn);
+        rejectBtn = findViewById(R.id.dialog_unfriend_reject_btn);
         acceptBtn.setOnClickListener(this);
         rejectBtn.setOnClickListener(this);
     }
@@ -96,8 +93,7 @@ public class UnFriendDialog extends Dialog implements
         long elapsedTime = currentClickTime - mLastClickTime;
         mLastClickTime = currentClickTime;
         // Return if double tap to prevent error in position;
-        if (elapsedTime <= MIN_CLICK_INTERVAL) return true;
-        return false;
+        return elapsedTime <= MIN_CLICK_INTERVAL;
     }
 
     public interface OnAcceptCallBack {

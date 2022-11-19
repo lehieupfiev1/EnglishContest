@@ -70,6 +70,9 @@
     <color name="friends_list_radio_button_border">#888888</color>
     <color name="friends_list_radio_button_text_default">#FFFFFF</color>
 
+    <!--    Dialog default -->
+    <color name="dialog_default_intro_text">#00BCD4</color>
+
     <!--    Dialog request combat-->
     <color name="dialog_request_combat_bg">#FFFFFF</color>
     <color name="dialog_request_combat_user_name">#EE883A</color>
@@ -93,7 +96,7 @@
     <color name="dialog_unfriend_btn_text">#FFFFFF</color>
     <color name="dialog_unfriend_btn_accept_background">#2196F3</color>
     <color name="dialog_unfriend_btn_later_background">#B6B6B6</color>
-    <color name="dialog_unfriend_btn_reject_background">#F44336</color>
+    <color name="dialog_unfriend_btn_reject_background">#FF5722</color>
     <color name="dialog_unfriend">#FFFFFF</color>
 
     <!--    Experimental request combat  -->
@@ -151,4 +154,10 @@
     <color name="dialog_loser_big_title">#FF5722</color>
     <color name="dialog_loser_small_title">#FF5722</color>
     <color name="dialog_loser_btn">#FFFFFF</color>
+
+    <!--    Profile activity-->
+    <color name="profile_activity_big_title_color">#FF9800</color>
+    <color name="profile_activity_text">#FF4AC695</color>
+    <color name="profile_activity_text_hint">#994AC695</color>
+    <color name="profile_activity_log_out_bg">#DF646A</color>
 </resources>
