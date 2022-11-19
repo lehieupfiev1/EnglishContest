@@ -62,22 +62,24 @@ public class FriendList {
 
         dbRef.get().addOnCompleteListener(
                 task -> {
-                    DataSnapshot dataSnap = task.getResult();
-                    if (dataSnap != null) {
-                        List<FriendItem> friendItemList = new ArrayList<>();
-                        for (DataSnapshot snapshot : dataSnap.getChildren()) {
-                            friendItemList.add(snapshot.getValue(FriendItem.class));
-                        }
-                        // Sort by status priority
-                        friendItemList.sort(new Comparator<FriendItem>() {
-                            @Override
-                            public int compare(FriendItem friendItem, FriendItem t1) {
-                                int aPriority = FriendItem.STATUS.getPriority(friendItem.getStatus());
-                                int bPriority = FriendItem.STATUS.getPriority(t1.getStatus());
-                                return aPriority - bPriority;
+                    if (task.isSuccessful()) {
+                        DataSnapshot dataSnap = task.getResult();
+                        if (dataSnap != null) {
+                            List<FriendItem> friendItemList = new ArrayList<>();
+                            for (DataSnapshot snapshot : dataSnap.getChildren()) {
+                                friendItemList.add(snapshot.getValue(FriendItem.class));
                             }
-                        });
-                        listProcess.process(friendItemList);
+                            // Sort by status priority
+                            friendItemList.sort(new Comparator<FriendItem>() {
+                                @Override
+                                public int compare(FriendItem friendItem, FriendItem t1) {
+                                    int aPriority = FriendItem.STATUS.getPriority(friendItem.getStatus());
+                                    int bPriority = FriendItem.STATUS.getPriority(t1.getStatus());
+                                    return aPriority - bPriority;
+                                }
+                            });
+                            listProcess.process(friendItemList);
+                        }
                     }
                 }
         );

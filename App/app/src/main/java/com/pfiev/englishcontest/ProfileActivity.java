@@ -266,6 +266,6 @@ public class ProfileActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         CustomToast.makeText(this, "Sign out successful",
                 Toast.LENGTH_SHORT, CustomToast.SUCCESS).show();
-        this.finish();
+        this.finishAffinity();
     }
 }

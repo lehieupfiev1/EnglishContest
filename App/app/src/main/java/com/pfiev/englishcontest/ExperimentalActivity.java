@@ -13,7 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowInsets;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.pfiev.englishcontest.databinding.ActivityExperimentalBinding;
 import com.pfiev.englishcontest.ui.experimental.FindingMatchFragment;
 import com.pfiev.englishcontest.ui.experimental.MainFragment;
@@ -102,8 +101,6 @@ public class ExperimentalActivity extends AppCompatActivity {
         return false;
     };
     private ActivityExperimentalBinding binding;
-    private LottieAnimationView lottie;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
