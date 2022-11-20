@@ -15,19 +15,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
+import com.pfiev.englishcontest.adapter.EmotionIconViewAdapter;
+import com.pfiev.englishcontest.adapter.PackEmotionViewAdapter;
 import com.pfiev.englishcontest.databinding.ActivityPlayGameBinding;
 import com.pfiev.englishcontest.firestore.MatchCollection;
 import com.pfiev.englishcontest.firestore.UsersCollection;
 import com.pfiev.englishcontest.model.AnswerItem;
 import com.pfiev.englishcontest.model.ChoiceItem;
+import com.pfiev.englishcontest.model.EmotionIconItem;
+import com.pfiev.englishcontest.model.PackEmotionItem;
 import com.pfiev.englishcontest.model.QuestionItem;
 import com.pfiev.englishcontest.model.UserItem;
 import com.pfiev.englishcontest.ui.playactivityelem.Choice;
 import com.pfiev.englishcontest.ui.playactivityelem.MessageBubble;
 import com.pfiev.englishcontest.ui.playactivityelem.OrderRow;
+import com.pfiev.englishcontest.utils.EmotionIconDBHelper;
+import com.pfiev.englishcontest.utils.ListEmotionsDBHelper;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
 import java.util.ArrayList;
@@ -37,7 +45,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 
-public class PlayGameActivity extends AppCompatActivity {
+public class PlayGameActivity extends AppCompatActivity implements PackEmotionViewAdapter.ItemClickListener, EmotionIconViewAdapter.EmotionItemClickListener {
     private static final String TAG = "PlayGameActivity";
     public int mTime;
     public int mTimeChoose;
@@ -59,6 +67,10 @@ public class PlayGameActivity extends AppCompatActivity {
     private int mMaxTimeCount;
     static MediaPlayer rightSoundEffect;
     static MediaPlayer failSoundEffect;
+    PackEmotionViewAdapter mPackAdapter;
+    EmotionIconViewAdapter mEmotionAdapter;
+    List<List<EmotionIconItem>> mListTotalEmotion = new ArrayList<>();
+    List<PackEmotionItem> mListPack;
 
     private UpdateUI updateUI;
 
@@ -94,6 +106,8 @@ public class PlayGameActivity extends AppCompatActivity {
                     return null;
                 }
         );
+        requestData();
+        viewStickerData();
 
         MatchCollection.updateDataOtherPlayer(mMatchId, competitorUserId,
                 this::updateCompetitorInfo);
@@ -190,6 +204,8 @@ public class PlayGameActivity extends AppCompatActivity {
         updateUI.addOrderRow(ownerItem, 1);
         // Create order row to competitor with default order id is 2
         updateUI.addOrderRow(userItem, 2);
+
+        mBinding.packEmotionRecyclerView.findViewHolderForAdapterPosition(2).itemView.performClick(); // cai nay cung the a. chac do no chua bind kip
     }
 
     @Override
@@ -318,6 +334,93 @@ public class PlayGameActivity extends AppCompatActivity {
         intent.putIntegerArrayListExtra("ListChoose", mListChoose);
         intent.putExtra("numberCorrect", ownerCorrectCount);
         startActivity(intent);
+    }
+
+    private void  viewStickerData() {
+        Log.d("LeHieu", "View Emtion data");
+        //requestData();
+        LinearLayoutManager horizontalLayoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        mBinding.packEmotionRecyclerView.setLayoutManager(horizontalLayoutManager);
+        Log.d("LeHieu", "ListEmotionsDBHelper mListPack size " + mListPack.size() + mListPack.get(0).getUrl());
+        if (mListTotalEmotion.get(0).size() == 0) {
+            mPackAdapter = new PackEmotionViewAdapter(this, mListPack, false);
+        } else {
+            mPackAdapter = new PackEmotionViewAdapter(this, mListPack, true);
+        }
+        Log.d("LeHieu", "ListEmotionsDBHelper mPackAdapter " + mPackAdapter);
+        mPackAdapter.setClickListener(this);
+        mBinding.packEmotionRecyclerView.setAdapter(mPackAdapter);
+
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,4,LinearLayoutManager.VERTICAL,false);
+        mBinding.gridEmotionRecyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
+        // cai ham nay chi goi 1 lan thoi chu nhi
+        List<EmotionIconItem> mListEmotion;
+        if (mListTotalEmotion.get(0).size() == 0) {
+            mListEmotion = mListTotalEmotion.get(1);
+        } else {
+            mListEmotion = mListTotalEmotion.get(0);
+        }
+        Log.d("LeHieu", "EmotionIconDBHelper mListEmotion size = "+mListEmotion.size());
+        mEmotionAdapter = new EmotionIconViewAdapter(this, mListEmotion);
+        mBinding.gridEmotionRecyclerView.setAdapter(mEmotionAdapter);
+        mEmotionAdapter.setClickListener(this);
+
+    }
+
+    public void requestData() {
+        ListEmotionsDBHelper packDB = ListEmotionsDBHelper.getInstance(getApplicationContext());
+        EmotionIconDBHelper iconDB = EmotionIconDBHelper.getInstance(getApplicationContext());
+        Log.d("LeHieu", "ListEmotionsDBHelper data"+packDB);
+        mListTotalEmotion.clear();
+        mListPack = packDB.getAllPackEmotion();
+        for (int i =0; i<mListPack.size(); i++) {
+            String packName = mListPack.get(i).getName();
+            Log.d("LeHieu", "EmotionIconDBHelper packName "+packName);
+            List<EmotionIconItem> listEmotion = iconDB.getEmotionListByPackName(packName);
+            Log.d("LeHieu", "EmotionIconDBHelper mListEmotion "+listEmotion.size());
+            mListTotalEmotion.add(listEmotion);
+        }
+    }
+    @Override
+    public void onItemClick(int position) {
+        Log.i("LeHieu", "Click on position"+position);
+        List<EmotionIconItem> mListEmotion = mListTotalEmotion.get(position);
+        if (position == 0 && mListEmotion.size() == 0) {
+            mBinding.noRecentTv.setVisibility(View.VISIBLE);
+            mBinding.gridEmotionRecyclerView.setVisibility(View.GONE);
+        } else {
+            mBinding.noRecentTv.setVisibility(View.GONE);
+            mBinding.gridEmotionRecyclerView.setVisibility(View.VISIBLE);
+            Log.d("LeHieu", "EmotionIconDBHelper mListEmotion size = " + mListEmotion.size());
+            mEmotionAdapter = new EmotionIconViewAdapter(this, mListEmotion);
+            mEmotionAdapter.setClickListener(this);
+            mBinding.gridEmotionRecyclerView.setAdapter(mEmotionAdapter);
+        }
+    }
+
+    @Override
+    public void onEmotionItemClick(View view, int position, String url, String rawUrI) {
+        Log.i("LeHieu", "onEmotionItemClick on rawUrI"+rawUrI);
+        updateRecentEmotion(url);
+        int imageResource =  getApplicationContext().getResources().getIdentifier(rawUrI, null, getApplicationContext().getPackageName());
+        LottieAnimationView message = new LottieAnimationView(getApplicationContext());
+        message.setAnimation(imageResource);
+        updateUI.addNewMessage(ownUserId, message);
+//        mResultEmotion.cancelAnimation();
+//        int imageResource =  getContext().getResources().getIdentifier(rawUrI, null, getContext().getApplicationContext().getPackageName());
+//        mResultEmotion.setAnimation(imageResource);
+//        mResultEmotion.setVisibility(View.VISIBLE);
+//        mResultEmotion.playAnimation();
+    }
+
+    public void updateRecentEmotion(String url) {
+        EmotionIconItem emotionIconItem = new EmotionIconItem("recent_emotion","sticker0","loti",url);
+        //Save to sqlite
+        EmotionIconDBHelper iconDB = EmotionIconDBHelper.getInstance(getApplicationContext());
+        iconDB.addEmotionIcon(emotionIconItem);
+        mListTotalEmotion.get(0).add(emotionIconItem);
     }
 
     private class UpdateUI {
@@ -550,9 +653,20 @@ public class PlayGameActivity extends AppCompatActivity {
         public void toggleStickerPanel() {
             float newYAxis = 0;
             // Todo get sticker panel height
-            if (!isShowStickerPanel) newYAxis = -800;
+            if (!isShowStickerPanel){
+                newYAxis = -800;
+                Log.i("LeHieu", "toggleStickerPanel -800");
+
+            }
             isShowStickerPanel = (!isShowStickerPanel);
-            mBinding.playActivityMainCombat.animate().y(newYAxis).setDuration(500).start();
+            mBinding.playActivityMainCombat.animate().y(newYAxis).setDuration(500)
+                    .withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+//                            if (isShowStickerPanel) viewStickerData(); // gio la bam vao thi no moi bind cai nay nhi
+                        }
+                    })
+                    .start();
         }
 
         /**

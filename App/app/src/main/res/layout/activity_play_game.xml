@@ -197,5 +197,57 @@
                 android:textStyle="italic" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/emotion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="800dp"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/play_activity_main_combat">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pack_emotion_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/purple_200"
+                android:background="@color/play_emotion_background_gray"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:reverseLayout="false" >
+
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/no_recent_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:fontFamily="@font/mali_bold"
+                    android:text="@string/no_emotion_recent_description"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/grid_emotion_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="785dp"
+                    android:layout_marginTop="5dp"
+                    android:scrollbars="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:reverseLayout="false" />
+
+            </FrameLayout>
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

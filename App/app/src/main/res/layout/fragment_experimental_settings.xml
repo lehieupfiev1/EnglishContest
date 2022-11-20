@@ -67,6 +67,7 @@
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
                     android:fontFamily="@font/mali_bold"
+                    android:textColor="@color/gray"
                     android:text="@string/experimental_settings_title_sound_effect"
                     android:textSize="@dimen/experimental_settings_font_size"
                     tools:ignore="RelativeOverlap">
@@ -98,6 +99,7 @@
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
                     android:fontFamily="@font/mali_bold"
+                    android:textColor="@color/gray"
                     android:text="@string/experimental_settings_title_background_music"
                     android:textSize="@dimen/experimental_settings_font_size"
                     tools:ignore="RelativeOverlap" />

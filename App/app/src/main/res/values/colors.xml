@@ -12,6 +12,8 @@
     <color name="red">#E31607</color>
     <color name="blue">#40A9F4</color>
     <color name="gray">#505050</color>
+    <color name="gray_select">#60505050</color>
+
 
     <!--Sign In/Sign Up-->
     <color name="sign_in_up_button_background_color">#5D000000</color>
@@ -119,6 +121,7 @@
     <!--___________  Playing activity________-->
     <color name="play_activity_progress_bar_text">#FFFFFF</color>
     <color name="play_activity_question_content">#59ADFF</color>
+    <color name="play_emotion_background_gray">#868585</color>
 
     <!--    Choice button Default-->
     <color name="play_activity_choice_background">#FFFFFF</color>

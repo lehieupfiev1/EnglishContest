@@ -5,17 +5,25 @@ import android.annotation.SuppressLint;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowInsets;
 
 import com.pfiev.englishcontest.databinding.ActivityExperimentalBinding;
+import com.pfiev.englishcontest.model.EmotionIconItem;
+import com.pfiev.englishcontest.model.PackEmotionItem;
 import com.pfiev.englishcontest.ui.experimental.FindingMatchFragment;
 import com.pfiev.englishcontest.ui.experimental.MainFragment;
+import com.pfiev.englishcontest.utils.EmotionIconDBHelper;
+import com.pfiev.englishcontest.utils.ListEmotionsDBHelper;
+import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -124,7 +132,12 @@ public class ExperimentalActivity extends AppCompatActivity {
                 return;
             }
         }
-
+        boolean isInit = SharePreferenceUtils.getBoolean(getApplicationContext(),GlobalConstant.INIT_DATA_BASE, false);
+        if (!isInit) {
+            Log.d("LeHieu", "isInit false");
+            initData();
+            SharePreferenceUtils.putBoolean(getApplicationContext(),GlobalConstant.INIT_DATA_BASE, true);
+        }
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.experimental_fullscreen_content, MainFragment.newInstance())
@@ -140,6 +153,58 @@ public class ExperimentalActivity extends AppCompatActivity {
         // created, to briefly hint to the user that UI controls
         // are available.
         delayedHide(100);
+    }
+
+    public void initData() {
+        // Init pack data
+        Log.i("LeHieu", "Init data emotion ");
+        ListEmotionsDBHelper packDB = ListEmotionsDBHelper.getInstance(getApplicationContext());
+        packDB.addListEmotion(new PackEmotionItem("recent_emotion", "0", "descrip about recent", "recent_emotion"));
+        packDB.addListEmotion(new PackEmotionItem("orangoutang", "6", "descrip about orangoutang", "orangoutang_emotion"));
+        packDB.addListEmotion(new PackEmotionItem("pepetopanim", "8", "descrip about pepe", "pepetopanim_emotion"));
+        packDB.addListEmotion(new PackEmotionItem("shark", "10", "descrip about shark", "shark_emotion"));
+        packDB.addListEmotion(new PackEmotionItem("towelie", "10", "descrip about towelie_emotion", "towelie_emotion"));
+
+        //Init emotion icon list
+        EmotionIconDBHelper iconDB = EmotionIconDBHelper.getInstance(getApplicationContext());
+        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker0","loti","orangoutang_sticker0"));
+        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker1","loti","orangoutang_sticker1"));
+        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker2","loti","orangoutang_sticker2"));
+        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker3","loti","orangoutang_sticker3"));
+        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker4","loti","orangoutang_sticker4"));
+        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker5","loti","orangoutang_sticker5"));
+
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker0","loti","pepetopanim_sticker0"));
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker1","loti","pepetopanim_sticker1"));
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker2","loti","pepetopanim_sticker2"));
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker3","loti","pepetopanim_sticker3"));
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker4","loti","pepetopanim_sticker4"));
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker5","loti","pepetopanim_sticker5"));
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker6","loti","pepetopanim_sticker6"));
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker7","loti","pepetopanim_sticker7"));
+
+        iconDB.addEmotionIcon(new EmotionIconItem("shark","sticker0","loti","shark_sticker0"));
+        iconDB.addEmotionIcon(new EmotionIconItem("shark","sticker1","loti","shark_sticker1"));
+        iconDB.addEmotionIcon(new EmotionIconItem("shark","sticker2","loti","shark_sticker2"));
+        iconDB.addEmotionIcon(new EmotionIconItem("shark","sticker3","loti","shark_sticker3"));
+        iconDB.addEmotionIcon(new EmotionIconItem("shark","sticker4","loti","shark_sticker4"));
+        iconDB.addEmotionIcon(new EmotionIconItem("shark","sticker5","loti","shark_sticker5"));
+        iconDB.addEmotionIcon(new EmotionIconItem("shark","sticker6","loti","shark_sticker6"));
+        iconDB.addEmotionIcon(new EmotionIconItem("shark","sticker7","loti","shark_sticker7"));
+        iconDB.addEmotionIcon(new EmotionIconItem("shark","sticker8","loti","shark_sticker8"));
+        iconDB.addEmotionIcon(new EmotionIconItem("shark","sticker9","loti","shark_sticker9"));
+
+        iconDB.addEmotionIcon(new EmotionIconItem("towelie","sticker0","loti","towelie_sticker0"));
+        iconDB.addEmotionIcon(new EmotionIconItem("towelie","sticker1","loti","towelie_sticker1"));
+        iconDB.addEmotionIcon(new EmotionIconItem("towelie","sticker2","loti","towelie_sticker2"));
+        iconDB.addEmotionIcon(new EmotionIconItem("towelie","sticker3","loti","towelie_sticker3"));
+        iconDB.addEmotionIcon(new EmotionIconItem("towelie","sticker4","loti","towelie_sticker4"));
+        iconDB.addEmotionIcon(new EmotionIconItem("towelie","sticker5","loti","towelie_sticker5"));
+        iconDB.addEmotionIcon(new EmotionIconItem("towelie","sticker6","loti","towelie_sticker6"));
+        iconDB.addEmotionIcon(new EmotionIconItem("towelie","sticker7","loti","towelie_sticker7"));
+        iconDB.addEmotionIcon(new EmotionIconItem("towelie","sticker8","loti","towelie_sticker8"));
+        iconDB.addEmotionIcon(new EmotionIconItem("towelie","sticker9","loti","towelie_sticker9"));
+
     }
 
     @Override
