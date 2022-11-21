@@ -205,7 +205,6 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
         // Create order row to competitor with default order id is 2
         updateUI.addOrderRow(userItem, 2);
 
-        mBinding.packEmotionRecyclerView.findViewHolderForAdapterPosition(2).itemView.performClick(); // cai nay cung the a. chac do no chua bind kip
     }
 
     @Override
@@ -455,7 +454,6 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
         public void initDefaultUI(int totalQuestion) {
             mBinding.playActivityProgressBar.setMax(totalQuestion);
             mBinding.playActivityCountdownProgressIndicator.setMax(100);
-            mBinding.playActivityShowStickerPanel.setOnClickListener(view -> toggleStickerPanel());
             for (int i =0; i<4; ++i) {
                 Choice choice = new Choice(uIContext);
                 listChoices[i] = choice;
@@ -645,28 +643,6 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
             for (Choice mChoice : listChoices) {
                 if (mChoice != exceptChoice) mChoice.setDecoration(state);
             }
-        }
-
-        /**
-         * Show or hide sticker panel
-         */
-        public void toggleStickerPanel() {
-            float newYAxis = 0;
-            // Todo get sticker panel height
-            if (!isShowStickerPanel){
-                newYAxis = -800;
-                Log.i("LeHieu", "toggleStickerPanel -800");
-
-            }
-            isShowStickerPanel = (!isShowStickerPanel);
-            mBinding.playActivityMainCombat.animate().y(newYAxis).setDuration(500)
-                    .withEndAction(new Runnable() {
-                        @Override
-                        public void run() {
-//                            if (isShowStickerPanel) viewStickerData(); // gio la bam vao thi no moi bind cai nay nhi
-                        }
-                    })
-                    .start();
         }
 
         /**

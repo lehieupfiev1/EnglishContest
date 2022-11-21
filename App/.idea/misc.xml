@@ -79,6 +79,7 @@
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_play_activity_choice_wrong.xml" value="0.155" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_play_activity_user_parameter.xml" value="0.113" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_play_activity_wrong.xml" value="0.113" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/bg_profile_image.xml" value="0.1925" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/close_image.xml" value="0.155" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/custom_progress_bg.xml" value="0.2965" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/drawable/dialog_background_basic_rounded_corner.xml" value="0.306" />
@@ -107,10 +108,11 @@
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_google_sign_in.xml" value="0.33055555555555555" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_main.xml" value="0.17037037037037037" />
-        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_play_game.xml" value="0.33" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_play_game.xml" value="0.14" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_playt_game_show_sticker_panel.xml" value="0.17037037037037037" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_profile.xml" value="0.25" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_profile_image_crop.xml" value="0.33055555555555555" />
-        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_twiter_sign_in.xml" value="0.33055555555555555" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_twiter_sign_in.xml" value="0.33" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/custom_layout_menu_bubble.xml" value="0.2658514492753623" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/dialog_make_friend.xml" value="0.33" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/dialog_request_combat.xml" value="0.33" />
@@ -136,6 +138,7 @@
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/toast_custom.xml" value="0.30512820512820515" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/win_layout_dialog.xml" value="0.33055555555555555" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/winset_player_detail_layout.xml" value="0.33055555555555555" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/xml/play_game_scenre.xml" value="0.17037037037037037" />
       </map>
     </option>
   </component>

@@ -7,17 +7,16 @@
     android:layout_height="match_parent"
     android:clipChildren="false"
     android:clipToPadding="false"
-    tools:context=".TestActivity"
-    app:layoutDescription="@xml/play_game_scene">
-
+    app:layoutDescription="@xml/play_game_scene"
+    tools:context=".TestActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/play_activity_main_combat"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_experimental_root_layout"
         android:clipChildren="false"
         android:clipToPadding="false"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/emotion_layout"
         app:layout_constraintStart_toStartOf="parent"
         >
 
@@ -202,6 +201,7 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <LinearLayout
         android:id="@+id/emotion_layout"
         android:layout_width="match_parent"
@@ -210,8 +210,7 @@
         android:orientation="vertical"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/play_activity_main_combat">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/pack_emotion_recycler_view"

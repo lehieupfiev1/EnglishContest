@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetStart="@layout/activity_play_game"
+        motion:constraintSetEnd="@layout/activity_playt_game_show_sticker_panel"
+        motion:duration="200"
+
+        >
+        <OnClick
+            motion:clickAction="toggle"
+            motion:targetId="@+id/play_activity_show_sticker_panel"/>
+    </Transition>
+
+</MotionScene>
