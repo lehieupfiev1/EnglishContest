@@ -1,19 +1,9 @@
 package com.pfiev.englishcontest.ui.wiget;
 
-import android.animation.Animator;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 
 import com.pfiev.englishcontest.R;
 
 public class MenuBubble extends ConstraintLayout {
     private ConstraintLayout mainBubble;
+    private final String TAG = "Menu bubble";
     private final static long ANIM_DURATION = 500;
 
     public MenuBubble(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -90,21 +80,14 @@ public class MenuBubble extends ConstraintLayout {
         }
     }
 
-    public void addViewToMainContent(View child) {
-        mainBubble.addView(child);
-    }
-
     public ConstraintLayout getMainContainer() {
         return mainBubble;
     }
 
     public void fadeOut(FadeOutCallback callback) {
         this.animate().alpha(0f).setDuration(ANIM_DURATION).withEndAction(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        if (callback != null) callback.onEnd();
-                    }
+                () -> {
+                    if (callback != null) callback.onEnd();
                 }
         );
     }

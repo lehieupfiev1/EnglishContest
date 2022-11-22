@@ -30,6 +30,8 @@ public class Status {
     public static String STATE_OFFLINE = "offline";
     public static String STATE_PLAYING = "playing";
 
+    private static final int MAX_FRIENDS_ALLOW = 50;
+
     public static Status getInstance() {
         if (instance == null) {
             instance = new Status();
@@ -125,6 +127,7 @@ public class Status {
 
     /**
      * Get status state of user by uid
+     *
      * @param uid
      * @return
      */
@@ -140,6 +143,25 @@ public class Status {
         });
     }
 
+    public Task<Boolean> canAddNewFriend() {
+        return database.getReference().child(this.statusRef + "/" + this.ownUid)
+                .child("totalFriends")
+                .get().continueWith(new Continuation<DataSnapshot, Boolean>() {
+                    @Override
+                    public Boolean then(@NonNull Task<DataSnapshot> task) throws Exception {
+                        long totalFriends = 0;
+                        if (task.getResult().getValue() != null)
+                            totalFriends = (long) task.getResult().getValue();
+                        return (totalFriends < MAX_FRIENDS_ALLOW);
+                    }
+                });
+    }
+
+    /**
+     * Set new state
+     *
+     * @param newState new state
+     */
     public void setState(String newState) {
         database.getReference().child(this.statusRef + "/" + this.ownUid).child("state")
                 .setValue(newState);
@@ -149,6 +171,7 @@ public class Status {
         public String state;
         public String hashDisplay;
         public float lastOnline;
+        public long totalFriends;
 
         public StatusModel() {
         }
@@ -161,26 +184,11 @@ public class Status {
             this.state = state;
         }
 
-        public String getHashDisplay() {
-            return hashDisplay;
-        }
-
-        public void setHashDisplay(String hashDisplay) {
-            this.hashDisplay = hashDisplay;
-        }
-
-        public float getLastOnline() {
-            return lastOnline;
-        }
-
-        public void setLastOnline(float lastOnline) {
-            this.lastOnline = lastOnline;
-        }
-
     }
 
     public static interface StateCallBack {
         public void afterSetOnDisconnectAction();
+
         public void notSameHashCallback();
     }
 }

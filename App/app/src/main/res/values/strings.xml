@@ -107,7 +107,7 @@
     <string name="friend_list_unfriend_confirm_accept" translatable="false">Yes</string>
     <string name="friend_list_unfriend_confirm_reject" translatable="false">No </string>
     <string name="friend_list_request_combat_loading" translatable="false">Send request to friend. Please wait </string>
-
+    <string name="friend_list_request_show_exceed_intro" translatable="false">You only have maximum of 50 friends</string>
     <!--    Dialog request combat-->
     <string name="dialog_request_combat_message" translatable="false">Want to invite you join a battle </string>
     <string name="dialog_request_combat_time_remaining" translatable="false">(Time remaining: %1$ss )</string>
@@ -122,6 +122,7 @@
     <string name="dialog_make_friend_btn_accept" translatable="false">YES</string>
     <string name="dialog_make_friend_btn_reject" translatable="false">NO</string>
     <string name="dialog_make_friend_btn_later" translatable="false">LATER</string>
+    <string name="dialog_make_friend_exceed_max_allow" translatable="false">You can only have a maximum of 50 friends</string>
 
     <!--    Dialog unfriend -->
     <string name="dialog_unfriend_message" translatable="false">Are you sure you want to unfriend with </string>
@@ -149,6 +150,7 @@
     <string name="finding_match_bubble_intro_mess_looking" translatable="false">We are searching ...</string>
     <string name="finding_match_bubble_intro_mess_found" translatable="false">Yeah, have a match for you !!</string>
     <string name="finding_match_bubble_intro_mess_waiting_competitor" translatable="false">Waiting for your competitor</string>
+    <string name="finding_match_bubble_intro_mess_wait_loading_question" translatable="false">Wait loading question</string>
     <string name="finding_match_btn_find_match" translatable="false">Let\'s Start</string>
     <string name="finding_match_btn_cancel_find_match" translatable="false">Cancel</string>
     <!--    Fight agree layout-->

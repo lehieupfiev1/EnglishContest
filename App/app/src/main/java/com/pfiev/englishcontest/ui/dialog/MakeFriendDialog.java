@@ -9,6 +9,7 @@ import android.os.SystemClock;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -87,22 +88,30 @@ public class MakeFriendDialog extends Dialog implements
         switch (view.getId()) {
             case R.id.dialog_make_friend_accept_btn:
                 // Update status state of new friend
-                Status.getInstance().getStatusByUid(friendId).addOnCompleteListener(
-                        task -> {
-                            // Put data to create two new friend item
-                            friendItem.setStatus(task.getResult());
-                            Map<String, FriendItem> friends = new HashMap<>();
-                            friends.put(ownItem.getUserId(), friendItem);
-                            friends.put(friendId, new FriendItem(
-                                    ownItem.getUserId(),
-                                    ownItem.getName(),
-                                    ownItem.getUserPhotoUrl(),
-                                    BaseFriendListItem.STATUS.ONLINE
-                            ));
-                            FriendList.getInstance().addFriend(friends);
-                            if (onAcceptCb != null) onAcceptCb.acceptCallback();
-                        }
-                );
+                Status.getInstance().canAddNewFriend().addOnCompleteListener(task -> {
+                    if (task.getResult()) {
+                        Status.getInstance().getStatusByUid(friendId).addOnCompleteListener(
+                                statusTask -> {
+                                    // Put data to create two new friend item
+                                    friendItem.setStatus(statusTask.getResult());
+                                    Map<String, FriendItem> friends = new HashMap<>();
+                                    friends.put(ownItem.getUserId(), friendItem);
+                                    friends.put(friendId, new FriendItem(
+                                            ownItem.getUserId(),
+                                            ownItem.getName(),
+                                            ownItem.getUserPhotoUrl(),
+                                            BaseFriendListItem.STATUS.ONLINE
+                                    ));
+                                    FriendList.getInstance().addFriend(friends);
+                                    if (onAcceptCb != null) onAcceptCb.acceptCallback();
+                                }
+                        );
+                    } else {
+                        CustomToast.makeText(mContext,
+                                mContext.getString(R.string.dialog_make_friend_exceed_max_allow),
+                                CustomToast.ERROR, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.dialog_make_friend_reject_btn:
                 WaitingList.getInstance().setUid(ownItem.getUserId());

@@ -71,6 +71,7 @@
     <color name="friends_list_radio_button_active">#FF4AC695</color>
     <color name="friends_list_radio_button_border">#888888</color>
     <color name="friends_list_radio_button_text_default">#FFFFFF</color>
+    <color name="friends_list_exceed_intro">#FF4AC695</color>
 
     <!--    Dialog default -->
     <color name="dialog_default_intro_text">#00BCD4</color>

@@ -147,6 +147,8 @@ public class FriendListAdapter extends RecyclerView.Adapter
         public ImageView unfriendBtn;
         public String holderUid;
 
+        private ViewHolderFriends instance;
+
         public ViewHolderFriends(View itemView) {
             super(itemView);
             avatar = itemView.findViewById(R.id.recycler_view_friends_user_avatar);
@@ -154,6 +156,7 @@ public class FriendListAdapter extends RecyclerView.Adapter
             userTextMore = itemView.findViewById(R.id.recycler_view_friends_user_text_more);
             requestCombatBtn = itemView.findViewById(R.id.recycler_view_friends_request_combat);
             unfriendBtn = itemView.findViewById(R.id.recycler_view_friends_unfriend);
+            instance = this;
 
 
             requestCombatBtn.setOnClickListener(view -> {
@@ -183,28 +186,29 @@ public class FriendListAdapter extends RecyclerView.Adapter
             });
 
             unfriendBtn.setOnClickListener(view -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                String mess = view.getResources().
-                        getString(R.string.friend_list_unfriend_confirm_mess);
-                builder.setMessage(mess + " " + username.getText().toString() + "?");
-                builder.setPositiveButton(
-                        R.string.friend_list_unfriend_confirm_accept,
-                        (dialogInterface, i) -> {
-                            UnFriendDialog dialog = new UnFriendDialog(mContext);
-                            dialog.setAcceptCallBack(() -> {
-                                String message = mContext.getString(
-                                        R.string.toast_custom_unfriend_success);
-                                CustomToast.makeText(mContext, message, CustomToast.WARNING,
-                                        CustomToast.LENGTH_SHORT).show();
-                            });
-                            dialog.show();
-                        }
-                ).setNegativeButton(
-                        R.string.friend_list_unfriend_confirm_reject,
-                        (dialogInterface, i) -> {
-                        }
-                ).show();
+
+                UnFriendDialog dialog = new UnFriendDialog(mContext);
+                dialog.setData(new FriendItem(
+                        holderUid,
+                        username.getText().toString(),
+                        avatar.getSourceUrl(),
+                        BaseFriendListItem.STATUS.ONLINE
+                ));
+                dialog.setAcceptCallBack(() -> {
+                    String message = mContext.getString(
+                            R.string.toast_custom_unfriend_success);
+                    CustomToast.makeText(mContext, message, CustomToast.WARNING,
+                            CustomToast.LENGTH_SHORT).show();
+                    deleteItemInList();
+                });
+                dialog.show();
             });
+        }
+
+        private void deleteItemInList() {
+            int position = instance.getAdapterPosition();
+            FriendListAdapter.this.friendsLists.remove(position);
+            notifyItemRemoved(position);
         }
     }
 }

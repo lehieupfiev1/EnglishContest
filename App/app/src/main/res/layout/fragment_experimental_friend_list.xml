@@ -67,24 +67,25 @@
             app:layout_constraintTop_toBottomOf="@+id/experimental_friends_back_btn" />
 
         <com.pfiev.englishcontest.ui.wiget.MenuBubble
-            android:id="@+id/menuBubble2"
+            android:id="@+id/friends_list_main_menu_bubble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/friends_list_table_margin_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/experimental_friends_list_big_title"
-            app:sysUserName="@string/experimental_friends_list_sys_name">
+            app:sysUserName="@string/experimental_friends_list_sys_name"
+            >
 
             <RadioGroup
                 android:id="@+id/friends_list_type_select"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/menu_bubble_sys_name">
 
                 <androidx.appcompat.widget.AppCompatRadioButton
-                    android.id="@+id/friends_list_type_select"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -147,7 +148,7 @@
 
             <LinearLayout
                 android:id="@+id/friends_list_search_box_layout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:orientation="horizontal"
@@ -185,11 +186,12 @@
 
             <LinearLayout
                 android:id="@+id/friends_list_frame_list"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_max="@dimen/recycler_view_friends_max_width"
                 app:layout_constraintHeight_max="@dimen/recycler_view_friends_max_height"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/friends_list_search_box_layout">
@@ -197,7 +199,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/friends_list_recycle_lv"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    />
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/friends_list_loading"
@@ -207,6 +210,27 @@
                     app:lottie_rawRes="@raw/friend_list_loading" />
 
             </LinearLayout>
+        </com.pfiev.englishcontest.ui.wiget.MenuBubble>
+        <com.pfiev.englishcontest.ui.wiget.MenuBubble
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/friends_list_exceed_intro_bubble_margin_top"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/friends_list_main_menu_bubble"
+            app:sysUserAvatarHide="true"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/friends_list_exceed_intro"
+                android:fontFamily="@font/mali_bold"
+                android:textSize="@dimen/friends_list_exceed_intro_tv_text"
+                android:layout_marginTop="@dimen/friends_list_exceed_intro_tv_margin_top"
+                android:text="@string/friend_list_request_show_exceed_intro"
+                app:layout_constraintWidth_max="@dimen/recycler_view_friends_max_width"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
         </com.pfiev.englishcontest.ui.wiget.MenuBubble>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

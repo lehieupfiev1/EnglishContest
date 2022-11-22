@@ -219,6 +219,7 @@ public class FindingMatchFragment extends Fragment {
                                     getMatchHistoryData(value);
                                 } else {
                                     isFirstChangePlay = true;
+                                    updateUI.showWaitingLoadQuestion();
                                 }
                                 break;
                             default:
@@ -581,6 +582,13 @@ public class FindingMatchFragment extends Fragment {
                             getString(R.string.finding_match_cancel_looking_waiting),
                             CustomToast.CONFUSING, CustomToast.LENGTH_SHORT)
                     .show();
+        }
+
+        /**
+         * Show waiting while loading question
+         */
+        public void showWaitingLoadQuestion() {
+            introMess.setText(R.string.finding_match_bubble_intro_mess_wait_loading_question);
         }
     }
 }

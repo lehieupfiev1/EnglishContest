@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/leaderboard_item_root_layout"
     android:layout_width="match_parent"
@@ -8,9 +8,9 @@
 
     <LinearLayout
         android:id="@+id/leaderboard_item_group_layout"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/leaderboard_user_score"
         android:layout_marginEnd="2dp"
         android:background="@drawable/bg_experimental_leaderboard_item">
 
@@ -58,9 +58,10 @@
         android:background="@drawable/bg_experimental_leaderboard_item_score"
         android:fontFamily="@font/mali_bold"
         android:gravity="center"
+        android:layout_alignParentEnd="true"
         android:textColor="@color/leaderboard_item_score_text"
         android:textSize="@dimen/leaderboard_lv_item_text_size">
 
     </TextView>
 
-</LinearLayout>
+</RelativeLayout>

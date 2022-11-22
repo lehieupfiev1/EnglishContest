@@ -2,23 +2,22 @@ package com.pfiev.englishcontest.adapter;
 
 import android.content.Context;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.firestore.NotificationCollection;
 import com.pfiev.englishcontest.model.BaseFriendListItem;
 import com.pfiev.englishcontest.model.UserItem;
 import com.pfiev.englishcontest.model.WaitingItem;
+import com.pfiev.englishcontest.realtimedb.Status;
 import com.pfiev.englishcontest.realtimedb.WaitingList;
 import com.pfiev.englishcontest.ui.dialog.CustomToast;
 import com.pfiev.englishcontest.ui.wiget.RoundedAvatarImageView;
@@ -114,38 +113,40 @@ public class UsersListAdapter extends RecyclerView.Adapter {
             userTextMore = itemView.findViewById(R.id.recycler_view_friends_user_text_more);
             action = itemView.findViewById(R.id.recycler_view_friends_view_detail);
 
-
-            action.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    long currentClickTime = SystemClock.uptimeMillis();
-                    long elapsedTime = currentClickTime - mLastClickTime;
-                    mLastClickTime = currentClickTime;
-                    // Return if double tap to prevent error in position;
-                    if (elapsedTime <= MIN_CLICK_INTERVAL) return;
-
-                    WaitingList waitingList = WaitingList.getInstance();
-                    UserItem userItem = SharePreferenceUtils.getUserData(mContext);
-                    waitingList.setUid(userItem.getUserId());
-                    // New waiting Item
-                    waitingList.sendInvitation(holderId, new WaitingItem(
-                            userItem.getUserId(),
-                            userItem.getName(),
-                            userItem.getUserPhotoUrl(),
-                            BaseFriendListItem.STATUS.ONLINE
-                    )).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.getException() == null) {
+            action.setOnClickListener(view -> {
+                long currentClickTime = SystemClock.uptimeMillis();
+                long elapsedTime = currentClickTime - mLastClickTime;
+                mLastClickTime = currentClickTime;
+                // Return if double tap to prevent error in position;
+                if (elapsedTime <= MIN_CLICK_INTERVAL) return;
+                action.setVisibility(View.INVISIBLE);
+                // Check if exceed max allow of friends
+                Status.getInstance().canAddNewFriend().addOnCompleteListener(task -> {
+                    if (task.getResult()) {
+                        WaitingList waitingList = WaitingList.getInstance();
+                        UserItem userItem = SharePreferenceUtils.getUserData(mContext);
+                        waitingList.setUid(userItem.getUserId());
+                        // New waiting Item
+                        waitingList.sendInvitation(holderId, new WaitingItem(
+                                userItem.getUserId(),
+                                userItem.getName(),
+                                userItem.getUserPhotoUrl(),
+                                BaseFriendListItem.STATUS.ONLINE
+                        )).addOnCompleteListener(task1 -> {
+                            if (task1.getException() == null) {
                                 NotificationCollection collection = new NotificationCollection();
                                 collection.sendFriendInvitation(holderId);
                             }
-                        }
-                    });
-                    String message = mContext.getString(R.string.toast_custom_invite_friend);
-                    CustomToast.makeText(mContext, message, CustomToast.SUCCESS,
-                            CustomToast.LENGTH_SHORT).show();
-                }
+                        });
+                        String message = mContext.getString(R.string.toast_custom_invite_friend);
+                        CustomToast.makeText(mContext, message, CustomToast.SUCCESS,
+                                CustomToast.LENGTH_SHORT).show();
+                    } else {
+                        CustomToast.makeText(mContext,
+                                mContext.getString(R.string.dialog_make_friend_exceed_max_allow),
+                                CustomToast.ERROR, Toast.LENGTH_SHORT).show();
+                    }
+                });
             });
         }
     }

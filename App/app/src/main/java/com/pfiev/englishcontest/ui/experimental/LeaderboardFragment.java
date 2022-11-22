@@ -89,7 +89,6 @@ public class LeaderboardFragment extends Fragment {
                 new OnCompleteListener<HashMap>() {
                     @Override
                     public void onComplete(@NonNull Task<HashMap> task) {
-                        hideLoadingAnim();
                         if (!task.isSuccessful()) {
                             Exception e = task.getException();
                             if (e instanceof FirebaseFunctionsException) {
@@ -122,6 +121,7 @@ public class LeaderboardFragment extends Fragment {
                             );
                             binding.experimentalLeaderboardLv.setDividerHeight(10);
                         }
+                        hideLoadingAnim();
                     }
                 }
         );

@@ -1,5 +1,7 @@
 package com.pfiev.englishcontest.realtimedb;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -236,6 +238,7 @@ public class FriendList {
             @Override
             public void accept(String s, FriendItem friendItem) {
                 data.put("/" + friendListRef + "/" + s + "/" + friendItem.getUid(), friendItem);
+                Log.d("Add Friend", ""+ friendItem.getTimestamp());
             }
         });
         dbCon.getReference().updateChildren(data);
