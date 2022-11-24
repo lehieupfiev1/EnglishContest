@@ -6,9 +6,9 @@
     <string name="title_settings" translatable="false">Settings</string>
     <string name="title_about" translatable="false">ABOUT</string>
 
-    <string name="facebook_app_id" translatable="false">1094335348131015</string>
-    <string name="fb_login_protocol_scheme" translatable="false">fb1094335348131015</string>
-    <string name="facebook_client_token" translatable="false">36cf6985321efe9c74da9e0e31400b64</string>
+    <string name="facebook_app_id" translatable="false">472051608077420</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb472051608077420</string>
+    <string name="facebook_client_token" translatable="false">b28a2a9a1327ce3703705d4052a4f639</string>
 
 
     <string name="sign_in_with_facebook">Signing in with your Facebook account</string>

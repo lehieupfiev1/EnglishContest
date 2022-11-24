@@ -4,6 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_experimental_root_layout"
     tools:context=".setup.FacebookSignInActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/sign_in_process_loading"
+        android:fontFamily="@font/mali_bold"
+        android:textSize="@dimen/experimental_main_big_title_text_size"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/facebook_sign_in_activity_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:lottie_colorFilter="@color/white"
+        app:lottie_rawRes="@raw/friend_list_loading"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

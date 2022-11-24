@@ -65,6 +65,7 @@ public class EnglishApplication extends Application implements LifecycleObserver
     @Override
     public void onCreate() {
         super.onCreate();
+        currentUserStatus = Status.STATE_OFFLINE;
         Log.d("Application init", "On Create");
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
         excludeClass = new ArrayList<>();

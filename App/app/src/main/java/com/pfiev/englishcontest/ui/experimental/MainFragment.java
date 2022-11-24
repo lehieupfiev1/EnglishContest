@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.pfiev.englishcontest.EnglishApplication;
+import com.pfiev.englishcontest.LoginActivity;
 import com.pfiev.englishcontest.ProfileActivity;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.databinding.FragmentExperimentalMainBinding;
@@ -123,6 +124,11 @@ public class MainFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+            return;
+        }
         if (getActivity() != null && getActivity().getWindow() != null) {
             getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
