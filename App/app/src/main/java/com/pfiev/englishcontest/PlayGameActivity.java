@@ -29,6 +29,7 @@ import com.pfiev.englishcontest.model.AnswerItem;
 import com.pfiev.englishcontest.model.BotItem;
 import com.pfiev.englishcontest.model.ChoiceItem;
 import com.pfiev.englishcontest.model.EmotionIconItem;
+import com.pfiev.englishcontest.model.MessageEmotionItem;
 import com.pfiev.englishcontest.model.PackEmotionItem;
 import com.pfiev.englishcontest.model.QuestionItem;
 import com.pfiev.englishcontest.model.UserItem;
@@ -38,6 +39,7 @@ import com.pfiev.englishcontest.ui.playactivityelem.OrderRow;
 import com.pfiev.englishcontest.utils.EmotionIconDBHelper;
 import com.pfiev.englishcontest.utils.ListEmotionsDBHelper;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
+import com.pfiev.englishcontest.utils.Utility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,6 +60,8 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
     public String ownUserId;
     public String competitorUserId;
     public String mMatchId;
+    public String mMessageDocId;
+    public int mOwnerMessageIndex;
     private ActivityPlayGameBinding mBinding;
     public ArrayList<Integer> mListChoose;
     public List<Integer> mListTimeChoose;
@@ -116,10 +120,19 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
 
         MatchCollection.updateDataOtherPlayer(mMatchId, competitorUserId,
                 this::updateCompetitorInfo);
+
+        MatchCollection.updateEmotionOtherPlayer(mMessageDocId,competitorUserId,
+                this::updateCompetitorMessage);
     }
 
     private void setListenners() {
         runData(0);
+    }
+
+    public void updateCompetitorMessage(MessageEmotionItem messageEmotionItem) {
+        String rawUrI = messageEmotionItem.getMessage();
+        Log.d("LeHieu"," updateCompetitorMessage in UrI"+ rawUrI);
+        showMessageEmotion(rawUrI, competitorUserId);
     }
 
     public void updateCompetitorInfo(long correctTimeCount) {
@@ -155,6 +168,7 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
         mListQuestion = intent.getParcelableArrayListExtra("ListQuestion");
         competitorUserId = intent.getStringExtra("CompetitorId");
         mMatchId = intent.getStringExtra(GlobalConstant.MATCH_ID);
+        mMessageDocId = (String) intent.getStringExtra(GlobalConstant.MESSAGE_DOC_ID);
         ownUserId = SharePreferenceUtils.getString(getApplicationContext(), GlobalConstant.USER_ID);
         boolean isUseBot = intent.getBooleanExtra("useBot", false);
         if (isUseBot) {
@@ -162,6 +176,8 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
             botSpeedAnswerRate = intent.getIntArrayExtra("speedAnswerRate");
             botItem = intent.getBundleExtra("botWrapper").getParcelable("botItem");
         }
+        Log.i(TAG, "initData : ownUserId:"+ownUserId+"  competitorUserId:"+competitorUserId+
+                "  mMatchId:"+mMatchId+ "  mMessageDocId:"+mMessageDocId);
 
         mMaxTimeCount = 10;
         mListChoose = new ArrayList<>();
@@ -170,6 +186,7 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
         ownerTotalTimeAnswer = 0;
         competitorCorrectAnswer = 0;
         competitorTotalTimeAnswer = 0;
+        mOwnerMessageIndex = 0;
     }
 
     public void showWinnerDialog() {
@@ -455,23 +472,29 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
     public void onEmotionItemClick(View view, int position, String url, String rawUrI) {
         Log.i("LeHieu", "onEmotionItemClick on rawUrI" + rawUrI);
         updateRecentEmotion(url);
-        int imageResource = getApplicationContext().getResources().getIdentifier(rawUrI, null, getApplicationContext().getPackageName());
+        showMessageEmotion(rawUrI,ownUserId);
+        String time_created = String.valueOf(System.currentTimeMillis());
+        MessageEmotionItem messageEmotionItem = new MessageEmotionItem(rawUrI, ownUserId,time_created,"true","loti");
+        Log.i(TAG, "pushMessageEmotion "+messageEmotionItem.toString());
+        MatchCollection.pushMessageEmotion(mMessageDocId,ownUserId,messageEmotionItem, String.valueOf(mOwnerMessageIndex));
+        mOwnerMessageIndex++;
+    }
+
+    public void showMessageEmotion(String rawUrI, String userId) {
+        int imageResource =  getApplicationContext().getResources().getIdentifier(rawUrI, null, getApplicationContext().getPackageName());
         LottieAnimationView message = new LottieAnimationView(getApplicationContext());
         message.setAnimation(imageResource);
-        updateUI.addNewMessage(ownUserId, message);
-//        mResultEmotion.cancelAnimation();
-//        int imageResource =  getContext().getResources().getIdentifier(rawUrI, null, getContext().getApplicationContext().getPackageName());
-//        mResultEmotion.setAnimation(imageResource);
-//        mResultEmotion.setVisibility(View.VISIBLE);
-//        mResultEmotion.playAnimation();
+        updateUI.addNewMessage(userId, message);
     }
 
     public void updateRecentEmotion(String url) {
-        EmotionIconItem emotionIconItem = new EmotionIconItem("recent_emotion", "sticker0", "loti", url);
-        //Save to sqlite
-        EmotionIconDBHelper iconDB = EmotionIconDBHelper.getInstance(getApplicationContext());
-        iconDB.addEmotionIcon(emotionIconItem);
-        mListTotalEmotion.get(0).add(emotionIconItem);
+        if (!Utility.isExitEmotion(url,mListTotalEmotion.get(0))) {
+            EmotionIconItem emotionIconItem = new EmotionIconItem("recent_emotion", "sticker0", "loti", url);
+            //Save to sqlite
+            EmotionIconDBHelper iconDB = EmotionIconDBHelper.getInstance(getApplicationContext());
+            iconDB.addEmotionIcon(emotionIconItem);
+            mListTotalEmotion.get(0).add(emotionIconItem);
+        }
     }
 
     private class UpdateUI {

@@ -162,28 +162,106 @@ public class ExperimentalActivity extends AppCompatActivity {
         Log.i("LeHieu", "Init data emotion ");
         ListEmotionsDBHelper packDB = ListEmotionsDBHelper.getInstance(getApplicationContext());
         packDB.addListEmotion(new PackEmotionItem("recent_emotion", "0", "descrip about recent", "recent_emotion"));
-        packDB.addListEmotion(new PackEmotionItem("orangoutang", "6", "descrip about orangoutang", "orangoutang_emotion"));
-        packDB.addListEmotion(new PackEmotionItem("pepetopanim", "8", "descrip about pepe", "pepetopanim_emotion"));
-        packDB.addListEmotion(new PackEmotionItem("shark", "10", "descrip about shark", "shark_emotion"));
+
+        packDB.addListEmotion(new PackEmotionItem("cat", "11", "descrip about cat", "cat_emotion"));
+        packDB.addListEmotion(new PackEmotionItem("diggy", "12", "descrip about dyggy", "diggy_emotion"));
+        packDB.addListEmotion(new PackEmotionItem("girl", "11", "descrip about girl", "girl_emotion"));
+        packDB.addListEmotion(new PackEmotionItem("jooey", "12", "descrip about jooey", "jooey_emotion"));
+        packDB.addListEmotion(new PackEmotionItem("senya", "11", "descrip about senya", "senya_emotion"));
+        packDB.addListEmotion(new PackEmotionItem("perchick", "11", "descrip about perchick", "perchick_emotion"));
+        packDB.addListEmotion(new PackEmotionItem("mysticise", "11", "descrip about mysticise", "mysticise_emotion"));
         packDB.addListEmotion(new PackEmotionItem("towelie", "10", "descrip about towelie_emotion", "towelie_emotion"));
+        packDB.addListEmotion(new PackEmotionItem("pepetopanim", "8", "descrip about pepe", "pepetopanim_emotion"));
+        packDB.addListEmotion(new PackEmotionItem("orangoutang", "6", "descrip about orangoutang", "orangoutang_emotion"));
 
         //Init emotion icon list
         EmotionIconDBHelper iconDB = EmotionIconDBHelper.getInstance(getApplicationContext());
-        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker0","loti","orangoutang_sticker0"));
-        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker1","loti","orangoutang_sticker1"));
-        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker2","loti","orangoutang_sticker2"));
-        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker3","loti","orangoutang_sticker3"));
-        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker4","loti","orangoutang_sticker4"));
-        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker5","loti","orangoutang_sticker5"));
 
-        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker0","loti","pepetopanim_sticker0"));
-        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker1","loti","pepetopanim_sticker1"));
-        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker2","loti","pepetopanim_sticker2"));
-        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker3","loti","pepetopanim_sticker3"));
-        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker4","loti","pepetopanim_sticker4"));
-        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker5","loti","pepetopanim_sticker5"));
-        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker6","loti","pepetopanim_sticker6"));
-        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker7","loti","pepetopanim_sticker7"));
+        iconDB.addEmotionIcon(new EmotionIconItem("cat","sticker0","loti","cat_sticker0"));
+        iconDB.addEmotionIcon(new EmotionIconItem("cat","sticker1","loti","cat_sticker1"));
+        iconDB.addEmotionIcon(new EmotionIconItem("cat","sticker2","loti","cat_sticker2"));
+        iconDB.addEmotionIcon(new EmotionIconItem("cat","sticker3","loti","cat_sticker3"));
+        iconDB.addEmotionIcon(new EmotionIconItem("cat","sticker4","loti","cat_sticker4"));
+        iconDB.addEmotionIcon(new EmotionIconItem("cat","sticker5","loti","cat_sticker5"));
+        iconDB.addEmotionIcon(new EmotionIconItem("cat","sticker6","loti","cat_sticker6"));
+        iconDB.addEmotionIcon(new EmotionIconItem("cat","sticker7","loti","cat_sticker7"));
+        iconDB.addEmotionIcon(new EmotionIconItem("cat","sticker8","loti","cat_sticker8"));
+        iconDB.addEmotionIcon(new EmotionIconItem("cat","sticker9","loti","cat_sticker9"));
+        iconDB.addEmotionIcon(new EmotionIconItem("cat","sticker10","loti","cat_sticker10"));
+
+        iconDB.addEmotionIcon(new EmotionIconItem("diggy","sticker0","loti","diggy_sticker0"));
+        iconDB.addEmotionIcon(new EmotionIconItem("diggy","sticker1","loti","diggy_sticker1"));
+        iconDB.addEmotionIcon(new EmotionIconItem("diggy","sticker2","loti","diggy_sticker2"));
+        iconDB.addEmotionIcon(new EmotionIconItem("diggy","sticker3","loti","diggy_sticker3"));
+        iconDB.addEmotionIcon(new EmotionIconItem("diggy","sticker4","loti","diggy_sticker4"));
+        iconDB.addEmotionIcon(new EmotionIconItem("diggy","sticker5","loti","diggy_sticker5"));
+        iconDB.addEmotionIcon(new EmotionIconItem("diggy","sticker6","loti","diggy_sticker6"));
+        iconDB.addEmotionIcon(new EmotionIconItem("diggy","sticker7","loti","diggy_sticker7"));
+        iconDB.addEmotionIcon(new EmotionIconItem("diggy","sticker8","loti","diggy_sticker8"));
+        iconDB.addEmotionIcon(new EmotionIconItem("diggy","sticker9","loti","diggy_sticker9"));
+        iconDB.addEmotionIcon(new EmotionIconItem("diggy","sticker10","loti","diggy_sticker10"));
+        iconDB.addEmotionIcon(new EmotionIconItem("diggy","sticker11","loti","diggy_sticker11"));
+
+        iconDB.addEmotionIcon(new EmotionIconItem("girl","sticker0","loti","girl_sticker0"));
+        iconDB.addEmotionIcon(new EmotionIconItem("girl","sticker1","loti","girl_sticker1"));
+        iconDB.addEmotionIcon(new EmotionIconItem("girl","sticker2","loti","girl_sticker2"));
+        iconDB.addEmotionIcon(new EmotionIconItem("girl","sticker3","loti","girl_sticker3"));
+        iconDB.addEmotionIcon(new EmotionIconItem("girl","sticker4","loti","girl_sticker4"));
+        iconDB.addEmotionIcon(new EmotionIconItem("girl","sticker5","loti","girl_sticker5"));
+        iconDB.addEmotionIcon(new EmotionIconItem("girl","sticker6","loti","girl_sticker6"));
+        iconDB.addEmotionIcon(new EmotionIconItem("girl","sticker7","loti","girl_sticker7"));
+        iconDB.addEmotionIcon(new EmotionIconItem("girl","sticker8","loti","girl_sticker8"));
+        iconDB.addEmotionIcon(new EmotionIconItem("girl","sticker9","loti","girl_sticker9"));
+        iconDB.addEmotionIcon(new EmotionIconItem("girl","sticker10","loti","girl_sticker10"));
+
+        iconDB.addEmotionIcon(new EmotionIconItem("jooey","sticker0","loti","jooey_sticker0"));
+        iconDB.addEmotionIcon(new EmotionIconItem("jooey","sticker1","loti","jooey_sticker1"));
+        iconDB.addEmotionIcon(new EmotionIconItem("jooey","sticker2","loti","jooey_sticker2"));
+        iconDB.addEmotionIcon(new EmotionIconItem("jooey","sticker3","loti","jooey_sticker3"));
+        iconDB.addEmotionIcon(new EmotionIconItem("jooey","sticker4","loti","jooey_sticker4"));
+        iconDB.addEmotionIcon(new EmotionIconItem("jooey","sticker5","loti","jooey_sticker5"));
+        iconDB.addEmotionIcon(new EmotionIconItem("jooey","sticker6","loti","jooey_sticker6"));
+        iconDB.addEmotionIcon(new EmotionIconItem("jooey","sticker7","loti","jooey_sticker7"));
+        iconDB.addEmotionIcon(new EmotionIconItem("jooey","sticker8","loti","jooey_sticker8"));
+        iconDB.addEmotionIcon(new EmotionIconItem("jooey","sticker9","loti","jooey_sticker9"));
+        iconDB.addEmotionIcon(new EmotionIconItem("jooey","sticker10","loti","jooey_sticker10"));
+        iconDB.addEmotionIcon(new EmotionIconItem("jooey","sticker11","loti","jooey_sticker11"));
+
+        iconDB.addEmotionIcon(new EmotionIconItem("senya","sticker0","loti","senya_sticker0"));
+        iconDB.addEmotionIcon(new EmotionIconItem("senya","sticker1","loti","senya_sticker1"));
+        iconDB.addEmotionIcon(new EmotionIconItem("senya","sticker2","loti","senya_sticker2"));
+        iconDB.addEmotionIcon(new EmotionIconItem("senya","sticker3","loti","senya_sticker3"));
+        iconDB.addEmotionIcon(new EmotionIconItem("senya","sticker4","loti","senya_sticker4"));
+        iconDB.addEmotionIcon(new EmotionIconItem("senya","sticker5","loti","senya_sticker5"));
+        iconDB.addEmotionIcon(new EmotionIconItem("senya","sticker6","loti","senya_sticker6"));
+        iconDB.addEmotionIcon(new EmotionIconItem("senya","sticker7","loti","senya_sticker7"));
+        iconDB.addEmotionIcon(new EmotionIconItem("senya","sticker8","loti","senya_sticker8"));
+        iconDB.addEmotionIcon(new EmotionIconItem("senya","sticker9","loti","senya_sticker9"));
+        iconDB.addEmotionIcon(new EmotionIconItem("senya","sticker10","loti","senya_sticker10"));
+
+        iconDB.addEmotionIcon(new EmotionIconItem("perchick","sticker0","loti","perchick_sticker0"));
+        iconDB.addEmotionIcon(new EmotionIconItem("perchick","sticker1","loti","perchick_sticker1"));
+        iconDB.addEmotionIcon(new EmotionIconItem("perchick","sticker2","loti","perchick_sticker2"));
+        iconDB.addEmotionIcon(new EmotionIconItem("perchick","sticker3","loti","perchick_sticker3"));
+        iconDB.addEmotionIcon(new EmotionIconItem("perchick","sticker4","loti","perchick_sticker4"));
+        iconDB.addEmotionIcon(new EmotionIconItem("perchick","sticker5","loti","perchick_sticker5"));
+        iconDB.addEmotionIcon(new EmotionIconItem("perchick","sticker6","loti","perchick_sticker6"));
+        iconDB.addEmotionIcon(new EmotionIconItem("perchick","sticker7","loti","perchick_sticker7"));
+        iconDB.addEmotionIcon(new EmotionIconItem("perchick","sticker8","loti","perchick_sticker8"));
+        iconDB.addEmotionIcon(new EmotionIconItem("perchick","sticker9","loti","perchick_sticker9"));
+        iconDB.addEmotionIcon(new EmotionIconItem("perchick","sticker10","loti","perchick_sticker10"));
+
+        iconDB.addEmotionIcon(new EmotionIconItem("mysticise","sticker0","loti","mysticise_sticker0"));
+        iconDB.addEmotionIcon(new EmotionIconItem("mysticise","sticker1","loti","mysticise_sticker1"));
+        iconDB.addEmotionIcon(new EmotionIconItem("mysticise","sticker2","loti","mysticise_sticker2"));
+        iconDB.addEmotionIcon(new EmotionIconItem("mysticise","sticker3","loti","mysticise_sticker3"));
+        iconDB.addEmotionIcon(new EmotionIconItem("mysticise","sticker4","loti","mysticise_sticker4"));
+        iconDB.addEmotionIcon(new EmotionIconItem("mysticise","sticker5","loti","mysticise_sticker5"));
+        iconDB.addEmotionIcon(new EmotionIconItem("mysticise","sticker6","loti","mysticise_sticker6"));
+        iconDB.addEmotionIcon(new EmotionIconItem("mysticise","sticker7","loti","mysticise_sticker7"));
+        iconDB.addEmotionIcon(new EmotionIconItem("mysticise","sticker8","loti","mysticise_sticker8"));
+        iconDB.addEmotionIcon(new EmotionIconItem("mysticise","sticker9","loti","mysticise_sticker9"));
+        iconDB.addEmotionIcon(new EmotionIconItem("mysticise","sticker10","loti","mysticise_sticker10"));
 
         iconDB.addEmotionIcon(new EmotionIconItem("shark","sticker0","loti","shark_sticker0"));
         iconDB.addEmotionIcon(new EmotionIconItem("shark","sticker1","loti","shark_sticker1"));
@@ -206,6 +284,22 @@ public class ExperimentalActivity extends AppCompatActivity {
         iconDB.addEmotionIcon(new EmotionIconItem("towelie","sticker7","loti","towelie_sticker7"));
         iconDB.addEmotionIcon(new EmotionIconItem("towelie","sticker8","loti","towelie_sticker8"));
         iconDB.addEmotionIcon(new EmotionIconItem("towelie","sticker9","loti","towelie_sticker9"));
+
+        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker0","loti","orangoutang_sticker0"));
+        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker1","loti","orangoutang_sticker1"));
+        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker2","loti","orangoutang_sticker2"));
+        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker3","loti","orangoutang_sticker3"));
+        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker4","loti","orangoutang_sticker4"));
+        iconDB.addEmotionIcon(new EmotionIconItem("orangoutang","sticker5","loti","orangoutang_sticker5"));
+
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker0","loti","pepetopanim_sticker0"));
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker1","loti","pepetopanim_sticker1"));
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker2","loti","pepetopanim_sticker2"));
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker3","loti","pepetopanim_sticker3"));
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker4","loti","pepetopanim_sticker4"));
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker5","loti","pepetopanim_sticker5"));
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker6","loti","pepetopanim_sticker6"));
+        iconDB.addEmotionIcon(new EmotionIconItem("pepetopanim","sticker7","loti","pepetopanim_sticker7"));
 
     }
 

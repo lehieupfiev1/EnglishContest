@@ -35,6 +35,12 @@ public class GlobalConstant {
     public static final String ANSWER = "answer";
     public static final String CONTENT = "content";
     public static final String CONTENT_ID = "id";
+
+    //Chat message Document
+    public static String CHAT_MESSAGE = "chat_message";
+    public static String MESSAGE_DOC_ID = "message_doc_id";
+    public static String MESSAGE = "message";
+    public static String LIST_MESSAGE = "list_message";
     
     public static final String KEY_CROPPED_OUTPUT_PATH = "cropped_output_path";
     public static final String IMAGE_PATH = "image_path";

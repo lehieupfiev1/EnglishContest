@@ -1,11 +1,14 @@
 package com.pfiev.englishcontest.firestore;
 
+import android.util.Log;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.pfiev.englishcontest.GlobalConstant;
 import com.pfiev.englishcontest.model.AnswerItem;
+import com.pfiev.englishcontest.model.MessageEmotionItem;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -128,6 +131,47 @@ public class MatchCollection {
                 .addOnFailureListener(e -> {
                 });
     }
+    /**
+     * Listener emotion of compatior
+     * @param messageCallback message emotion of sender
+     * @param userId owner user id
+     * @param messageDocId message document id to add
+     */
+    public static void updateEmotionOtherPlayer(String messageDocId, String userId, MessageCallback messageCallback) {
+        FirebaseFirestore.getInstance().collection(GlobalConstant.CHAT_MESSAGE).document(messageDocId)
+                .collection(GlobalConstant.MESSAGE).document(userId)
+                .collection(GlobalConstant.LIST_MESSAGE).addSnapshotListener((value, error) -> {
+                    if (error != null) {
+                        return;
+                    }
+
+                    for (DocumentChange dc : value.getDocumentChanges()) {
+                        if (dc.getType() == DocumentChange.Type.ADDED) {
+                            Log.i("LeHieu",dc.getDocument().toString());
+                            MessageEmotionItem messageEmotionItem = dc.getDocument().toObject(MessageEmotionItem.class);
+                            messageCallback.run(messageEmotionItem);
+                        }
+                    }
+                });
+
+
+    }
+    /**
+     * Push emotion
+     * @param messageEmotionItem message emotion of sender
+     * @param userId owner user id
+     * @param messageDocId message document id to add
+     * @param position position push message emotion to add
+     */
+    public static void pushMessageEmotion(String messageDocId, String userId, MessageEmotionItem messageEmotionItem, String position) {
+        FirebaseFirestore.getInstance().collection(GlobalConstant.CHAT_MESSAGE)
+                .document(messageDocId)
+                .collection(GlobalConstant.MESSAGE).document(userId).collection(GlobalConstant.LIST_MESSAGE).document(position)
+                .set(messageEmotionItem).addOnSuccessListener(unused -> {
+                })
+                .addOnFailureListener(e -> {
+                });
+    }
 
     /**
      * Callback to call after update data
@@ -138,5 +182,16 @@ public class MatchCollection {
          * @param timeAnswer time choose
          */
         void run(long timeAnswer);
+    }
+
+    /**
+     * Callback to call after update emtiondata
+     */
+    public interface MessageCallback {
+        /**
+         * execute that
+         * @param listEmotion list emotion of sender
+         */
+        void run(MessageEmotionItem listEmotion);
     }
 }

@@ -5,6 +5,10 @@ import android.content.Context;
 
 import androidx.fragment.app.Fragment;
 
+import com.pfiev.englishcontest.model.EmotionIconItem;
+
+import java.util.List;
+
 public  class Utility {
     public static boolean isValid(Activity activity) {
         if (activity == null) {
@@ -33,6 +37,16 @@ public  class Utility {
         }
 
         return isValid(fragment.getActivity());
+    }
+
+    public static boolean isExitEmotion(String url, List<EmotionIconItem> listEmotion) {
+        for (int i = 0; i< listEmotion.size(); i++) {
+            EmotionIconItem emotionIconItem = listEmotion.get(i);
+            if (url.equalsIgnoreCase(emotionIconItem.getUrl())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static boolean isInvalid(Fragment fragment) {

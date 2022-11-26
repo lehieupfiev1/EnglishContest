@@ -22,7 +22,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.MetadataChanges;
 import com.pfiev.englishcontest.EnglishApplication;
@@ -61,6 +63,7 @@ public class FindingMatchFragment extends Fragment {
     ArrayList<QuestionItem> mListQuestion;
     public String mOtherUserId = " ";
     public String mMatchId = " ";
+    public String mMessageDocId = " ";
     public boolean mIsOwner;
     private boolean mIsAccepted = false;
     ListenerRegistration listenerRegistration;
@@ -271,6 +274,7 @@ public class FindingMatchFragment extends Fragment {
             }
         }
 
+        mMessageDocId = (String) value.get(GlobalConstant.MESSAGE_DOC_ID);
 
         List<HashMap> question_list = (ArrayList) value.get(GlobalConstant.LIST_QUESTION);
         mListQuestion = new ArrayList<>();
@@ -418,6 +422,7 @@ public class FindingMatchFragment extends Fragment {
         intent.putExtra(GlobalConstant.MATCH_ID, mMatchId);
         intent.putExtra("isOwner", mIsOwner);
         intent.putExtra("CompetitorId", mOtherUserId);
+        intent.putExtra(GlobalConstant.MESSAGE_DOC_ID, mMessageDocId);
         if (mBotItem != null) {
             intent.putExtra("useBot", true);
             intent.putExtra("trueAnswerRate", mBotItem.getBotConfig().getTrueAnswerRate());
