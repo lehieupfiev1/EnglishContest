@@ -17,6 +17,7 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
+import com.facebook.FacebookActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pfiev.englishcontest.realtimedb.Status;
 import com.pfiev.englishcontest.service.ListenCombatRequestService;
@@ -72,6 +73,7 @@ public class EnglishApplication extends Application implements LifecycleObserver
         excludeClass.add(LoginActivity.class);
         excludeClass.add(PlayGameActivity.class);
         excludeClass.add(FacebookSignInActivity.class);
+        excludeClass.add(FacebookActivity.class);
         excludeClass.add(TwitterSignInActivity.class);
         excludeClass.add(GoogleSignInActivity.class);
         excludeClass.add(TestActivity.class);

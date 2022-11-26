@@ -26,6 +26,7 @@ import com.pfiev.englishcontest.databinding.ActivityPlayGameBinding;
 import com.pfiev.englishcontest.firestore.MatchCollection;
 import com.pfiev.englishcontest.firestore.UsersCollection;
 import com.pfiev.englishcontest.model.AnswerItem;
+import com.pfiev.englishcontest.model.BotItem;
 import com.pfiev.englishcontest.model.ChoiceItem;
 import com.pfiev.englishcontest.model.EmotionIconItem;
 import com.pfiev.englishcontest.model.PackEmotionItem;
@@ -42,6 +43,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.function.Consumer;
 
 
@@ -71,6 +73,9 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
     EmotionIconViewAdapter mEmotionAdapter;
     List<List<EmotionIconItem>> mListTotalEmotion = new ArrayList<>();
     List<PackEmotionItem> mListPack;
+    BotItem botItem = null;
+    Double botTrueAnswerRate = 1d;
+    int[] botSpeedAnswerRate = new int[2];
 
     private UpdateUI updateUI;
 
@@ -148,9 +153,15 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
     public void initData() {
         Intent intent = getIntent();
         mListQuestion = intent.getParcelableArrayListExtra("ListQuestion");
-        competitorUserId = (String) intent.getStringExtra("CompetitorId");
-        mMatchId = (String) intent.getStringExtra(GlobalConstant.MATCH_ID);
+        competitorUserId = intent.getStringExtra("CompetitorId");
+        mMatchId = intent.getStringExtra(GlobalConstant.MATCH_ID);
         ownUserId = SharePreferenceUtils.getString(getApplicationContext(), GlobalConstant.USER_ID);
+        boolean isUseBot = intent.getBooleanExtra("useBot", false);
+        if (isUseBot) {
+            botTrueAnswerRate = intent.getDoubleExtra("trueAnswerRate", 1);
+            botSpeedAnswerRate = intent.getIntArrayExtra("speedAnswerRate");
+            botItem = intent.getBundleExtra("botWrapper").getParcelable("botItem");
+        }
 
         mMaxTimeCount = 10;
         mListChoose = new ArrayList<>();
@@ -222,8 +233,8 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
     public void runData(int index) {
 
         if (index >= mListQuestion.size()) {
-            // if end game wait more 3 seconds to get data
-            new CountDownTimer(3000, 1000) {
+            // if end game wait more 5 seconds to get data
+            new CountDownTimer(5000, 1000) {
                 @Override
                 public void onTick(long l) {
                 }
@@ -260,6 +271,36 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
                 updateUI.displayCorrectAnswer(mAnswerChoose, (int) mListQuestion.get(index).answer);
                 updateUI.setChoicesEnable(false);
                 pushAnswerToServer(index);
+
+                // Send bot answer
+                if (botItem!=null) {
+                    Log.d("BotItem here", ""+botItem.getName());
+                    int minTimeReply = botSpeedAnswerRate[0];
+                    int maxTimeReply = botSpeedAnswerRate[1];
+
+                    Random random = new Random();
+                    // random bot time answer
+                    int amplitude = maxTimeReply - minTimeReply + 1;
+                    int botTimeAnswer = random.nextInt(amplitude) + minTimeReply;
+                    // random bot choice
+                    long[] listChoiceId = new long[mListQuestion.get(index).getListAnswer().size()];
+                    mListQuestion.get(index).getListAnswer().forEach(new Consumer<ChoiceItem>() {
+                        int i = 0;
+                        @Override
+                        public void accept(ChoiceItem choiceItem) {
+                            if (choiceItem.getId() != mListQuestion.get(index).answer) {
+                                listChoiceId[i] = choiceItem.getId();
+                                ++i;
+                            }
+                        }
+                    });
+                    long botChoiceId = mListQuestion.get(index).answer;
+                    if (random.nextDouble() > botTrueAnswerRate) {
+                        botChoiceId = listChoiceId[random.nextInt(listChoiceId.length)];
+                    }
+                    // push bot answer to server
+                    pushAnswerToServer(index, botChoiceId, botTimeAnswer, botItem.getUserId());
+                }
 
                 new CountDownTimer(3000, 1000) {
                     @Override
@@ -299,29 +340,39 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
         updateUI.setChoicesEnable(true);
     }
 
+    /**
+     * Owner user push
+     *
+     * @param index
+     */
     public void pushAnswerToServer(int index) {
         Log.i(TAG, "pushAnswerToServer");
-        AnswerItem answerItem = new AnswerItem();
-        answerItem.setQuestion_id(mListQuestion.get(index).getQuestionId());
-        answerItem.setChoice_id(mAnswerChoose);
-        answerItem.setTime_answer(mTimeChoose);
         mListChoose.add((int) mAnswerChoose);
         mListTimeChoose.add(mTimeChoose);
-
         if ((mListQuestion.get(index).answer == mAnswerChoose) && mTimeChoose > 0) {
-            answerItem.setIs_right(true);
             ownerCorrectCount++;
             ownerTotalTimeAnswer += mTimeChoose;
             rightSoundEffect.start();
             updateUI.updateOderRow(ownUserId, mTimeChoose);
             updateUI.reorganizeOrderRow();
         } else {
-            answerItem.setIs_right(false);
             failSoundEffect.start();
         }
-        MatchCollection.pushAnswer(mMatchId, ownUserId, answerItem, Integer.toString(index));
-
+        pushAnswerToServer(index, mAnswerChoose, mTimeChoose, ownUserId);
     }
+
+    public void pushAnswerToServer(
+            int index, long choiceId, int timeAnswer, String userId) {
+        Log.i(TAG, "pushAnswerToServer");
+        AnswerItem answerItem = new AnswerItem();
+        answerItem.setQuestion_id(mListQuestion.get(index).getQuestionId());
+        answerItem.setChoice_id(choiceId);
+        answerItem.setTime_answer(timeAnswer);
+
+        answerItem.setIs_right((mListQuestion.get(index).answer == choiceId) && timeAnswer > 0);
+        MatchCollection.pushAnswer(mMatchId, userId, answerItem, Integer.toString(index));
+    }
+
 
     private void navigateResultGameActivity() {
         //Add data info player
@@ -335,7 +386,7 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
         startActivity(intent);
     }
 
-    private void  viewStickerData() {
+    private void viewStickerData() {
         Log.d("LeHieu", "View Emtion data");
         //requestData();
         LinearLayoutManager horizontalLayoutManager
@@ -352,7 +403,7 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
         mBinding.packEmotionRecyclerView.setAdapter(mPackAdapter);
 
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,4,LinearLayoutManager.VERTICAL,false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4, LinearLayoutManager.VERTICAL, false);
         mBinding.gridEmotionRecyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
         // cai ham nay chi goi 1 lan thoi chu nhi
         List<EmotionIconItem> mListEmotion;
@@ -361,7 +412,7 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
         } else {
             mListEmotion = mListTotalEmotion.get(0);
         }
-        Log.d("LeHieu", "EmotionIconDBHelper mListEmotion size = "+mListEmotion.size());
+        Log.d("LeHieu", "EmotionIconDBHelper mListEmotion size = " + mListEmotion.size());
         mEmotionAdapter = new EmotionIconViewAdapter(this, mListEmotion);
         mBinding.gridEmotionRecyclerView.setAdapter(mEmotionAdapter);
         mEmotionAdapter.setClickListener(this);
@@ -371,20 +422,21 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
     public void requestData() {
         ListEmotionsDBHelper packDB = ListEmotionsDBHelper.getInstance(getApplicationContext());
         EmotionIconDBHelper iconDB = EmotionIconDBHelper.getInstance(getApplicationContext());
-        Log.d("LeHieu", "ListEmotionsDBHelper data"+packDB);
+        Log.d("LeHieu", "ListEmotionsDBHelper data" + packDB);
         mListTotalEmotion.clear();
         mListPack = packDB.getAllPackEmotion();
-        for (int i =0; i<mListPack.size(); i++) {
+        for (int i = 0; i < mListPack.size(); i++) {
             String packName = mListPack.get(i).getName();
-            Log.d("LeHieu", "EmotionIconDBHelper packName "+packName);
+            Log.d("LeHieu", "EmotionIconDBHelper packName " + packName);
             List<EmotionIconItem> listEmotion = iconDB.getEmotionListByPackName(packName);
-            Log.d("LeHieu", "EmotionIconDBHelper mListEmotion "+listEmotion.size());
+            Log.d("LeHieu", "EmotionIconDBHelper mListEmotion " + listEmotion.size());
             mListTotalEmotion.add(listEmotion);
         }
     }
+
     @Override
     public void onItemClick(int position) {
-        Log.i("LeHieu", "Click on position"+position);
+        Log.i("LeHieu", "Click on position" + position);
         List<EmotionIconItem> mListEmotion = mListTotalEmotion.get(position);
         if (position == 0 && mListEmotion.size() == 0) {
             mBinding.noRecentTv.setVisibility(View.VISIBLE);
@@ -401,9 +453,9 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
 
     @Override
     public void onEmotionItemClick(View view, int position, String url, String rawUrI) {
-        Log.i("LeHieu", "onEmotionItemClick on rawUrI"+rawUrI);
+        Log.i("LeHieu", "onEmotionItemClick on rawUrI" + rawUrI);
         updateRecentEmotion(url);
-        int imageResource =  getApplicationContext().getResources().getIdentifier(rawUrI, null, getApplicationContext().getPackageName());
+        int imageResource = getApplicationContext().getResources().getIdentifier(rawUrI, null, getApplicationContext().getPackageName());
         LottieAnimationView message = new LottieAnimationView(getApplicationContext());
         message.setAnimation(imageResource);
         updateUI.addNewMessage(ownUserId, message);
@@ -415,7 +467,7 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
     }
 
     public void updateRecentEmotion(String url) {
-        EmotionIconItem emotionIconItem = new EmotionIconItem("recent_emotion","sticker0","loti",url);
+        EmotionIconItem emotionIconItem = new EmotionIconItem("recent_emotion", "sticker0", "loti", url);
         //Save to sqlite
         EmotionIconDBHelper iconDB = EmotionIconDBHelper.getInstance(getApplicationContext());
         iconDB.addEmotionIcon(emotionIconItem);
@@ -454,7 +506,7 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
         public void initDefaultUI(int totalQuestion) {
             mBinding.playActivityProgressBar.setMax(totalQuestion);
             mBinding.playActivityCountdownProgressIndicator.setMax(100);
-            for (int i =0; i<4; ++i) {
+            for (int i = 0; i < 4; ++i) {
                 Choice choice = new Choice(uIContext);
                 listChoices[i] = choice;
                 mBinding.playActivityChoices.addView(choice);
@@ -511,11 +563,12 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
 
         /**
          * Set choice data
+         *
          * @param index      choice's index
          * @param choiceItem choice item
          */
         public void setChoiceData(int index, ChoiceItem choiceItem) {
-            Log.d(TAG, "index is: " +index);
+            Log.d(TAG, "index is: " + index);
             listChoices[index].setOrderIndex(choiceItem.getId());
             listChoices[index].setContentDisplay(choiceItem.getContent());
             listChoices[index].setDecoration(Choice.STATE.DEFAULT);
@@ -610,6 +663,7 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
 
         /**
          * Show score in limit time
+         *
          * @param time limit time show
          */
         public void showScoreInLimitTime(long time) {
@@ -636,8 +690,9 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
 
         /**
          * Set state to all choices except one choice
+         *
          * @param exceptChoice except this
-         * @param state new state
+         * @param state        new state
          */
         public void updateOtherChoicesState(Choice exceptChoice, int state) {
             for (Choice mChoice : listChoices) {

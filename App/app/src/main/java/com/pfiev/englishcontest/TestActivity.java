@@ -1,5 +1,6 @@
 package com.pfiev.englishcontest;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -12,6 +13,7 @@ import android.view.WindowInsets;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -19,14 +21,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.transition.MaterialArcMotion;
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.pfiev.englishcontest.adapter.EmotionIconViewAdapter;
 import com.pfiev.englishcontest.adapter.PackEmotionViewAdapter;
 import com.pfiev.englishcontest.databinding.ActivityPlayGameBinding;
+import com.pfiev.englishcontest.firestore.UsersCollection;
+import com.pfiev.englishcontest.model.BotItem;
 import com.pfiev.englishcontest.model.EmotionIconItem;
 import com.pfiev.englishcontest.model.PackEmotionItem;
+import com.pfiev.englishcontest.model.UserItem;
 import com.pfiev.englishcontest.ui.playactivityelem.Choice;
 import com.pfiev.englishcontest.ui.playactivityelem.MessageBubble;
 import com.pfiev.englishcontest.ui.playactivityelem.OrderRow;
@@ -34,7 +45,9 @@ import com.pfiev.englishcontest.utils.EmotionIconDBHelper;
 import com.pfiev.englishcontest.utils.ListEmotionsDBHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class TestActivity extends AppCompatActivity implements PackEmotionViewAdapter.ItemClickListener, EmotionIconViewAdapter.EmotionItemClickListener {
     private  ActivityPlayGameBinding binding;
@@ -76,13 +89,7 @@ public class TestActivity extends AppCompatActivity implements PackEmotionViewAd
         lastChoice.deleteMarginBottom();
 
         binding.playActivityChoices.addView(lastChoice);
-        OrderRow firstRow = new OrderRow(getApplicationContext(), null);
-        OrderRow secondRow = new OrderRow(getApplicationContext(), null);
-        secondRow.setAvatar(getApplicationContext(),
-                "https://static.remove.bg/remove-bg-web/221525818b4ba04e9088d39cdcbd0c7bcdfb052e/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png");
-        secondRow.setUserParams("User second");
-        binding.playActivityOrderBoard.addView(firstRow);
-        binding.playActivityOrderBoard.addView(secondRow);
+
         binding.playActivityProgressBar.setProgress(12);
         ((ViewGroup) binding.playActivityMainCombat.getParent().getParent()).setClipChildren(false);
         ((ViewGroup) binding.playActivityMainCombat.getParent().getParent()).setClipToPadding(false);
@@ -104,7 +111,7 @@ public class TestActivity extends AppCompatActivity implements PackEmotionViewAd
                 lottie.setRepeatMode(LottieDrawable.RESTART);
                 lottie.playAnimation();
                 messageBubble.addSticker(lottie);
-                secondRow.showNewMessage(messageBubble);
+//                secondRow.showNewMessage(messageBubble);
                 firstChoice.setDecoration(Choice.STATE.WRONG);
                 secondChoice.setDecoration(Choice.STATE.RIGHT);
                 lastChoice.showBlinkEffectToState(Choice.STATE.RIGHT);
@@ -125,7 +132,7 @@ public class TestActivity extends AppCompatActivity implements PackEmotionViewAd
                         new Handler(Looper.getMainLooper()).post(new Runnable() { // Tried new Handler(Looper.myLopper()) also
                             @Override
                             public void run() {
-                                firstRow.swapPosition(secondRow);
+//                                firstRow.swapPosition(secondRow);
                             }
                         });
                         binding.playActivityCountdownProgressIndicator
@@ -141,6 +148,42 @@ public class TestActivity extends AppCompatActivity implements PackEmotionViewAd
 
             }
         });
+        CollectionReference colRef = FirebaseFirestore.getInstance().collection(GlobalConstant.USERS);
+        colRef.document("AwWY3h3NhMngJA229EOz").get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot snapshot =  task.getResult();
+                        BotItem botItem = new BotItem();
+                        botItem.setUserId((String) snapshot.get("userId"));
+                        botItem.setName((String) snapshot.get("name"));
+                        HashMap botConfig = (HashMap) snapshot.get("botConfig");
+
+                        BotItem.BotConfig config = new BotItem.BotConfig();
+                        config.setTrueAnswerRate(((Number) botConfig.get("trueAnswerRate")).doubleValue());
+                        // Get speed answer rate
+                        int[] speedRate = new int[2];
+                        ArrayList<Number> speedAnswerRate = (ArrayList<Number>)  botConfig.get("speedAnswerRate");
+                        if (speedAnswerRate.stream().count() ==2 ) {
+                            speedAnswerRate.forEach(new Consumer<Number>() {
+                                int i =0;
+                                @Override
+                                public void accept(Number aDouble) {
+                                    speedRate[i] = aDouble.intValue();
+                                    i++;
+                                }
+                            });
+                        }
+                        config.setSpeedAnswerRate(speedRate);
+
+                        botItem.setBotConfig(config);
+                        Intent intent = new Intent(TestActivity.this, ExperimentalActivity.class);
+                        intent.putExtra("botItem", botItem);
+                        BotItem bot = intent.getExtras().getParcelable("botItem");
+                        Log.d("sss", ""+ bot.getBotConfig().getTrueAnswerRate());
+                    }
+                });
+
 
         binding.playActivityCountdownProgressIndicator
                 .setProgress(100);

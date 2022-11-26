@@ -22,9 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.MetadataChanges;
 import com.pfiev.englishcontest.EnglishApplication;
@@ -34,6 +32,8 @@ import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.databinding.FragmentExperimentalFindingmatchBinding;
 import com.pfiev.englishcontest.firestore.FireStoreClass;
 import com.pfiev.englishcontest.firestore.MatchCollection;
+import com.pfiev.englishcontest.firestore.UsersCollection;
+import com.pfiev.englishcontest.model.BotItem;
 import com.pfiev.englishcontest.model.ChoiceItem;
 import com.pfiev.englishcontest.model.FriendItem;
 import com.pfiev.englishcontest.model.QuestionItem;
@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 
 public class FindingMatchFragment extends Fragment {
@@ -69,8 +70,16 @@ public class FindingMatchFragment extends Fragment {
 
     public final static String MATCH_ID_FIELD = "match_id";
     public final static String IS_OWNER_FIELD = "is_owner";
+
     // Min time allow to show by milliseconds
     private final long MIN_TIME_SHOW_AGREE = 1000;
+    // Max time find match then use bot count by milliseconds
+    private final int MAX_TIME_WAIT_USE_BOT = 35000;
+    private final int MIN_TIME_WAIT_USE_BOT = 22000;
+    // Count down timer to use Bot
+    private CountDownTimer useBotTimer;
+    // Bot item if use
+    private BotItem mBotItem;
 
     public static FindingMatchFragment newInstance() {
         return new FindingMatchFragment();
@@ -108,22 +117,19 @@ public class FindingMatchFragment extends Fragment {
             if (listenerRegistration != null) {
                 updateUI.showMask();
                 updateUI.showWaitingCancelToast();
-                MatchCollection.cancelFindMatch(mMatchId).addOnCompleteListener(new OnCompleteListener<MatchCollection.DeleteMatchResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<MatchCollection.DeleteMatchResult> task) {
-                        updateUI.hideMask();
-                        if (task.getException() != null) {
-                            Log.d(TAG, task.getException().getMessage());
-                            return;
-                        }
-                        MatchCollection.DeleteMatchResult result = task.getResult();
-                        if (result.isSuccess) {
-                            listenerRegistration.remove();
-                            updateUI.navigateToMainMenu();
-                        } else if (result.code == MatchCollection.DEL_MATCH_RESULT_CODE.IN_MATCHING) {
-                            Log.d(TAG, "in matching");
-                            updateUI.showNotAllowCancelToast();
-                        }
+                MatchCollection.cancelFindMatch(mMatchId).addOnCompleteListener(task -> {
+                    updateUI.hideMask();
+                    if (task.getException() != null) {
+                        Log.d(TAG, task.getException().getMessage());
+                        return;
+                    }
+                    MatchCollection.DeleteMatchResult result = task.getResult();
+                    if (result.isSuccess) {
+                        listenerRegistration.remove();
+                        updateUI.navigateToMainMenu();
+                    } else if (result.code == MatchCollection.DEL_MATCH_RESULT_CODE.IN_MATCHING) {
+                        Log.d(TAG, "in matching");
+                        updateUI.showNotAllowCancelToast();
                     }
                 });
             } else {
@@ -153,78 +159,102 @@ public class FindingMatchFragment extends Fragment {
         return mBinding.getRoot();
     }
 
+    /**
+     * Send request find match
+     */
     private void sendRequestFindMatch() {
-        Log.i(TAG, "sendRequestFindMatch ");
-        Toast.makeText(getContext(), "Finding match", Toast.LENGTH_SHORT).show();
+//        Log.i(TAG, "sendRequestFindMatch ");
+//        Toast.makeText(getContext(), "Finding match", Toast.LENGTH_SHORT).show();
+        // Reset Bot Item to null
+        mBotItem = null;
         String uid = SharePreferenceUtils.getString(getContext(), GlobalConstant.USER_ID);
-        FireStoreClass.findMatchRequest(uid).addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                if (!task.isSuccessful()) {
-                    Exception e = task.getException();
-                    if (e.getMessage() != null)
-                        Log.i(TAG, " task is not success :" + e.getMessage());
-                } else {
-                    Map data = TextUtils.convertHashMap(task.getResult());
-                    String matchId = (String) data.get(GlobalConstant.MATCH_ID);
-                    String ownerId = (String) data.get(GlobalConstant.OWNER_ID);
-                    mMatchId = matchId;
-                    mIsOwner = uid.equalsIgnoreCase(ownerId);
-                    listenerStateMatchHistoryDoc(matchId);
-                }
+        FireStoreClass.findMatchRequest(uid).addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Exception e = task.getException();
+                if (e.getMessage() != null)
+                    Log.i(TAG, " task is not success :" + e.getMessage());
+            } else {
+                Map data = TextUtils.convertHashMap(task.getResult());
+                String matchId = (String) data.get(GlobalConstant.MATCH_ID);
+                String ownerId = (String) data.get(GlobalConstant.OWNER_ID);
+                mMatchId = matchId;
+                mIsOwner = uid.equalsIgnoreCase(ownerId);
+                listenerStateMatchHistoryDoc(matchId);
             }
         });
+    }
+
+    /**
+     * Set count down timer to Use Bot
+     */
+    public void setCountDownToUseBot() {
+        if (useBotTimer == null) {
+            int amplitude = MAX_TIME_WAIT_USE_BOT - MIN_TIME_WAIT_USE_BOT + 1000;
+            int timeWait = new Random().nextInt(amplitude) + MIN_TIME_WAIT_USE_BOT;
+            useBotTimer = new CountDownTimer(timeWait, 1000) {
+
+                @Override
+                public void onTick(long l) {
+                }
+
+                @Override
+                public void onFinish() {
+                    UsersCollection.useBotJoinMatch(mMatchId).addOnCompleteListener(task -> {
+                        if (task.getResult() == null) return;
+                        mBotItem = task.getResult();
+                        sendRequestAcceptJoinMatch(mMatchId, mBotItem.getUserId());
+                    });
+                    useBotTimer = null;
+                }
+            };
+            useBotTimer.start();
+        }
     }
 
     public void listenerStateMatchHistoryDoc(String matchId) {
         DocumentReference docRef = FirebaseFirestore.getInstance()
                 .collection(GlobalConstant.MATCH_HISTORY).document(matchId);
         listenerRegistration = docRef.addSnapshotListener(MetadataChanges.EXCLUDE,
-                new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-
-
-                        String state = (String) value.get(GlobalConstant.STATE);
-                        if (state == null) {
+                (value, error) -> {
+                    String state = (String) value.get(GlobalConstant.STATE);
+                    if (state == null) {
+                        isFindingCancelable = true;
+                        waitingEnableFind(mIsAccepted);
+                        return;
+                    }
+                    switch (state) {
+                        case MatchCollection.STATE.FINDING:
+                            isFirstChangePlay = false;
                             isFindingCancelable = true;
-                            waitingEnableFind(mIsAccepted);
-                            return;
-                        }
-                        switch (state) {
-                            case MatchCollection.STATE.FINDING:
-                                isFirstChangePlay = false;
-                                isFindingCancelable = true;
-                                // If user accept last time then looking match again
-                                if (mIsAccepted) {
-                                    updateUI.hideMask();
-                                    updateUI.clearConfirmationLayout();
-                                    updateUI.showLooking();
-                                    updateUI.showCompetitorNotJoinToast();
-                                }
-                                break;
-                            case MatchCollection.STATE.WAITING_ACCEPT:
-                                isFirstChangePlay = false;
-                                isFindingCancelable = false;
-                                mIsAccepted = false;
-                                long createdTime = (Long) value.get(MatchCollection.FIELD_NAME.CREATED_AT);
-                                showAgreeDialog(matchId, createdTime);
-                                break;
-                            case MatchCollection.STATE.DUEL_ONE_JOIN:
-                                isFindingCancelable = false;
-                                break;
-                            case MatchCollection.STATE.PLAYING:
-                                isFindingCancelable = false;
-                                if (isFirstChangePlay) {
-                                    getMatchHistoryData(value);
-                                } else {
-                                    isFirstChangePlay = true;
-                                    updateUI.showWaitingLoadQuestion();
-                                }
-                                break;
-                            default:
-                                break;
-                        }
+                            // Clear confirmation layout if still show
+                            updateUI.clearConfirmationLayout();
+                            // If user accept last time then looking match again
+                            if (mIsAccepted) {
+                                updateUI.showLooking();
+                                updateUI.showCompetitorNotJoinToast();
+                            }
+                            setCountDownToUseBot();
+                            break;
+                        case MatchCollection.STATE.WAITING_ACCEPT:
+                            isFirstChangePlay = false;
+                            isFindingCancelable = false;
+                            long createdTime = (Long) value.get(MatchCollection.FIELD_NAME.CREATED_AT);
+                            showAgreeDialog(matchId, createdTime);
+                            break;
+                        case MatchCollection.STATE.DUEL_ONE_JOIN:
+                            isFindingCancelable = false;
+                            break;
+                        case MatchCollection.STATE.PLAYING:
+                            isFindingCancelable = false;
+                            if (isFirstChangePlay) {
+                                getMatchHistoryData(value);
+                            } else {
+                                isFirstChangePlay = true;
+                                updateUI.showWaitingLoadQuestion();
+                            }
+                            break;
+                        default:
+                            break;
                     }
                 });
 
@@ -282,19 +312,18 @@ public class FindingMatchFragment extends Fragment {
                 // Show join confirm dialog and set callback
                 // when time to confirmation is end
                 updateUI.showJoinConfirm(timeRemain, () -> {
+                    // hide mask
                     updateUI.hideMask();
                     if (!mIsAccepted) {
-                        if (listenerRegistration != null)
-                            listenerRegistration.remove();
+                        if (listenerRegistration != null) listenerRegistration.remove();
                         // Set block time and show toast
                         MatchJoinable.setBlockFromNow(getContext());
                         MatchJoinable.increaseNotJoinMatchNumber(getContext());
                         String timeBlockRemain = MatchJoinable.getBlockTimeRemainString(getContext());
-                        updateUI.showBlockTimeRemainToast(timeBlockRemain);
                         // Change ui to default
                         updateUI.clearConfirmationLayout();
                         updateUI.showFindingButton();
-                        listenerRegistration.remove();
+                        updateUI.showBlockTimeRemainToast(timeBlockRemain);
                     }
                 });
                 // Send join match request when click button
@@ -311,19 +340,25 @@ public class FindingMatchFragment extends Fragment {
         }
     }
 
-    public void sendRequestAcceptJoinMatch(String match_id) {
-        String uid = SharePreferenceUtils.getString(getContext(), GlobalConstant.USER_ID);
-        FireStoreClass.joinMatchRequest(uid, match_id).addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                if (!task.isSuccessful()) {
-                    Exception e = task.getException();
-                    if (e.getMessage() != null)
-                        Log.i(TAG, " task is not success :" + e.getMessage());
-                }
-            }
-        });
+    public void sendRequestAcceptJoinMatch(String matchId) {
+        sendRequestAcceptJoinMatch(matchId, "");
+    }
 
+    public void sendRequestAcceptJoinMatch(String matchId, String userId) {
+        if (getContext() != null) {
+            String uid = SharePreferenceUtils.getString(getContext(), GlobalConstant.USER_ID);
+            if (!userId.isEmpty()) uid = userId;
+            FireStoreClass.joinMatchRequest(uid, matchId).addOnCompleteListener(new OnCompleteListener<String>() {
+                @Override
+                public void onComplete(@NonNull Task<String> task) {
+                    if (!task.isSuccessful()) {
+                        Exception e = task.getException();
+                        if (e.getMessage() != null)
+                            Log.i(TAG, " task is not success :" + e.getMessage());
+                    }
+                }
+            });
+        }
     }
 
     private void waitLoadingQuestion() {
@@ -349,8 +384,8 @@ public class FindingMatchFragment extends Fragment {
      */
     private void waitingEnableFind(boolean isAccepted) {
         if (isAccepted) {
-            updateUI.hideMask();
-            updateUI.clearConfirmationLayout();
+//            updateUI.hideMask();
+//            updateUI.clearConfirmationLayout();
             updateUI.showFindingButton();
             mBinding.findingBtn.performClick();
         }
@@ -383,6 +418,14 @@ public class FindingMatchFragment extends Fragment {
         intent.putExtra(GlobalConstant.MATCH_ID, mMatchId);
         intent.putExtra("isOwner", mIsOwner);
         intent.putExtra("CompetitorId", mOtherUserId);
+        if (mBotItem != null) {
+            intent.putExtra("useBot", true);
+            intent.putExtra("trueAnswerRate", mBotItem.getBotConfig().getTrueAnswerRate());
+            intent.putExtra("speedAnswerRate", mBotItem.getBotConfig().getSpeedAnswerRate());
+            Bundle botWrapper = new Bundle();
+            botWrapper.putParcelable("botItem", mBotItem);
+            intent.putExtra("botWrapper", botWrapper);
+        }
         startActivity(intent);
     }
 
@@ -417,21 +460,25 @@ public class FindingMatchFragment extends Fragment {
          * Hide mask overlay
          */
         public void hideMask() {
-            maskLayer.animate().alpha(0f).setDuration(500);
-            maskLayer.setVisibility(View.GONE);
+            if (maskLayer.getVisibility() == View.VISIBLE) {
+                maskLayer.animate().alpha(0f).setDuration(500);
+                maskLayer.setVisibility(View.GONE);
+            }
         }
 
         /**
          * Show looking element
          */
         public void showLooking() {
-            introMess.setText(
-                    R.string.finding_match_bubble_intro_mess_looking
-            );
-            findingBtn.setVisibility(View.INVISIBLE);
-            lookingLottie.setVisibility(View.VISIBLE);
-            lookingLottie.playAnimation();
-            menuBubble.fadeIn();
+            if (lookingLottie.getVisibility() != View.VISIBLE) {
+                introMess.setText(
+                        R.string.finding_match_bubble_intro_mess_looking
+                );
+                findingBtn.setVisibility(View.INVISIBLE);
+                lookingLottie.setVisibility(View.VISIBLE);
+                lookingLottie.playAnimation();
+                menuBubble.fadeIn();
+            }
         }
 
         /**
@@ -496,6 +543,7 @@ public class FindingMatchFragment extends Fragment {
          */
         public void clearConfirmationLayout() {
             if (confirmationLayout != null) {
+                acceptBtn = null;
                 menuBubble.getMainContainer().removeView(confirmationLayout);
                 confirmationLayout = null;
             }
@@ -547,7 +595,7 @@ public class FindingMatchFragment extends Fragment {
                     R.string.finding_match_not_join_match_warning,
                     timeBlockRemain);
             CustomToast.makeText(
-                    getContext(), notification, Toast.LENGTH_LONG, CustomToast.ERROR
+                    getContext(), notification, CustomToast.ERROR, Toast.LENGTH_LONG
             ).show();
         }
 
@@ -558,7 +606,7 @@ public class FindingMatchFragment extends Fragment {
             String notification = getString(
                     R.string.finding_match_competitor_not_join_warning);
             CustomToast.makeText(
-                    getContext(), notification, Toast.LENGTH_LONG, CustomToast.ERROR
+                    getContext(), notification, CustomToast.WARNING, Toast.LENGTH_LONG
             ).show();
         }
 

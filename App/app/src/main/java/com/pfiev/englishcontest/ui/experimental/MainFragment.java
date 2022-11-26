@@ -1,7 +1,5 @@
 package com.pfiev.englishcontest.ui.experimental;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,11 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +22,6 @@ import com.pfiev.englishcontest.model.FriendItem;
 import com.pfiev.englishcontest.model.UserItem;
 import com.pfiev.englishcontest.realtimedb.FriendList;
 import com.pfiev.englishcontest.realtimedb.Status;
-import com.pfiev.englishcontest.ui.dialog.CustomToast;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
 
