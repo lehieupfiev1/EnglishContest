@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.ads.AdRequest;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pfiev.englishcontest.EnglishApplication;
 import com.pfiev.englishcontest.LoginActivity;
@@ -99,6 +100,10 @@ public class MainFragment extends Fragment {
                                 FindingMatchFragment.newInstance()
                         )
                         .commitNow());
+        //Load Ads
+        AdRequest adRequest = new AdRequest.Builder().build();
+        binding.adView.loadAd(adRequest);
+
 
         return binding.getRoot();
 

@@ -17,6 +17,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowInsets;
 
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pfiev.englishcontest.databinding.ActivityExperimentalBinding;
 import com.pfiev.englishcontest.model.EmotionIconItem;
@@ -145,6 +148,12 @@ public class ExperimentalActivity extends AppCompatActivity {
                     .add(R.id.experimental_fullscreen_content, MainFragment.newInstance())
                     .commitNow();
         }
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
     }
 
     @Override

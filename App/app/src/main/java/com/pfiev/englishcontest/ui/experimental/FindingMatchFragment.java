@@ -18,6 +18,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -83,6 +89,7 @@ public class FindingMatchFragment extends Fragment {
     private CountDownTimer useBotTimer;
     // Bot item if use
     private BotItem mBotItem;
+    private InterstitialAd mInterstitialAd;
 
     public static FindingMatchFragment newInstance() {
         return new FindingMatchFragment();
@@ -98,16 +105,7 @@ public class FindingMatchFragment extends Fragment {
 
         // Binding finding button
         mBinding.findingBtn.setOnClickListener(view -> {
-            String timeBlockRemain = MatchJoinable.getBlockTimeRemainString(getContext());
-            if (!timeBlockRemain.isEmpty()) {
-                updateUI.showBlockTimeRemainToast(timeBlockRemain);
-                return;
-            }
-            mBinding.findingBtn.setEnabled(false);
-            mBinding.findingMenuBubble.fadeOut(
-                    updateUI::showLooking
-            );
-            sendRequestFindMatch();
+            showInterstitial();
         });
 
         // Binding back button
@@ -158,6 +156,7 @@ public class FindingMatchFragment extends Fragment {
                 return mBinding.getRoot();
             }
         }
+        loadAds();
 
         return mBinding.getRoot();
     }
@@ -643,5 +642,87 @@ public class FindingMatchFragment extends Fragment {
         public void showWaitingLoadQuestion() {
             introMess.setText(R.string.finding_match_bubble_intro_mess_wait_loading_question);
         }
+    }
+
+    public void loadAds() {
+        Log.i(TAG, "loadAds Mod");
+        if (getActivity() == null) return;
+        String AD_UNIT_ID = getString(R.string.finding_match_ads_fullscreen_unit_id);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(
+                getActivity(),
+                AD_UNIT_ID,
+                adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i(TAG, "onAdLoaded");
+                        Toast.makeText(getContext(), "onAdLoaded()", Toast.LENGTH_SHORT).show();
+                        interstitialAd.setFullScreenContentCallback(
+                                new FullScreenContentCallback() {
+                                    @Override
+                                    public void onAdDismissedFullScreenContent() {
+                                        // Called when fullscreen content is dismissed.
+                                        // Make sure to set your reference to null so you don't
+                                        // show it a second time.
+                                        mInterstitialAd = null;
+                                        Log.d("TAG", "The ad was dismissed.");
+                                    }
+
+                                    @Override
+                                    public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                        // Called when fullscreen content failed to show.
+                                        // Make sure to set your reference to null so you don't
+                                        // show it a second time.
+                                        mInterstitialAd = null;
+                                        Log.d("TAG", "The ad failed to show.");
+                                    }
+
+                                    @Override
+                                    public void onAdShowedFullScreenContent() {
+                                        // Called when fullscreen content is shown.
+                                        Log.d("TAG", "The ad was shown.");
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i(TAG, loadAdError.getMessage());
+                        mInterstitialAd = null;
+
+                        String error = String.format(
+                                        "domain: %s, code: %d, message: %s",
+                                        loadAdError.getDomain(), loadAdError.getCode(), loadAdError.getMessage());
+                        Toast.makeText(getContext(), "onAdFailedToLoad() with error: " + error, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void showInterstitial() {
+        // Show the ad if it's ready. Otherwise toast and restart the game.
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(getActivity());
+        } else {
+            Toast.makeText(getContext(), "Ad did not load", Toast.LENGTH_SHORT).show();
+            startFindingMatch();
+        }
+    }
+
+    private void startFindingMatch() {
+        String timeBlockRemain = MatchJoinable.getBlockTimeRemainString(getContext());
+        if (!timeBlockRemain.isEmpty()) {
+            updateUI.showBlockTimeRemainToast(timeBlockRemain);
+            return;
+        }
+        mBinding.findingBtn.setEnabled(false);
+        mBinding.findingMenuBubble.fadeOut(
+                updateUI::showLooking
+        );
+        sendRequestFindMatch();
     }
 }

@@ -153,7 +153,10 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
     public void onBackPressed() {
         if (pressedTime + 2000 > System.currentTimeMillis()) {
             super.onBackPressed();
-            finish();
+            Intent intent = new Intent(PlayGameActivity.this, ExperimentalActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            Log.i(TAG, "Navigate to MainActivity");
         } else {
             Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
         }
@@ -217,13 +220,31 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
         mResultDialog.show();
     }
 
-    private boolean checkWinner() {
+    public void showDrawDialog() {
+        mResultDialog.setContentView(R.layout.draw_layout_dialog);
+        mResultDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mResultDialog.setCancelable(false);
+        TextView ok_btn = mResultDialog.findViewById(R.id.ok_btn);
+        TextView detail_btn = mResultDialog.findViewById(R.id.show_result_btn);
+        ok_btn.setOnClickListener(view -> mResultDialog.dismiss());
+        detail_btn.setOnClickListener(view -> {
+            mResultDialog.dismiss();
+            navigateResultGameActivity();
+        });
+        mResultDialog.show();
+    }
+
+    private int checkWinner() {
         if (ownerCorrectCount > competitorCorrectAnswer) {
-            return true;
+            return 1;
         } else if (ownerCorrectCount == competitorCorrectAnswer) {
-            return ownerTotalTimeAnswer <= competitorTotalTimeAnswer;
+            if (ownerTotalTimeAnswer == competitorTotalTimeAnswer) {
+                return 0;
+            } else if (ownerTotalTimeAnswer < competitorTotalTimeAnswer) {
+                return 1;
+            } else return -1;
         } else {
-            return false;
+            return -1;
         }
     }
 
@@ -260,8 +281,11 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
                 public void onFinish() {
                     //Show winner dialog
                     Log.d(TAG, "runData finish");
-                    if (checkWinner()) {
+                    int checkResult = checkWinner();
+                    if (checkResult == 1) {
                         showWinnerDialog();
+                    } else if (checkResult == 0) {
+                        showDrawDialog();
                     } else {
                         showLoserDialog();
                     }

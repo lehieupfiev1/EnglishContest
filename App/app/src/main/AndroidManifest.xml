@@ -27,10 +27,12 @@
         <activity
             android:name=".ResultGameActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".ProfileActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".ProfileImageCropActivity"
@@ -38,6 +40,7 @@
         <activity
             android:name=".PlayGameActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
 
             <!-- <intent-filter> -->
@@ -96,6 +99,7 @@
             android:name=".ExperimentalActivity"
             android:configChanges="keyboardHidden|screenSize|orientation|locale"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.EnglishContest.Fullscreen">
         </activity>
         <activity
@@ -117,6 +121,10 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"
             tools:replace="android:value" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/ads_mod_app_id"/>
+
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
             android:value="@string/facebook_client_token" />

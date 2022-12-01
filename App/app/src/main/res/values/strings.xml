@@ -6,6 +6,11 @@
     <string name="title_settings" translatable="false">Settings</string>
     <string name="title_about" translatable="false">ABOUT</string>
 
+    //Ads Mod id
+    <string name="ads_mod_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="main_activity_ads_banner_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="finding_match_ads_fullscreen_unit_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+
     <string name="facebook_app_id" translatable="false">600393555058897</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb600393555058897</string>
     <string name="facebook_client_token" translatable="false">c24ef74cd46e8f32c63d3339e1be5b9c</string>
@@ -177,6 +182,12 @@
     <string name="dialog_loser_small_title" translatable="false">Keep calm and keep moving forward !</string>
     <string name="dialog_loser_btn_ok" translatable="false">OK</string>
     <string name="dialog_loser_btn_detail" translatable="false">Detail</string>
+
+    <!--    Draw dialog-->
+    <string name="dialog_draw_big_title" translatable="false">The match is a draw</string>
+    <string name="dialog_draw_small_title" translatable="false">Keep calm and try again !</string>
+    <string name="dialog_draw_btn_ok" translatable="false">OK</string>
+    <string name="dialog_draw_btn_detail" translatable="false">Detail</string>
 
 
     <string name="btn_back_to_main" translatable="false">Back to main</string>

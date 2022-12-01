@@ -159,6 +159,8 @@
     <color name="dialog_loser_small_title">#FF5722</color>
     <color name="dialog_loser_btn">#FFFFFF</color>
 
+    <color name="dialog_draw_title">#994AC695</color>
+
     <!--    Profile activity-->
     <color name="profile_activity_big_title_color">#FF9800</color>
     <color name="profile_activity_text">#FF4AC695</color>
