@@ -29,6 +29,8 @@ public class OrderRow extends ConstraintLayout {
     private int animateDuration = 500;
     // User info
     private final UserInfo userInfo;
+    // Message bubble
+    private MessageBubble messageBubble = null;
 
     public OrderRow(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -138,6 +140,11 @@ public class OrderRow extends ConstraintLayout {
      */
     public void showNewMessage(MessageBubble message) {
         // Set view id to message
+        if (this.messageBubble != null) {
+            this.messageBubble.cancelFadeInCountDown();
+            removeView(this.messageBubble);
+        }
+        this.messageBubble = message;
         message.setId(View.generateViewId());
         this.addView(message);
         // Set constraint to message display near avatar

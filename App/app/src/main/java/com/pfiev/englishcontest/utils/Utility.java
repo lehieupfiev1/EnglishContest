@@ -39,10 +39,12 @@ public  class Utility {
         return isValid(fragment.getActivity());
     }
 
-    public static boolean isExitEmotion(String url, List<EmotionIconItem> listEmotion) {
+    public static boolean isExistsEmotion(String url, List<EmotionIconItem> listEmotion) {
         for (int i = 0; i< listEmotion.size(); i++) {
             EmotionIconItem emotionIconItem = listEmotion.get(i);
             if (url.equalsIgnoreCase(emotionIconItem.getUrl())) {
+                // remove item in current position and push top
+                listEmotion.add(0, listEmotion.remove(i));
                 return true;
             }
         }

@@ -109,7 +109,7 @@
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_google_sign_in.xml" value="0.33055555555555555" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_main.xml" value="0.17037037037037037" />
-        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_play_game.xml" value="0.14" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_play_game.xml" value="0.22" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_playt_game_show_sticker_panel.xml" value="0.17037037037037037" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_profile.xml" value="0.25" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_profile_image_crop.xml" value="0.33055555555555555" />
@@ -130,6 +130,7 @@
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/listview_experimental_leaderboard.xml" value="0.4361111111111111" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/lose_layout_dialog.xml" value="0.2658514492753623" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/play_game_order_row.xml" value="0.33" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/play_game_order_row_flip.xml" value="0.33" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/recycler_view_friends_list.xml" value="0.33055555555555555" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/recycler_view_friends_list_all_users.xml" value="0.33055555555555555" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/recycler_view_friends_list_block.xml" value="0.33" />
@@ -139,6 +140,7 @@
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/toast_custom.xml" value="0.30512820512820515" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/win_layout_dialog.xml" value="0.33055555555555555" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/winset_player_detail_layout.xml" value="0.33055555555555555" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/xml/order_row_message_scene.xml" value="0.33055555555555555" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/xml/play_game_scenre.xml" value="0.17037037037037037" />
       </map>
     </option>

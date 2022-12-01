@@ -107,7 +107,6 @@ public class TwitterSignInActivity extends LoginActivity {
                                     // authResult.getCredential().getAccessToken().
                                     // The OAuth secret can be retrieved by calling:
                                     // authResult.getCredential().getSecret().
-                                    hideLoadingAnim();
                                 }
                             })
                     .addOnFailureListener(

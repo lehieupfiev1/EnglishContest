@@ -72,9 +72,10 @@ public class EmotionIconViewAdapter extends RecyclerView.Adapter<EmotionIconView
             if (mClickListener != null) {
                 int pos = getAdapterPosition();
                 String urlImage = mListEmotion.get(pos).getUrl();
+                int iconId = mListEmotion.get(pos).getId();
                 String rawUrI = "@raw/"+urlImage;
                 Log.d("LeHieu"," OnClick in UrI"+ rawUrI);
-                mClickListener.onEmotionItemClick(view, pos, urlImage, rawUrI);
+                mClickListener.onEmotionItemClick(view, iconId, urlImage, rawUrI);
             }
         }
     }
@@ -92,6 +93,6 @@ public class EmotionIconViewAdapter extends RecyclerView.Adapter<EmotionIconView
 
     // parent activity will implement this method to respond to click events
     public interface EmotionItemClickListener {
-        void onEmotionItemClick(View view, int position, String url, String rawUrI);
+        void onEmotionItemClick(View view, int stickerId, String url, String rawUrI);
     }
 }

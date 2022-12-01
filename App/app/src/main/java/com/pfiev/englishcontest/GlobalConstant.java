@@ -48,8 +48,6 @@ public class GlobalConstant {
     public static final String CROP_RATIO_HEIGHT = "CROP_RATIO_HEIGHT";
     public static final String BEFORE_CROP_IMAGE = "/before_crop_image.jpg";
 
-    public static final String INIT_DATA_BASE = "init_data_base";
-
     public static final int REQUEST_COMBAT_WAITING_JOIN_TIME = 20;
     public static final int DEFAULT_WAITING_JOIN_TIME = 20;
 }

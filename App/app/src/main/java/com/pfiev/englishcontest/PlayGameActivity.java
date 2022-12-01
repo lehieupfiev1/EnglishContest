@@ -33,17 +33,20 @@ import com.pfiev.englishcontest.model.MessageEmotionItem;
 import com.pfiev.englishcontest.model.PackEmotionItem;
 import com.pfiev.englishcontest.model.QuestionItem;
 import com.pfiev.englishcontest.model.UserItem;
+import com.pfiev.englishcontest.roomdb.AppDatabase;
+import com.pfiev.englishcontest.roomdb.entity.EmotionIcon;
+import com.pfiev.englishcontest.roomdb.entity.EmotionPack;
+import com.pfiev.englishcontest.roomdb.entity.RecentIcon;
 import com.pfiev.englishcontest.ui.playactivityelem.Choice;
 import com.pfiev.englishcontest.ui.playactivityelem.MessageBubble;
 import com.pfiev.englishcontest.ui.playactivityelem.OrderRow;
-import com.pfiev.englishcontest.utils.EmotionIconDBHelper;
-import com.pfiev.englishcontest.utils.ListEmotionsDBHelper;
 import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 import com.pfiev.englishcontest.utils.Utility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.function.Consumer;
@@ -116,7 +119,6 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
                 }
         );
         requestData();
-        viewStickerData();
 
         MatchCollection.updateDataOtherPlayer(mMatchId, competitorUserId,
                 this::updateCompetitorInfo);
@@ -428,51 +430,69 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
     }
 
     private void viewStickerData() {
-        Log.d("LeHieu", "View Emtion data");
-        //requestData();
         LinearLayoutManager horizontalLayoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mBinding.packEmotionRecyclerView.setLayoutManager(horizontalLayoutManager);
-        Log.d("LeHieu", "ListEmotionsDBHelper mListPack size " + mListPack.size() + mListPack.get(0).getUrl());
-        if (mListTotalEmotion.get(0).size() == 0) {
+        if (mListTotalEmotion.get(0) == null || mListTotalEmotion.get(0).size() == 0) {
             mPackAdapter = new PackEmotionViewAdapter(this, mListPack, false);
         } else {
             mPackAdapter = new PackEmotionViewAdapter(this, mListPack, true);
         }
-        Log.d("LeHieu", "ListEmotionsDBHelper mPackAdapter " + mPackAdapter);
         mPackAdapter.setClickListener(this);
         mBinding.packEmotionRecyclerView.setAdapter(mPackAdapter);
 
-
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4, LinearLayoutManager.VERTICAL, false);
         mBinding.gridEmotionRecyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
-        // cai ham nay chi goi 1 lan thoi chu nhi
-        List<EmotionIconItem> mListEmotion;
-        if (mListTotalEmotion.get(0).size() == 0) {
-            mListEmotion = mListTotalEmotion.get(1);
-        } else {
+        List<EmotionIconItem> mListEmotion = new ArrayList<>();
+        if (mListTotalEmotion.get(0) != null && mListTotalEmotion.get(0).size() == 0) {
             mListEmotion = mListTotalEmotion.get(0);
         }
-        Log.d("LeHieu", "EmotionIconDBHelper mListEmotion size = " + mListEmotion.size());
         mEmotionAdapter = new EmotionIconViewAdapter(this, mListEmotion);
         mBinding.gridEmotionRecyclerView.setAdapter(mEmotionAdapter);
         mEmotionAdapter.setClickListener(this);
-
     }
 
     public void requestData() {
-        ListEmotionsDBHelper packDB = ListEmotionsDBHelper.getInstance(getApplicationContext());
-        EmotionIconDBHelper iconDB = EmotionIconDBHelper.getInstance(getApplicationContext());
-        Log.d("LeHieu", "ListEmotionsDBHelper data" + packDB);
         mListTotalEmotion.clear();
-        mListPack = packDB.getAllPackEmotion();
-        for (int i = 0; i < mListPack.size(); i++) {
-            String packName = mListPack.get(i).getName();
-            Log.d("LeHieu", "EmotionIconDBHelper packName " + packName);
-            List<EmotionIconItem> listEmotion = iconDB.getEmotionListByPackName(packName);
-            Log.d("LeHieu", "EmotionIconDBHelper mListEmotion " + listEmotion.size());
-            mListTotalEmotion.add(listEmotion);
-        }
+        mListPack = new ArrayList<>();
+        AppDatabase.getAllEmotionPack(getApplicationContext(),
+                listPacks -> {
+                    int[] packIds = new int[listPacks.length];
+                    for (int i = 0; i < listPacks.length; i++) {
+                        mListPack.add(new PackEmotionItem(listPacks[i]));
+                        packIds[i] = listPacks[i].id;
+                    }
+
+                    AppDatabase.getEmotionsInPacks(
+                            getApplicationContext(), packIds,
+                            listIcons -> {
+                                Map<Integer, List<EmotionIconItem>> map = new HashMap<>();
+                                for (EmotionIcon icon : listIcons) {
+                                    if (map.get(icon.packId) == null) {
+                                        List<EmotionIconItem> listEmotion = new ArrayList<>();
+                                        listEmotion.add(new EmotionIconItem(icon));
+                                        map.put(icon.packId, listEmotion);
+                                    } else
+                                        map.get(icon.packId).add(new EmotionIconItem(icon));
+                                }
+                                for (EmotionPack listPack : listPacks) {
+                                    int packId = listPack.id;
+                                    mListTotalEmotion.add(map.get(packId));
+                                }
+                                AppDatabase.getAllRecentIcons(getApplicationContext(),
+                                        listIcons1 -> {
+                                            List<EmotionIconItem> listEmotion = new ArrayList<>();
+                                            for (EmotionIcon icon : listIcons1) {
+                                                listEmotion.add(new EmotionIconItem(icon));
+                                            }
+                                            mListTotalEmotion.set(0, listEmotion);
+
+                                            PlayGameActivity.this.runOnUiThread(() -> viewStickerData());
+                                        });
+                            });
+                });
+
+
     }
 
     @Override
@@ -493,9 +513,9 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
     }
 
     @Override
-    public void onEmotionItemClick(View view, int position, String url, String rawUrI) {
+    public void onEmotionItemClick(View view, int stickerId, String url, String rawUrI) {
         Log.i("LeHieu", "onEmotionItemClick on rawUrI" + rawUrI);
-        updateRecentEmotion(url);
+        updateRecentEmotion(url, stickerId);
         showMessageEmotion(rawUrI,ownUserId);
         String time_created = String.valueOf(System.currentTimeMillis());
         MessageEmotionItem messageEmotionItem = new MessageEmotionItem(rawUrI, ownUserId,time_created,"true","loti");
@@ -511,13 +531,14 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
         updateUI.addNewMessage(userId, message);
     }
 
-    public void updateRecentEmotion(String url) {
-        if (!Utility.isExitEmotion(url,mListTotalEmotion.get(0))) {
-            EmotionIconItem emotionIconItem = new EmotionIconItem("recent_emotion", "sticker0", "loti", url);
+    public void updateRecentEmotion(String url, int stickerId) {
+        if (!Utility.isExistsEmotion(url,mListTotalEmotion.get(0))) {
+            EmotionIcon emotionIcon = new EmotionIcon(0, "sticker0", "loti", url);
+            emotionIcon.id = stickerId;
+            EmotionIconItem emotionIconItem = new EmotionIconItem(emotionIcon);
             //Save to sqlite
-            EmotionIconDBHelper iconDB = EmotionIconDBHelper.getInstance(getApplicationContext());
-            iconDB.addEmotionIcon(emotionIconItem);
-            mListTotalEmotion.get(0).add(emotionIconItem);
+            AppDatabase.addToRecentEmotionPack(getApplicationContext(), emotionIcon);
+            mListTotalEmotion.get(0).add(0, emotionIconItem);
         }
     }
 
@@ -558,13 +579,6 @@ public class PlayGameActivity extends AppCompatActivity implements PackEmotionVi
                 listChoices[i] = choice;
                 mBinding.playActivityChoices.addView(choice);
             }
-
-            // Demo show sticker
-            mBinding.testInsertSticker.setOnClickListener(view -> {
-                LottieAnimationView message = new LottieAnimationView(getApplicationContext());
-                message.setAnimation(R.raw.sticker_demo);
-                addNewMessage(ownerId, message);
-            });
         }
 
         /**

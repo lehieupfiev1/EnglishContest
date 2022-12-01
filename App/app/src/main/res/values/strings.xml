@@ -26,6 +26,7 @@
     <string name="title_activity_experimental" translatable="false">ExperimentalActivity</string>
 
     <string name="login_success_notification" translatable="false">Login success</string>
+    <string name="login_error_notification" translatable="false">Something wrong. Please try again later</string>
 
     <!--    Experimental -->
     <string name="experimental_new_game" translatable="false">New Game</string>

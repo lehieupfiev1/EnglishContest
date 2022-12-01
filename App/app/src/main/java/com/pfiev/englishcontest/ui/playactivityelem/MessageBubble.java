@@ -20,6 +20,7 @@ public class MessageBubble extends RelativeLayout {
 
     private static final int ANIM_DURATION = 500;
     private int displayDuration = 3000;
+    private CountDownTimer fadeInCountDown = null;
 
     public MessageBubble(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -86,19 +87,21 @@ public class MessageBubble extends RelativeLayout {
         this.setAlpha(0f);
         this.animate().alpha(1f).setDuration(ANIM_DURATION).withEndAction(
                 () -> {
-                    if (displayDuration > 0)
-                    new CountDownTimer(displayDuration, 1000) {
+                    if (displayDuration > 0) {
+                        fadeInCountDown = new CountDownTimer(displayDuration, 1000) {
 
-                        @Override
-                        public void onTick(long l) {
+                            @Override
+                            public void onTick(long l) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onFinish() {
-                            fadeOut(fadeOutCallback);
-                        }
-                    }.start();
+                            @Override
+                            public void onFinish() {
+                                fadeOut(fadeOutCallback);
+                            }
+                        };
+                        fadeInCountDown.start();
+                    }
                     if (callback != null) callback.run();
                 }
         );
@@ -118,5 +121,12 @@ public class MessageBubble extends RelativeLayout {
      */
     public void setDisplayDuration(int displayDuration) {
         this.displayDuration = displayDuration;
+    }
+
+    /**
+     * Cancel fade in countdown
+     */
+    public void cancelFadeInCountDown() {
+        if (fadeInCountDown != null) fadeInCountDown.cancel();
     }
 }

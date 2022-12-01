@@ -1,14 +1,26 @@
 package com.pfiev.englishcontest.model;
 
+import com.pfiev.englishcontest.roomdb.entity.EmotionIcon;
+
 public class EmotionIconItem {
-    public String id;
+    public int id;
     public String pack_name;
+    public int packId;
     public String name;
     public String type;
     public String url;
 
     public EmotionIconItem() {
     }
+
+    public EmotionIconItem(EmotionIcon icon) {
+        this.id = icon.id;
+        this.packId = icon.packId;
+        this.name = icon.name;
+        this.type = icon.type;
+        this.url = icon.url;
+    }
+
 
     public EmotionIconItem(String pack_name, String name, String type, String url) {
         this.pack_name = pack_name;
@@ -17,11 +29,11 @@ public class EmotionIconItem {
         this.url = url;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -1,5 +1,7 @@
 package com.pfiev.englishcontest.model;
 
+import com.pfiev.englishcontest.roomdb.entity.EmotionPack;
+
 public class PackEmotionItem {
     public String id;
     public String name;
@@ -15,6 +17,14 @@ public class PackEmotionItem {
         this.size = size;
         this.description = description;
         this.url = url;
+    }
+
+    public PackEmotionItem(EmotionPack pack) {
+//        this.id = pack.id;
+        this.name = pack.name;
+        this.size = Integer.toString(pack.size);
+        this.description = pack.description;
+        this.url = pack.url;
     }
 
     public String getId() {

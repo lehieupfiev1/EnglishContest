@@ -28,6 +28,7 @@ import com.pfiev.englishcontest.LoginActivity;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.firestore.FireStoreClass;
 import com.pfiev.englishcontest.model.UserItem;
+import com.pfiev.englishcontest.ui.dialog.CustomToast;
 
 import java.util.Arrays;
 
@@ -61,22 +62,26 @@ public class FacebookSignInActivity extends LoginActivity {
             @Override
             public void onCancel() {
                 Log.i(TAG, "facebook:onCancel");
-                Toast.makeText(getApplicationContext(), "facebook:onCancel",
-                        Toast.LENGTH_SHORT).show();
+                CustomToast.makeText(getApplicationContext(),
+                        getString(R.string.login_error_notification),
+                        CustomToast.ERROR, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(FacebookSignInActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
 
             @Override
             public void onError(FacebookException error) {
                 Log.i(TAG, "facebook:onError", error);
-                Toast.makeText(getApplicationContext(), "facebook:onError",
-                        Toast.LENGTH_SHORT).show();
+                CustomToast.makeText(getApplicationContext(),
+                        getString(R.string.login_error_notification),
+                        CustomToast.ERROR, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(FacebookSignInActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
-        showProgressBar();
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -93,7 +98,6 @@ public class FacebookSignInActivity extends LoginActivity {
                             userItem.setUserPhotoUrl(user.getPhotoUrl().toString());
                             userItem.setUserPhoneNumber(user.getPhoneNumber());
                             userItem.setUserGender("");
-                            hideLoadingAnim();
                             FireStoreClass.registerUser(FacebookSignInActivity.this,
                                     userItem, GlobalConstant.FACEBOOK_ACCOUNT_TYPE);
 
@@ -105,14 +109,8 @@ public class FacebookSignInActivity extends LoginActivity {
                             finish();
                         }
 
-                        hideProgressBar();
                     }
                 });
-    }
-
-    public void signOut() {
-        mAuth.signOut();
-        LoginManager.getInstance().logOut();
     }
 
     private void updateUI() {

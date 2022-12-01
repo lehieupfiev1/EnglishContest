@@ -157,17 +157,12 @@ public class GoogleSignInActivity extends LoginActivity {
                             userItem.setUserGender("");
                             FireStoreClass.registerUser(GoogleSignInActivity.this,userItem, GlobalConstant.GOOGLE_ACCOUNT_TYPE);
 
-
-                            //updateUI();
-
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
 //                            Toast.makeText(getApplicationContext(), "Authentication Failed.", Toast.LENGTH_SHORT).show();
                             finish();
                         }
-
-                        hideLoadingAnim();
                     }
                 });
     }
