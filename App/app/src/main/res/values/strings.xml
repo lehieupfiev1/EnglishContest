@@ -83,6 +83,8 @@
     <string name="profile_can_not_select_image_notify" translatable="false">Can not select image</string>
     <string name="profile_upload_image_success_notify" translatable="false">Upload image success</string>
     <string name="profile_update_info_success_notify" translatable="false">Update profile success</string>
+    <string name="profile_update_name_exists_warning" translatable="false">Username is exists. Try another</string>
+    <string name="profile_update_name_length_exceed" translatable="false">Username is only up to 20 characters long</string>
 
     <!-- Play game -->
     <string name="play_detail_result" translatable="false">Right: %1$d - Times: %2$d s</string>

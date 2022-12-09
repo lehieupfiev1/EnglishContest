@@ -16,14 +16,18 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pfiev.englishcontest.databinding.ActivityProfileBinding;
 import com.pfiev.englishcontest.firestore.FireStoreClass;
+import com.pfiev.englishcontest.firestore.UsersCollection;
 import com.pfiev.englishcontest.model.FriendItem;
 import com.pfiev.englishcontest.model.UserItem;
 import com.pfiev.englishcontest.realtimedb.FriendList;
@@ -46,6 +50,9 @@ public class ProfileActivity extends AppCompatActivity {
     private static final double AVATAR_HEIGHT = 320;
     private static Uri AVATAR_URI;
     private static boolean isChangeImage = false;
+    // Use to compare if change username
+    private String username;
+    private boolean isChangeName = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +85,35 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void saveUserInfo(Context mContext) {
-        UserItem userItem = new UserItem();
+        String editName = mBinding.editPersonName.getText().toString();
         String userId = SharePreferenceUtils.getString(mContext, GlobalConstant.USER_ID);
+        if (username.equals(editName)) {
+            pushUserInfoToServer(mContext, userId);
+        } else {
+            if (editName.length() > UsersCollection.MAX_NAME_LENGTH) {
+                String warningMess = getString(R.string.profile_update_name_length_exceed);
+                CustomToast.makeText(getApplicationContext(), warningMess,
+                        CustomToast.ERROR, CustomToast.LENGTH_SHORT).show();
+                return;
+            }
+            UsersCollection usersCollection = new UsersCollection();
+            usersCollection.isUsernameExists(editName, userId).addOnCompleteListener(task -> {
+                if (task.getResult()) {
+                    String warningMess = getString(R.string.profile_update_name_exists_warning);
+                    CustomToast.makeText(getApplicationContext(), warningMess,
+                            CustomToast.ERROR, CustomToast.LENGTH_SHORT).show();
+                } else {
+                    username = mBinding.editPersonName.getText().toString();
+                    pushUserInfoToServer(mContext, userId);
+                }
+            });
+        }
+    }
+
+    private void pushUserInfoToServer(Context mContext, String userId) {
+        UserItem userItem = new UserItem();
         userItem.setUserId(userId);
         userItem.setName(mBinding.editPersonName.getText().toString());
-        userItem.setEmail(mBinding.editEmail.getText().toString());
         userItem.setUserPhoneNumber(mBinding.editPhone.getText().toString());
         if (isChangeImage) {
             userItem.setUserPhotoUrl(AVATAR_URI.toString());
@@ -103,14 +134,20 @@ public class ProfileActivity extends AppCompatActivity {
         CustomToast.makeText(this,
                 getString(R.string.profile_update_info_success_notify),
                 CustomToast.SUCCESS, CustomToast.LENGTH_SHORT).show();
+        if (isChangeName || isChangeImage) {
+            isChangeImage = false;
+            isChangeName = false;
+            UsersCollection.updateInfoChangeToFriends();
+        }
     }
 
 
     public void initData(Context mContext) {
         UserItem userItem = SharePreferenceUtils.getUserData(mContext);
+        // Set first display name
+        username = userItem.getName();
         mBinding.avatarUser2.load(mContext, userItem.getUserPhotoUrl());
         mBinding.editPersonName.setText(userItem.getName());
-        mBinding.editEmail.setText(userItem.getEmail());
         mBinding.editPhone.setText(userItem.getUserPhoneNumber());
         if (GlobalConstant.USER_GENDER_MALE.equalsIgnoreCase(userItem.getUserGender())) {
             mBinding.radioMale.setChecked(true);

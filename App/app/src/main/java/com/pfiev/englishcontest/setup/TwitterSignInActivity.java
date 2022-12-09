@@ -94,7 +94,7 @@ public class TwitterSignInActivity extends LoginActivity {
                                     FirebaseUser user = authResult.getUser();
                                     UserItem userItem = new UserItem();
                                     userItem.setUserId(user.getUid());
-                                    userItem.setName(user.getDisplayName());
+                                    userItem.setName(user.getEmail());
                                     userItem.setUserPhotoUrl(user.getPhotoUrl().toString());
                                     userItem.setUserPhoneNumber(user.getPhoneNumber());
                                     userItem.setUserGender("");

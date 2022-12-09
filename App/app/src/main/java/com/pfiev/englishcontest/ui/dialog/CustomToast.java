@@ -22,8 +22,8 @@ public class CustomToast extends Toast {
     public static final int ERROR = 3;
     public static final int CONFUSING = 4;
 
-    private static long SHORT = Toast.LENGTH_SHORT;
-    private static long LONG = Toast.LENGTH_LONG;
+    public static long SHORT = Toast.LENGTH_SHORT;
+    public static long LONG = Toast.LENGTH_LONG;
 
     public CustomToast(Context context) {
         super(context);

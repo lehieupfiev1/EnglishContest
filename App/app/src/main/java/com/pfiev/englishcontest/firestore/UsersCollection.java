@@ -2,11 +2,16 @@ package com.pfiev.englishcontest.firestore;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.pfiev.englishcontest.GlobalConstant;
 import com.pfiev.englishcontest.model.BotItem;
@@ -23,6 +28,7 @@ import java.util.function.Consumer;
 
 public class UsersCollection {
     private CollectionReference colRef;
+    public static final int MAX_NAME_LENGTH = 25;
 
     public UsersCollection() {
         this.colRef = FirebaseFirestore.getInstance().collection(GlobalConstant.USERS);
@@ -120,10 +126,11 @@ public class UsersCollection {
                     // Get speed answer rate
                     botConfig.get("speedAnswerRate");
                     int[] speedRate = new int[2];
-                    ArrayList<Number> speedAnswerRate = (ArrayList<Number>)  botConfig.get("speedAnswerRate");
-                    if (speedAnswerRate.size() ==2 ) {
+                    ArrayList<Number> speedAnswerRate = (ArrayList<Number>) botConfig.get("speedAnswerRate");
+                    if (speedAnswerRate.size() == 2) {
                         speedAnswerRate.forEach(new Consumer<Number>() {
-                            int i =0;
+                            int i = 0;
+
                             @Override
                             public void accept(Number aDouble) {
                                 speedRate[i] = aDouble.intValue();
@@ -137,6 +144,44 @@ public class UsersCollection {
 
                     return botItem;
                 });
+    }
+
+    /**
+     * Check if username exists
+     *
+     * @param username
+     * @param userId
+     * @return
+     */
+    public Task<Boolean> isUsernameExists(String username, String userId) {
+        return this.colRef.whereEqualTo("name", username).get().continueWith(
+                new Continuation<QuerySnapshot, Boolean>() {
+                    @Override
+                    public Boolean then(@NonNull Task<QuerySnapshot> task) throws Exception {
+                        if (task.getResult().isEmpty()) return false;
+                        String uid = (String) task.getResult().getDocuments().get(0).getData().get("userId");
+                        return !uid.equals(userId);
+                    }
+                }
+        );
+    }
+
+    /**
+     * Update changed info to friends
+     */
+    public static void updateInfoChangeToFriends() {
+        JSONObject mainObject = new JSONObject();
+        JSONObject messageObject = new JSONObject();
+        try {
+            messageObject.put("uid", "");
+            mainObject.put("message", messageObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        FirebaseFunctions.getInstance()
+                .getHttpsCallable("updateUserInfoToFriends")
+                .call(mainObject);
     }
 
     public static interface FindUserCb {

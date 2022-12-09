@@ -176,31 +176,6 @@
                 android:textStyle="italic" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/test_insert_sticker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/sticker_show_panel_margin_start"
-            android:layout_marginBottom="@dimen/sticker_show_panel_margin_bottom"
-            android:background="@drawable/bg_experimental_main_button"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/sticker_show_panel_padding_horizontal"
-            android:paddingVertical="@dimen/sticker_show_panel_padding_vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/sticker_show_panel_text_margin_start"
-                android:fontFamily="@font/svn_supercell_magic"
-                android:text="Test add sticker"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                android:textStyle="italic" />
-        </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
         android:id="@+id/emotion_layout"

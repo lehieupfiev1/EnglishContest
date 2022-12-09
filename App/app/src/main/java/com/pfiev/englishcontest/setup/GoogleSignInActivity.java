@@ -151,7 +151,7 @@ public class GoogleSignInActivity extends LoginActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             UserItem userItem = new UserItem();
                             userItem.setUserId(user.getUid());
-                            userItem.setName(user.getDisplayName());
+                            userItem.setName(user.getEmail());
                             userItem.setUserPhotoUrl(user.getPhotoUrl().toString());
                             userItem.setUserPhoneNumber(user.getPhoneNumber());
                             userItem.setUserGender("");
