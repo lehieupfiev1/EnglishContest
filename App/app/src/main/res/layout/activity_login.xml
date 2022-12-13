@@ -76,6 +76,7 @@
                     android:fontFamily="@font/mali_regular"
                     android:text="@string/sign_in_with_google"
                     android:textColor="@color/sign_in_up_button_text_color"
+                    android:textSize="@dimen/sign_in_up_button_txt_size"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -106,6 +107,7 @@
                     android:fontFamily="@font/mali_regular"
                     android:text="@string/sign_in_with_twitter"
                     android:textColor="@color/sign_in_up_button_text_color"
+                    android:textSize="@dimen/sign_in_up_button_txt_size"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -136,6 +138,7 @@
                     android:fontFamily="@font/mali_regular"
                     android:text="@string/sign_in_with_facebook"
                     android:textColor="@color/sign_in_up_button_text_color"
+                    android:textSize="@dimen/sign_in_up_button_txt_size"
                     android:textStyle="bold" />
             </LinearLayout>
 

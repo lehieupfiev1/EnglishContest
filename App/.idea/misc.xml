@@ -107,34 +107,36 @@
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_experimental.xml" value="0.371875" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_facebook_sign_in.xml" value="0.3183876811594203" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_google_sign_in.xml" value="0.33055555555555555" />
-        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_login.xml" value="0.26761619190404795" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_main.xml" value="0.17037037037037037" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_play_game.xml" value="0.22" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_playt_game_show_sticker_panel.xml" value="0.17037037037037037" />
-        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_profile.xml" value="0.25" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_profile.xml" value="0.5" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_profile_image_crop.xml" value="0.33055555555555555" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/activity_twiter_sign_in.xml" value="0.33" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/custom_layout_menu_bubble.xml" value="0.2658514492753623" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/dialog_make_friend.xml" value="0.33" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/dialog_request_combat.xml" value="0.33" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/dialog_unfriend.xml" value="0.33" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/draw_layout_dialog.xml" value="0.26761619190404795" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/fight_layout_dialog.xml" value="0.25" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/fragment_experimental_about.xml" value="0.371875" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/fragment_experimental_findingmatch.xml" value="0.33" />
-        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/fragment_experimental_friend_list.xml" value="0.33" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/fragment_experimental_friend_list.xml" value="0.5" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/fragment_experimental_friends_list_friends.xml" value="0.33055555555555555" />
-        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/fragment_experimental_leaderboard.xml" value="0.25" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/fragment_experimental_leaderboard.xml" value="0.5" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/fragment_experimental_main.xml" value="0.33" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/fragment_experimental_request_combat.xml" value="0.30512820512820515" />
-        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/fragment_experimental_settings.xml" value="0.33" />
-        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/listview_experimental_leaderboard.xml" value="0.4361111111111111" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/fragment_experimental_settings.xml" value="0.5" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/listview_experimental_leaderboard.xml" value="0.67" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/lose_layout_dialog.xml" value="0.2658514492753623" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/play_game_order_row.xml" value="0.33" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/play_game_order_row_flip.xml" value="0.33" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/question_item_layout.xml" value="0.26761619190404795" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/recycler_view_friends_list.xml" value="0.33055555555555555" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/recycler_view_friends_list_all_users.xml" value="0.33055555555555555" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/recycler_view_friends_list_block.xml" value="0.33" />
-        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/recycler_view_friends_list_friends.xml" value="0.33" />
+        <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/recycler_view_friends_list_friends.xml" value="0.67" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/recycler_view_friends_list_waiting.xml" value="0.33" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/spinner_items_experimental_language.xml" value="0.16124661246612465" />
         <entry key="..\:/Temp/Android Project/App/app/src/main/res/layout/toast_custom.xml" value="0.30512820512820515" />

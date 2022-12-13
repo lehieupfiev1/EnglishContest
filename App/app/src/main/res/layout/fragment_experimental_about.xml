@@ -21,7 +21,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="@dimen/about_big_title_margin_top"
         android:orientation="vertical">
 
         <TextView
@@ -31,7 +31,7 @@
             android:text="@string/title_about"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="45sp">
+            android:textSize="@dimen/about_big_title_text">
 
         </TextView>
         <TextView
@@ -42,7 +42,7 @@
             android:fontFamily="@font/mali_regular"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp">
+            android:textSize="@dimen/about_big_title_main_content_text">
 
         </TextView>
         <ImageView

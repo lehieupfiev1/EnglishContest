@@ -8,6 +8,7 @@
     <dimen name="sign_in_up_layout_padding_end">30dp</dimen>
     <dimen name="sign_in_up_big_title_text_size">50sp</dimen>
     <dimen name="sign_in_up_big_title_margin_top">60dp</dimen>
+    <dimen name="sign_in_up_button_txt_size">15sp</dimen>
     <dimen name="sign_in_up_intro_title_text_size">14sp</dimen>
     <dimen name="sign_in_up_intro_title_margin_bottom">30dp</dimen>
 
@@ -89,7 +90,7 @@
     <dimen name="experimental_main_programmer_margin_bottom">10dp</dimen>
     <!--    Profile bar layout-->
     <dimen name="experimental_main_profile_bar_margin_end">20dp</dimen>
-    <dimen name="experimental_main_profile_bar_margin_bottom">30dp</dimen>
+    <dimen name="experimental_main_profile_bar_margin_bottom">50dp</dimen>
     <dimen name="experimental_main_profile_bar_padding">15dp</dimen>
     <dimen name="experimental_main_profile_bar_username_text_size">15sp</dimen>
     <dimen name="experimental_main_profile_bar_username_mg_horizontal">10dp</dimen>
@@ -340,4 +341,10 @@
     <dimen name="sticker_show_panel_img_size">15dp</dimen>
     <dimen name="sticker_show_panel_text">10sp</dimen>
     <dimen name="sticker_show_panel_text_margin_start">5dp</dimen>
+
+    <!--    About screen -->
+    <dimen name="about_big_title_text">45sp</dimen>
+    <dimen name="about_big_title_margin_top">150dp</dimen>
+    <dimen name="about_big_title_main_content_text">20sp</dimen>
+    <dimen name="about_big_title_main_content_padding">25dp</dimen>
 </resources>

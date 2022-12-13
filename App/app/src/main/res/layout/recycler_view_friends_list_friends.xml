@@ -48,9 +48,9 @@
         android:id="@+id/recycler_view_friends_request_combat"
         android:layout_width="@dimen/recycler_view_friends_user_action_width"
         android:layout_height="@dimen/recycler_view_friends_user_action_width"
+        android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/recycler_view_friends_user_action_mg_right"
         android:layout_toStartOf="@id/recycler_view_friends_unfriend"
-        android:layout_centerVertical="true"
         android:src="@drawable/ic_request_fight" />
 
     <ImageView
