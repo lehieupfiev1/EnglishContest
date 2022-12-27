@@ -34,9 +34,13 @@ public class MainFragment extends Fragment {
 
     private final String TAG = "MainFragment";
     private FragmentExperimentalMainBinding binding;
+    private static boolean isDisplay= false;
 
     public static MainFragment newInstance() {
         return new MainFragment();
+    }
+    public static boolean isDisplayNow() {
+        return isDisplay;
     }
 
     @Nullable
@@ -124,6 +128,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        isDisplay = true;
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
@@ -147,6 +152,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        isDisplay = false;
         binding = null;
     }
 }

@@ -74,6 +74,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/experimental_friends_list_big_title"
             app:sysUserName="@string/experimental_friends_list_sys_name"
+            app:sysUserAvatar="@drawable/sys_avatar_shy_tester"
             >
 
             <RadioGroup

@@ -90,6 +90,7 @@ public class FindingMatchFragment extends Fragment {
     // Bot item if use
     private BotItem mBotItem;
     private InterstitialAd mInterstitialAd;
+    private static boolean isDisplay = false;
 
     public static FindingMatchFragment newInstance() {
         return new FindingMatchFragment();
@@ -299,6 +300,7 @@ public class FindingMatchFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        isDisplay = false;
         if (listenerRegistration != null)
             listenerRegistration.remove();
     }
@@ -397,6 +399,7 @@ public class FindingMatchFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        isDisplay = true;
         // update playing status to friends
         String ownerUid = SharePreferenceUtils.getUserData(getActivity()).getUserId();
         FriendList friendList = FriendList.getInstance();
@@ -724,5 +727,9 @@ public class FindingMatchFragment extends Fragment {
                 updateUI::showLooking
         );
         sendRequestFindMatch();
+    }
+
+    public static boolean isDisplayNow() {
+        return isDisplay;
     }
 }

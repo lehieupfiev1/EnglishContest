@@ -47,6 +47,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/leaderboard_big_title"
             app:sysUserName="@string/experimental_leaderboard_sys_name"
+            app:sysUserAvatar="@drawable/sys_avatar_analysis_cat"
             app:bubble_width="@dimen/leaderboard_table_width"
             >
 

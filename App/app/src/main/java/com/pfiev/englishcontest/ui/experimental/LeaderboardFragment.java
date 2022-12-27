@@ -111,15 +111,17 @@ public class LeaderboardFragment extends Fragment {
                                 item.setOrderId("" +orderId);
                                 list.add(item);
                             }
-                            LeaderboardAdapter adapter = new LeaderboardAdapter(
-                                    getContext(), R.layout.listview_experimental_leaderboard, list);
-                            binding.experimentalLeaderboardLv.setAdapter(adapter);
-                            binding.experimentalLeaderboardLv.setDivider(
-                                    new ColorDrawable(
-                                            ContextCompat.getColor(getActivity(),
-                                                    R.color.leaderboard_item_divider))
-                            );
-                            binding.experimentalLeaderboardLv.setDividerHeight(10);
+                            if (getContext() != null) {
+                                LeaderboardAdapter adapter = new LeaderboardAdapter(
+                                        getContext(), R.layout.listview_experimental_leaderboard, list);
+                                binding.experimentalLeaderboardLv.setAdapter(adapter);
+                                binding.experimentalLeaderboardLv.setDivider(
+                                        new ColorDrawable(
+                                                ContextCompat.getColor(getContext(),
+                                                        R.color.leaderboard_item_divider))
+                                );
+                                binding.experimentalLeaderboardLv.setDividerHeight(10);
+                            }
                         }
                         hideLoadingAnim();
                     }
@@ -143,4 +145,6 @@ public class LeaderboardFragment extends Fragment {
         loadingAnim.setVisibility(View.INVISIBLE);
         loadingAnim.pauseAnimation();
     }
+
+
 }

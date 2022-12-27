@@ -58,7 +58,7 @@
             android:translationZ="150dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/finding_match_big_title"
-            app:sysUserAvatar="@drawable/google_icon"
+            app:sysUserAvatar="@drawable/sys_avatar_happy_marketer"
             app:sysUserName="@string/finding_match_sys_name"
             >
 

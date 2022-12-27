@@ -5,13 +5,11 @@ import android.annotation.SuppressLint;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowInsets;
@@ -25,7 +23,6 @@ import com.pfiev.englishcontest.roomdb.AppDatabase;
 import com.pfiev.englishcontest.roomdb.migration.DatabaseMigration;
 import com.pfiev.englishcontest.ui.experimental.FindingMatchFragment;
 import com.pfiev.englishcontest.ui.experimental.MainFragment;
-import com.pfiev.englishcontest.utils.SharePreferenceUtils;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -201,5 +198,14 @@ public class ExperimentalActivity extends AppCompatActivity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!MainFragment.isDisplayNow() && !FindingMatchFragment.isDisplayNow()) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.experimental_fullscreen_content, MainFragment.newInstance())
+                    .commitNow();
+        }
     }
 }

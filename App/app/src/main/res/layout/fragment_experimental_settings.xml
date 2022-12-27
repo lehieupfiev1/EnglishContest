@@ -48,6 +48,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/experimental_settings_big_title"
             app:sysUserName="@string/experimental_settings_sys_name"
+            app:sysUserAvatar="@drawable/sys_avatar_dreamer_coder"
             app:sysUserViewId="experimental_setting_sys_id">
 
             <LinearLayout
