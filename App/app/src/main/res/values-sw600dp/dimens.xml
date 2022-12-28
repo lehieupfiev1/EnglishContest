@@ -1,0 +1,162 @@
+<resources>
+    <!--    Btn parent layout-->
+    <dimen name="experimental_main_btn_parent_bg_item_1_width">22dp</dimen>
+    <dimen name="experimental_main_btn_parent_bg_item_2_width">37dp</dimen>
+    <dimen name="experimental_main_btn_parent_bg_item_2_height">15dp</dimen>
+    <dimen name="experimental_btn_padding_vertical">7dp</dimen>
+    <dimen name="experimental_main_btn_parent_padding_start">60dp</dimen>
+    <dimen name="experimental_main_btn_parent_padding_end">30dp</dimen>
+    <dimen name="experimental_main_btn_text_size">30sp</dimen>
+    <dimen name="experimental_main_btn_parent_margin_start">30dp</dimen>
+    <dimen name="experimental_main_btn_radius">30dp</dimen>
+    <dimen name="experimental_main_btn_padding">15dp</dimen>
+    <!--    Settings -->
+    <dimen name="experimental_settings_rel_layout_h">100dp</dimen>
+    <dimen name="experimental_settings_font_size">20sp</dimen>
+    <dimen name="settings_back_button_mg_top">30dp</dimen>
+    <dimen name="settings_back_button_mg_start">30dp</dimen>
+    <dimen name="settings_big_title_mg_top">45dp</dimen>
+    <dimen name="settings_big_title_mg_horizontal">30dp</dimen>
+    <dimen name="settings_big_title_padding">15dp</dimen>
+    <dimen name="settings_big_title_text_size">45sp</dimen>
+    <dimen name="settings_table_width">370dp</dimen>
+    <dimen name="settings_table_margin_top">70dp</dimen>
+    <dimen name="settings_parameter_parent_pd_vertical">15dp</dimen>
+    <!--    Leaderboard-->
+    <dimen name="leaderboard_back_button_mg_top">30dp</dimen>
+    <dimen name="leaderboard_back_button_mg_start">30dp</dimen>
+    <dimen name="leaderboard_big_title_mg_top">45dp</dimen>
+    <dimen name="leaderboard_big_title_mg_horizontal">30dp</dimen>
+    <dimen name="leaderboard_big_title_padding">15dp</dimen>
+    <dimen name="leaderboard_big_title_text_size">35sp</dimen>
+    <dimen name="leaderboard_table_margin_top">70dp</dimen>
+    <dimen name="leaderboard_table_width">520dp</dimen>
+    <!--    Leaderboard item-->
+    <dimen name="leaderboard_lv_item_height">70dp</dimen>
+    <dimen name="leaderboard_lv_item_corner_radius">15dp</dimen>
+    <dimen name="leaderboard_lv_item_oder_padding_horizontal">15dp</dimen>
+    <dimen name="leaderboard_lv_item_text_size">20sp</dimen>
+    <dimen name="leaderboard_lv_item_avatar_width">70dp</dimen>
+    <dimen name="leaderboard_user_avatar_padding_vertical">9dp</dimen>
+    <dimen name="leaderboard_lv_item_username_width">270dp</dimen>
+    <dimen name="leaderboard_lv_item_score_width">120dp</dimen>
+
+    <!--    Finding match-->
+    <dimen name="finding_match_bubble_margin_top">70dp</dimen>
+    <dimen name="finding_match_looking_btn_margin_top">15dp</dimen>
+    <dimen name="finding_match_looking_btn_padding_vertical">15dp</dimen>
+    <dimen name="finding_match_looking_btn_padding_horizontal">30dp</dimen>
+    <dimen name="finding_match_looking_btn_text_size">20sp</dimen>
+    <dimen name="finding_match_lottie_look_match_size">370dp</dimen>
+
+    <!--    Friend List-->
+    <dimen name="friends_list_back_button_mg_top">30dp</dimen>
+    <dimen name="friends_list_back_button_mg_start">30dp</dimen>
+    <dimen name="friends_list_big_title_mg_top">45dp</dimen>
+    <dimen name="friends_list_big_title_mg_horizontal">30dp</dimen>
+    <dimen name="friends_list_big_title_padding">15dp</dimen>
+    <dimen name="friends_list_big_title_text_size">37sp</dimen>
+    <dimen name="friends_list_table_margin_top">45dp</dimen>
+    <dimen name="friends_list_main_btn_padding_horizontal">15dp</dimen>
+    <dimen name="friends_list_search_box_padding">15dp</dimen>
+    <dimen name="friends_list_search_box_text_size">19sp</dimen>
+    <dimen name="recycler_view_friends_item_padding_vertical">15dp</dimen>
+    <dimen name="recycler_view_friends_user_avatar_width">67dp</dimen>
+    <dimen name="recycler_view_friends_max_height">520dp</dimen>
+    <dimen name="recycler_view_friends_max_width">450dp</dimen>
+    <dimen name="recycler_view_friends_user_action_mg_right">15dp</dimen>
+    <dimen name="recycler_view_friends_user_name">90dp</dimen>
+    <dimen name="recycler_view_friends_user_name_padding_left">22dp</dimen>
+    <dimen name="recycler_view_friends_user_name_text_size">19sp</dimen>
+    <dimen name="recycler_view_friends_user_text_more_text_size">20sp</dimen>
+    <dimen name="recycler_view_friends_user_action_width">45dp</dimen>
+    <dimen name="friend_list_radio_btn_corner_radius">15dp</dimen>
+    <dimen name="friend_list_radio_btn_border">5dp</dimen>
+    <dimen name="friend_list_radio_btn_text_size">19sp</dimen>
+    <dimen name="friends_list_loading_anim_wh">120dp</dimen>
+    <dimen name="friends_list_loading_long_request_anim_wh">240dp</dimen>
+    <dimen name="friends_list_exceed_intro_bubble_margin_top">22dp</dimen>
+    <dimen name="friends_list_exceed_intro_tv_margin_top">15dp</dimen>
+    <dimen name="friends_list_exceed_intro_tv_text">22sp</dimen>
+
+    <!--    Profile -->
+    <dimen name="profile_margin_content_pd_horizontal">15dp</dimen>
+    <dimen name="profile_activity_back_button_mg_top">30dp</dimen>
+    <dimen name="profile_activity_back_button_mg_start">30dp</dimen>
+    <dimen name="profile_activity_big_title_mg_top">30dp</dimen>
+    <dimen name="profile_activity_big_title_mg_horizontal">30dp</dimen>
+    <dimen name="profile_activity_big_title_padding_h">15dp</dimen>
+    <dimen name="profile_activity_big_title_text_size">45sp</dimen>
+    <dimen name="profile_activity_bubble_main_mg_top">70dp</dimen>
+    <dimen name="profile_activity_change_avatar_img_size">100dp</dimen>
+    <dimen name="profile_activity_change_avatar_btn_mg_top">15dp</dimen>
+    <dimen name="profile_activity_change_avatar_btn_pd_horizontal">15dp</dimen>
+    <dimen name="profile_activity_info_field_mg_top">22dp</dimen>
+    <dimen name="profile_activity_info_field_label_pd">7dp</dimen>
+    <dimen name="profile_activity_info_field_edit_text_pd_v">7dp</dimen>
+    <dimen name="profile_activity_info_field_edit_text_pd_h">17dp</dimen>
+    <dimen name="profile_activity_info_field_text_size">19sp</dimen>
+    <dimen name="profile_activity_gender_choices_pd_horizontal">7dp</dimen>
+    <dimen name="profile_activity_gender_choice_mg_start">30dp</dimen>
+    <dimen name="profile_activity_save_button_mg_vertical">15dp</dimen>
+    <dimen name="profile_activity_save_button_pd_horizontal">30dp</dimen>
+    <dimen name="profile_activity_save_button_text">27sp</dimen>
+    <dimen name="profile_log_out_bubble_mg_top">45dp</dimen>
+    <dimen name="profile_activity_logout_button_mg_horizontal">22dp</dimen>
+    <dimen name="profile_activity_logout_button_pd_horizontal">22dp</dimen>
+    <dimen name="profile_activity_log_out_text">30sp</dimen>
+
+    <!--    Fight agree layout-->
+    <dimen name="fight_agree_layout_width">390dp</dimen>
+    <dimen name="fight_agree_layout_padding_bottom">30dp</dimen>
+    <dimen name="fight_agree_layout_lottie_width">390dp</dimen>
+    <dimen name="fight_agree_layout_lottie_height">190dp</dimen>
+    <dimen name="fight_agree_layout_accept_btn_margin_top">30dp</dimen>
+    <dimen name="fight_agree_layout_accept_btn_padding_vertical">7dp</dimen>
+    <dimen name="fight_agree_layout_accept_btn_text_size">30sp</dimen>
+
+    <!--    Dialog request combat -->
+    <dimen name="dialog_request_combat_avatar_width">70dp</dimen>
+    <dimen name="dialog_request_combat_avatar_margin_top">30dp</dimen>
+    <dimen name="dialog_request_combat_name_text_size">22sp</dimen>
+    <dimen name="dialog_request_combat_name_margin">15dp</dimen>
+    <dimen name="dialog_request_combat_message_text_size">24sp</dimen>
+    <dimen name="dialog_request_combat_message_margin_bottom">15dp</dimen>
+    <dimen name="dialog_request_combat_time_remaining_text_size">22sp</dimen>
+    <dimen name="dialog_request_combat_btn_min_width">185dp</dimen>
+    <dimen name="dialog_request_combat_btn_pd_vertical">7dp</dimen>
+    <dimen name="dialog_request_combat_btn_pd_horizontal">30dp</dimen>
+    <dimen name="dialog_request_combat_btn_width">185dp</dimen>
+    <dimen name="dialog_request_combat_btn_height">70dp</dimen>
+    <dimen name="dialog_request_combat_btn_text_size">24sp</dimen>
+    <dimen name="dialog_request_combat_btn_margin_right">70dp</dimen>
+
+    <!--    Dialog default-->
+    <dimen name="dialog_default_padding">30dp</dimen>
+    <!--    Dialog make friend -->
+    <dimen name="dialog_make_friend_avatar_width">70dp</dimen>
+    <dimen name="dialog_make_friend_avatar_margin_top">30dp</dimen>
+    <dimen name="dialog_make_friend_name_text_size">24sp</dimen>
+    <dimen name="dialog_make_friend_name_margin">15dp</dimen>
+    <dimen name="dialog_make_friend_message_text_size">24sp</dimen>
+    <dimen name="dialog_make_friend_btn_min_width">120dp</dimen>
+    <dimen name="dialog_make_friend_btn_pd_vertical">7dp</dimen>
+    <dimen name="dialog_make_friend_btn_pd_horizontal">15dp</dimen>
+    <dimen name="dialog_make_friend_btn_text_size">19sp</dimen>
+    <dimen name="dialog_make_friend_btn_margin_right">30dp</dimen>
+
+    <!--    Dialog un friend -->
+    <dimen name="dialog_unfriend_avatar_width">70dp</dimen>
+    <dimen name="dialog_unfriend_avatar_margin_top">30dp</dimen>
+    <dimen name="dialog_unfriend_name_text_size">22sp</dimen>
+    <dimen name="dialog_unfriend_name_margin">15dp</dimen>
+    <dimen name="dialog_unfriend_message_text_size">27sp</dimen>
+    <dimen name="dialog_unfriend_message_margin_bottom">15dp</dimen>
+    <dimen name="dialog_unfriend_btn_mg_top">30dp</dimen>
+    <dimen name="dialog_unfriend_btn_min_width">150dp</dimen>
+    <dimen name="dialog_unfriend_btn_pd_vertical">7dp</dimen>
+    <dimen name="dialog_unfriend_btn_pd_horizontal">30dp</dimen>
+    <dimen name="dialog_unfriend_btn_text_size">24sp</dimen>
+    <dimen name="dialog_unfriend_btn_margin_right">120dp</dimen>
+
+</resources>

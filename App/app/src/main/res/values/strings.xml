@@ -7,9 +7,9 @@
     <string name="title_about" translatable="false">ABOUT</string>
 
     //Ads Mod id
-    <string name="ads_mod_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="main_activity_ads_banner_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="finding_match_ads_fullscreen_unit_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="ads_mod_app_id" translatable="false">ca-app-pub-4920303425949935~7858285086</string>
+    <string name="main_activity_ads_banner_unit_id" translatable="false">ca-app-pub-4920303425949935/5078695617</string>
+    <string name="finding_match_ads_fullscreen_unit_id" translatable="false">ca-app-pub-4920303425949935/8630927811</string>
 
     <string name="facebook_app_id" translatable="false">600393555058897</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb600393555058897</string>
@@ -100,7 +100,7 @@
 
     <!--    Friend List -->
     <string name="experimental_friends_list_sys_name" translatable="false">The Introverted Tester</string>
-    <string name="experimental_friends_list_big_title" translatable="false">Settings</string>
+    <string name="experimental_friends_list_big_title" translatable="false">Friend List</string>
     <string name="friend_list_friend">FRIEND</string>
     <string name="friend_list_waiting">WAITING</string>
     <string name="friend_list_block">BLOCK</string>
