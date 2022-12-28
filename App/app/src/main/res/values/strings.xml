@@ -24,29 +24,31 @@
     <string name="default_google_client_id" translatable="false">338603681012-vldrduavbfgnivf0ggmnobvppjdmdtu2.apps.googleusercontent.com</string>
     <string name="title_activity_play_game_acivity" translatable="false">PlayGameAcivity</string>
     <string name="title_activity_experimental" translatable="false">ExperimentalActivity</string>
-
     <string name="login_success_notification" translatable="false">Login success</string>
     <string name="login_error_notification" translatable="false">Something wrong. Please try again later</string>
-
-    <!--    Experimental -->
+    <!-- Experimental -->
     <string name="experimental_new_game" translatable="false">New Game</string>
-    <string name="experimental_friends_list" translatable="false">Friends List</string>
+    <string name="experimental_friends_list" translatable="false">Friend Lists</string>
     <string name="experimental_leaderboard" translatable="false">Leaderboard</string>
     <string name="experimental_settings" translatable="false">Settings</string>
     <string name="experimental_about" translatable="false">About</string>
     <string name="experimental_main_big_title" translatable="false"> ENGLISH FUNNY </string>
     <string name="experimental_main_programmer_name" translatable="false"> The Lazy Programmers </string>
-    <!--    Experimental Settings   -->
+    <!-- Experimental Settings -->
     <string name="experimental_settings_title_language">Language</string>
     <string name="experimental_settings_title_background_music" translatable="false">Background Music</string>
     <string name="experimental_settings_title_sound_effect" translatable="false">Sound Effects</string>
     <string name="experimental_settings_lazy_programmer" translatable="false">The Lazy Programmers</string>
-    <string name="experimental_about_content" translatable="false">Một trò chơi nho nhỏ được lập trình vào thời gian rảnh. Mong các bạn đã có thời gian thú vị khi sử dụng.\n Đừng quên thi thoảng click quảng cáo cho 2 thanh niên lập trình viên có chút tiền cafe ạ.\nYêu các bạn nhiều !!!\n\n(*) Hình ảnh sử dụng được download\n từ trang freepik và icon8</string>
+    <string name="experimental_about_content" translatable="false"> This game is what we created at freetime.
+    I hope you enjoy your time with this.
+    \n If you want to buy us a cup of coffee, please click advertisements.
+    \n Love you guys !!!
+    \n\n(*) Imagines was downloaded\n from freepik and icons8</string>
     <string name="experimental_settings_sys_name" translatable="false">The Dreamer Coder</string>
     <string name="experimental_settings_big_title" translatable="false">Settings</string>
-    <!--    Shared preferences key  -->
+    <!-- Shared preferences key -->
     <string name="shared_preferences_key" translatable="false">com.pfiev.english.preferences</string>
-    <!--    Display language    -->
+    <!-- Display language -->
     <string name="preferences_all_locale_key" translatable="false">all_locale</string>
     <string name="preferences_all_locale_values" translatable="false">en_US,vi_VN</string>
     <string name="preferences_all_locale_show_key" translatable="false">all_locale_show</string>
@@ -54,20 +56,19 @@
     <string name="preferences_all_locale_delimiter" translatable="false">,</string>
     <string name="preferences_locale_default" translatable="false">en_US</string>
     <string name="preferences_display_language" translatable="false">display_language</string>
-    <!--    Sound status-->
+    <!-- Sound status-->
     <string name="preferences_sound_status" translatable="false">sound_status</string>
     <string name="preferences_sound_status_on" translatable="false">sound_status_on</string>
     <string name="preferences_sound_status_off" translatable="false">sound_status_off</string>
-    <!--    Background Music status -->
+    <!-- Background Music status -->
     <string name="preferences_bg_music_status" translatable="false">bg_music_status</string>
     <string name="preferences_bg_music_status_on" translatable="false">bg_music_status_on</string>
     <string name="preferences_bg_music_status_off" translatable="false">bg_music_status_off</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <!--    Leader Board -->
+    <!-- Leaderboard -->
     <string name="experimental_leaderboard_sys_name" translatable="false">The Forgetful Data Analysis</string>
     <string name="experimental_leaderboard_big_title" translatable="false">Leaderboard</string>
-
-    <!--    Profile-->
+    <!-- Profile-->
     <string name="profile_big_title" translatable="false">Profile</string>
     <string name="profile_sys_user_name" translatable="false">The Meticulous Designer</string>
     <string name="profile_change_avatar" translatable="false">Change Avatar</string>
@@ -83,22 +84,18 @@
     <string name="profile_can_not_select_image_notify" translatable="false">Can not select image</string>
     <string name="profile_upload_image_success_notify" translatable="false">Upload image success</string>
     <string name="profile_update_info_success_notify" translatable="false">Update profile success</string>
-    <string name="profile_update_name_exists_warning" translatable="false">Username is exists. Try another</string>
+    <string name="profile_update_name_exists_warning" translatable="false">Username exists. Try another</string>
     <string name="profile_update_name_length_exceed" translatable="false">Username is only up to 20 characters long</string>
-
     <!-- Play game -->
     <string name="play_detail_result" translatable="false">Right: %1$d - Times: %2$d s</string>
     <string name="no_emotion_recent_description" translatable="false">There are no recent emotions icon</string>
     <string name="result_detail_play" translatable="false">Result answer is %1$d /%2$d</string>
-
-
     <!--Dialog -->
     <string name="dialog_cancel" translatable="false">Cancel</string>
     <string name="save" translatable="false">Save</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-
-    <!--    Friend List -->
+    <!-- Friend List -->
     <string name="experimental_friends_list_sys_name" translatable="false">The Introverted Tester</string>
     <string name="experimental_friends_list_big_title" translatable="false">Friend List</string>
     <string name="friend_list_friend">FRIEND</string>
@@ -116,29 +113,25 @@
     <string name="friend_list_unfriend_confirm_reject" translatable="false">No </string>
     <string name="friend_list_request_combat_loading" translatable="false">Send request to friend. Please wait </string>
     <string name="friend_list_request_show_exceed_intro" translatable="false">You can have maximum of 50 friends</string>
-    <!--    Dialog request combat-->
+    <!-- Dialog request combat-->
     <string name="dialog_request_combat_message" translatable="false">Want to invite you join a battle </string>
     <string name="dialog_request_combat_time_remaining" translatable="false">(Time remaining: %1$ss )</string>
     <string name="dialog_request_combat_btn_accept" translatable="false">FIGHTING</string>
     <string name="dialog_request_combat_btn_reject" translatable="false">NO</string>
-
-    <!--    Experimental request combat  -->
+    <!-- Experimental request combat -->
     <string name="experimental_request_combat_loading_txt" translatable="false">Wait for the opponent accept. Be patient soldier</string>
-
-    <!--    Dialog make friend -->
+    <!-- Dialog make friend -->
     <string name="dialog_make_friend_message" translatable="false">Want to be friends with you </string>
     <string name="dialog_make_friend_btn_accept" translatable="false">YES</string>
     <string name="dialog_make_friend_btn_reject" translatable="false">NO</string>
     <string name="dialog_make_friend_btn_later" translatable="false">LATER</string>
     <string name="dialog_make_friend_exceed_max_allow" translatable="false">You can only have a maximum of 50 friends</string>
-
-    <!--    Dialog unfriend -->
+    <!-- Dialog unfriend -->
     <string name="dialog_unfriend_message" translatable="false">Are you sure you want to unfriend with </string>
     <string name="dialog_unfriend_btn_accept" translatable="false">YES</string>
     <string name="dialog_unfriend_btn_reject" translatable="false">NO</string>
     <string name="dialog_unfriend_btn_later" translatable="false">Later </string>
-
-    <!--    Custom Toast-->
+    <!-- Custom Toast-->
     <string name="toast_custom_unblock_message" translatable="false">Unblock user successful </string>
     <string name="toast_custom_block_message" translatable="false">Block user successful </string>
     <string name="toast_custom_invite_friend" translatable="false">Send invitation successful </string>
@@ -146,12 +139,10 @@
     <string name="toast_custom_reject_friend" translatable="false">Successfully declined invitation </string>
     <string name="toast_custom_unfriend_success" translatable="false">Successfully unfriend </string>
     <string name="toast_custom_default_error_display" translatable="false">Something wrong. Please try again later</string>
-
-    <!--  Sign in / Sign up  -->
+    <!-- Sign in / Sign up -->
     <string name="app_name_big_title" translatable="false">ENGLISH FUNNY QUIZ</string>
     <string name="app_name_intro_title" translatable="false">Have fun while playing quiz with friends</string>
-
-    <!--    Finding match-->
+    <!-- Finding match-->
     <string name="finding_match_big_title" translatable="false">NEW MATCH</string>
     <string name="finding_match_sys_name" translatable="false">The happy marketer</string>
     <string name="finding_match_bubble_intro_mess" translatable="false">Look for a new match</string>
@@ -161,37 +152,32 @@
     <string name="finding_match_bubble_intro_mess_wait_loading_question" translatable="false">Wait loading question</string>
     <string name="finding_match_btn_find_match" translatable="false">Let\'s Start</string>
     <string name="finding_match_btn_cancel_find_match" translatable="false">Cancel</string>
-    <!--    Fight agree layout-->
+    <!-- Fight agree layout-->
     <string name="fight_agree_layout_accept_btn_text" translatable="false">Join match ( %1$ss ) </string>
-    <!--    Finding match toast-->
-    <string name="finding_match_not_join_match_warning" translatable="false">You are not join match. Please wait %1$s to continue</string>
-    <string name="finding_match_competitor_not_join_warning" translatable="false">The competitor not join. We will search for other player</string>
+    <!-- Finding match toast-->
+    <string name="finding_match_not_join_match_warning" translatable="false">You do not join a match. Please wait %1$s to continue</string>
+    <string name="finding_match_competitor_not_join_warning" translatable="false">The competitor did not join. We will search for other player</string>
     <string name="finding_match_cancel_looking_not_allow" translatable="false">You can\'t cancel now. Please wait </string>
     <string name="finding_match_cancel_looking_waiting" translatable="false">We are canceling. Please wait</string>
-
-    <!--    Playing Activity-->
+    <!-- Playing Activity-->
     <string name="play_activity_countdown_time" translatable="false">%1$ds</string>
     <string name="play_activity_progress_bar_text" translatable="false">%1$d \/ %2$d</string>
     <string name="play_activity_user_score_params" translatable="false">Right answer: %1$d, Times: %2$ds</string>
     <string name="play_activity_show_sticker_panel_btn" translatable="false">Send Stickers</string>
-
-    <!--    Winner dialog-->
+    <!-- Winner dialog-->
     <string name="dialog_winner_big_title" translatable="false">You win</string>
     <string name="dialog_winner_small_title" translatable="false">We\'re very proud of you !!</string>
     <string name="dialog_winner_btn_ok" translatable="false">OK</string>
     <string name="dialog_winner_btn_detail" translatable="false">Detail</string>
-    <!--    Loser dialog-->
+    <!-- Loser dialog-->
     <string name="dialog_loser_big_title" translatable="false">You lose</string>
     <string name="dialog_loser_small_title" translatable="false">Keep calm and keep moving forward !</string>
     <string name="dialog_loser_btn_ok" translatable="false">OK</string>
     <string name="dialog_loser_btn_detail" translatable="false">Detail</string>
-
-    <!--    Draw dialog-->
+    <!-- Draw dialog-->
     <string name="dialog_draw_big_title" translatable="false">The match is a draw</string>
     <string name="dialog_draw_small_title" translatable="false">Keep calm and try again !</string>
     <string name="dialog_draw_btn_ok" translatable="false">OK</string>
     <string name="dialog_draw_btn_detail" translatable="false">Detail</string>
-
-
     <string name="btn_back_to_main" translatable="false">Back to main</string>
 </resources>

@@ -87,7 +87,7 @@ public class ProfileActivity extends AppCompatActivity {
     public void saveUserInfo(Context mContext) {
         String editName = mBinding.editPersonName.getText().toString();
         String userId = SharePreferenceUtils.getString(mContext, GlobalConstant.USER_ID);
-        if (username.equals(editName)) {
+        if (username == null || username.equals(editName)) {
             pushUserInfoToServer(mContext, userId);
         } else {
             if (editName.length() > UsersCollection.MAX_NAME_LENGTH) {
