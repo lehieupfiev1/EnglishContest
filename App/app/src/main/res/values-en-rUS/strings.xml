@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">EnglishContest</string>
+    <string name="app_name">English Funny Quiz</string>
     <string name="sign_in_with_facebook">Signing in with your Facebook account</string>
     <string name="sign_in_with_google">Signing in with your Google account</string>
     <string name="sign_in_with_twitter">Signing in with your Twitter account</string>
@@ -20,7 +20,6 @@
     <string name="profile_gender">Gender :</string>
     <string name="profile_gender_male">Male</string>
     <string name="profile_gender_female">Female</string>
-    <string name="profile_save">Save</string>
     <string name="friend_list_friend">FRIEND</string>
     <string name="friend_list_waiting">WAITING</string>
     <string name="friend_list_block">BLOCK</string>

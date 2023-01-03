@@ -36,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Username"
+                android:textColor="@color/gray"
                 android:textSize="@dimen/recycler_view_friends_user_name_text_size"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -45,6 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Text_more"
+            android:textColor="@color/gray"
             android:textSize="@dimen/recycler_view_friends_user_text_more_text_size"
             android:textStyle="italic"
             />
