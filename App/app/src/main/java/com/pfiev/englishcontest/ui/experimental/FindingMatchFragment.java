@@ -663,7 +663,7 @@ public class FindingMatchFragment extends Fragment {
                         // an ad is loaded.
                         mInterstitialAd = interstitialAd;
                         Log.i(TAG, "onAdLoaded");
-                        Toast.makeText(getContext(), "onAdLoaded()", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), "onAdLoaded()", Toast.LENGTH_SHORT).show();
                         interstitialAd.setFullScreenContentCallback(
                                 new FullScreenContentCallback() {
                                     @Override
@@ -701,7 +701,7 @@ public class FindingMatchFragment extends Fragment {
                         String error = String.format(
                                         "domain: %s, code: %d, message: %s",
                                         loadAdError.getDomain(), loadAdError.getCode(), loadAdError.getMessage());
-                        Toast.makeText(getContext(), "onAdFailedToLoad() with error: " + error, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), "onAdFailedToLoad() with error: " + error, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -711,7 +711,8 @@ public class FindingMatchFragment extends Fragment {
         if (mInterstitialAd != null) {
             mInterstitialAd.show(getActivity());
         } else {
-            Toast.makeText(getContext(), "Ad did not load", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Ad did not load", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "Ad did not load");
             startFindingMatch();
         }
     }

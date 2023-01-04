@@ -7,9 +7,9 @@
     <string name="title_about" translatable="false">ABOUT</string>
 
     //Ads Mod id
-    <string name="ads_mod_app_id" translatable="false">ca-app-pub-4920303425949935~7858285086</string>
-    <string name="main_activity_ads_banner_unit_id" translatable="false">ca-app-pub-4920303425949935/5078695617</string>
-    <string name="finding_match_ads_fullscreen_unit_id" translatable="false">ca-app-pub-4920303425949935/8630927811</string>
+    <string name="ads_mod_app_id" translatable="false">ca-app-pub-4920303425949935~6799599689</string>
+    <string name="main_activity_ads_banner_unit_id" translatable="false">ca-app-pub-4920303425949935/5468801173</string>
+    <string name="finding_match_ads_fullscreen_unit_id" translatable="false">ca-app-pub-4920303425949935/1844416789</string>
 
     <string name="facebook_app_id" translatable="false">600393555058897</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb600393555058897</string>
