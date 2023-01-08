@@ -1,13 +1,11 @@
 package com.pfiev.englishcontest.setup;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -19,8 +17,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.OAuthProvider;
 import com.pfiev.englishcontest.GlobalConstant;
 import com.pfiev.englishcontest.LoginActivity;
-import com.pfiev.englishcontest.MainActivity;
-import com.pfiev.englishcontest.PlayGameActivity;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.firestore.FireStoreClass;
 import com.pfiev.englishcontest.model.UserItem;
@@ -35,6 +31,7 @@ public class TwitterSignInActivity extends LoginActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_twiter_sign_in);
+        loadingAnim = findViewById(R.id.twitter_sign_in_activity_loading);
 
         firebaseAuth = FirebaseAuth.getInstance();
         OAuthProvider.Builder provider = OAuthProvider.newBuilder("twitter.com");
