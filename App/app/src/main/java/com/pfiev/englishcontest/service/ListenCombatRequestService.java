@@ -3,7 +3,6 @@ package com.pfiev.englishcontest.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 
@@ -14,7 +13,6 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pfiev.englishcontest.EnglishApplication;
@@ -42,6 +40,7 @@ public class ListenCombatRequestService extends Service {
         FirebaseApp.initializeApp(getApplicationContext());
         long fromTime = Instant.now().getEpochSecond() - timeDistance;
         uid = intent.getExtras().getString(GlobalConstant.USER_ID);
+        if (uid == null || uid.isEmpty()) return null;
         listenerRegistration = FirebaseFirestore.getInstance()
                 .collection(NotificationCollection.COLLECTION_NAME)
                 .document(uid).collection(NotificationCollection.SUB_COLLECTION)
