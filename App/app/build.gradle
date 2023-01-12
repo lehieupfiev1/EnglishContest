@@ -80,3 +80,7 @@ dependencies {
     implementation "androidx.room:room-guava:$room_version"
 
 }
+
+configurations.all {
+    exclude group: 'com.google.android.gms', module: 'play-services-safetynet'
+}
