@@ -29,6 +29,7 @@ import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.firestore.FireStoreClass;
 import com.pfiev.englishcontest.model.UserItem;
 import com.pfiev.englishcontest.ui.dialog.CustomToast;
+import com.pfiev.englishcontest.utils.Utility;
 
 import java.util.Arrays;
 
@@ -93,7 +94,7 @@ public class FacebookSignInActivity extends LoginActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             UserItem userItem = new UserItem();
                             userItem.setUserId(user.getUid());
-                            userItem.setName(user.getEmail());
+                            userItem.setName(Utility.randomString(20));
                             userItem.setEmail(user.getEmail());
                             userItem.setUserPhotoUrl(user.getPhotoUrl().toString());
                             userItem.setUserPhoneNumber(user.getPhoneNumber());

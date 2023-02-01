@@ -36,6 +36,7 @@ import com.pfiev.englishcontest.LoginActivity;
 import com.pfiev.englishcontest.R;
 import com.pfiev.englishcontest.firestore.FireStoreClass;
 import com.pfiev.englishcontest.model.UserItem;
+import com.pfiev.englishcontest.utils.Utility;
 
 public class GoogleSignInActivity extends LoginActivity {
     private static final String TAG = "GoogleSignInActivity";
@@ -151,7 +152,7 @@ public class GoogleSignInActivity extends LoginActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             UserItem userItem = new UserItem();
                             userItem.setUserId(user.getUid());
-                            userItem.setName(user.getEmail());
+                            userItem.setName(Utility.randomString(20));
                             userItem.setUserPhotoUrl(user.getPhotoUrl().toString());
                             userItem.setUserPhoneNumber(user.getPhoneNumber());
                             userItem.setUserGender("");
